@@ -1,11 +1,13 @@
-import { Button, TextField, Typography } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Form, Formik } from 'formik';
+import { Form, Formik, ErrorMessage } from 'formik';
 import React from 'react';
-import { SelectInput } from '../../../component/SelectInput';
-import { SignupInitValue, SignupInput } from '../container/Signup';
-import theme from '../../../theme';
 import { PrimaryButton } from '../../../component/PrimaryButton';
+import { SelectInput } from '../../../component/SelectInput';
+import theme from '../../../theme';
+import { SignupInitValue, SignupInput } from '../container/Signup';
+import * as Yup from 'yup';
+
 
 interface Props {
     initialValues: SignupInitValue
@@ -13,16 +15,29 @@ interface Props {
     onSignup: (values: SignupInput) => void;
 }
 
+
+const validationSchema = Yup.object({
+    fullName: Yup.string().required('Name is required'),
+    email: Yup.string().required('Email is required'),
+    phone: Yup.string().required('Phone is required'),
+    password: Yup.string().required('Password is required'),
+    role: Yup.string().oneOf(['HOST', 'CUSTOMER']).required('Role is required'),
+    confirmPassword: Yup.string()
+        .required('This field is required')
+        .oneOf([Yup.ref('password'), ''], 'Passwords must match')
+});
+
 export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
     const classes = useStyles()
     return (
         <Formik
             initialValues={initialValues}
+            validationSchema={validationSchema}
             onSubmit={(values) => {
                 onSignup(values)
             }}
         >
-            {({ values, handleChange, handleSubmit }) => (
+            {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <Form className={classes.form} onSubmit={handleSubmit} >
                     <Typography variant={'h3'} color={'textPrimary'} > Signup </Typography>
                     <TextField
@@ -37,6 +52,7 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         size={'small'}
                         fullWidth
                     />
+                    {errors.fullName && touched.fullName ? (<ErrorMessage name="fullName" component="div" />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -49,6 +65,7 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
+                    {errors.email && touched.email ? (<ErrorMessage name="email" component="div" />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -61,6 +78,7 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
+                    {errors.phone && touched.phone ? (<ErrorMessage name="phone" component="div" />) : null}
                     <SelectInput
                         onChange={handleChange}
                         id="role"
@@ -71,6 +89,7 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         value={values.role}
                         selectableOptions={roles}
                     />
+                    {errors.role && touched.role ? (<ErrorMessage name="role" component="div" />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -83,6 +102,7 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
+                    {errors.password && touched.password ? (<ErrorMessage name="password" component="div" />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -95,6 +115,7 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
+                    {errors.confirmPassword && touched.confirmPassword ? (<ErrorMessage name="confirmPassword" component="div" />) : null}
                     <PrimaryButton type={'submit'} >Submit</PrimaryButton>
                 </Form>
             )}

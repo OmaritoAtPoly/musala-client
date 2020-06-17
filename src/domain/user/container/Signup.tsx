@@ -1,5 +1,5 @@
 import React from 'react'
-import { SignupForm } from '../component/SignpForm'
+import { SignupForm } from '../component/SignupForm'
 
 enum UserRole {
     HOST = 'HOST',

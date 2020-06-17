@@ -11,6 +11,7 @@ export const theme = {
             small: '1rem',
             medium: '1.5rem',
             big: '2rem',
+            bigger: '4rem',
             m5: '5%'
         },
         padding: {

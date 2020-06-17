@@ -125,7 +125,7 @@ const useStyles = makeStyles({
         borderRadius: '5px'
     },
     submit: {
-        margin: '1rem auto',
-        padding: '4rem auto'
+        margin: `${theme.spacing.margin.medium} auto`,
+        padding: `${theme.spacing.margin.bigger} auto`
     }
 });

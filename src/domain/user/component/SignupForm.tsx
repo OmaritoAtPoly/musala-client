@@ -7,6 +7,7 @@ import { SelectInput } from '../../../component/SelectInput';
 import theme from '../../../theme';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 import * as Yup from 'yup';
+import { phoneRegExp } from '../../../constants';
 
 
 interface Props {
@@ -18,8 +19,9 @@ interface Props {
 
 const validationSchema = Yup.object({
     fullName: Yup.string().required('Name is required'),
-    email: Yup.string().required('Email is required'),
-    phone: Yup.string().required('Phone is required'),
+    email: Yup.string().email().required('Email is required'),
+    phone: Yup.string().matches(phoneRegExp, "Phone number is not valid")
+        .required('Phone is required'),
     password: Yup.string().required('Password is required'),
     role: Yup.string().oneOf(['HOST', 'CUSTOMER']).required('Role is required'),
     confirmPassword: Yup.string()

@@ -1,8 +1,10 @@
+import { Button, TextField, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { SignupInitValue, SignupInput } from '../container/Signup';
-import { TextField, Button } from '@material-ui/core';
 import { SelectInput } from '../../../component/SelectInput';
+import { SignupInitValue, SignupInput } from '../container/Signup';
+import theme from '../../../theme';
 
 interface Props {
     initialValues: SignupInitValue
@@ -11,15 +13,17 @@ interface Props {
 }
 
 export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
+    const classes = useStyles()
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values) => {
                 onSignup(values)
             }}
         >
-            {({ isSubmitting, values, handleChange, handleSubmit }) => (
-                <Form onSubmit={handleSubmit} >
+            {({ values, handleChange, handleSubmit }) => (
+                <Form className={classes.form} onSubmit={handleSubmit} >
+                    <Typography variant={'h3'} color={'textPrimary'} > Signup </Typography>
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -90,9 +94,28 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    <Button type={"submit"} >Submit</Button>
+                    <Button className={classes.submit} type={"submit"} variant={'contained'} size={'small'} fullWidth color={'primary'} >Submit</Button>
                 </Form>
             )}
         </Formik>
     )
 }
+
+
+const useStyles = makeStyles({
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '20%',
+        margin: '5% auto',
+        padding: '2rem',
+        border: `1px solid ${theme.color.grayLight4}`,
+        borderRadius: '5px'
+    },
+    submit: {
+        margin: '1rem auto',
+        padding: '4rem auto'
+    }
+});

@@ -25,7 +25,7 @@ export type SignupInitValue = {
 
 export const Signup = () => {
     const handleSignup = (values: SignupInput) => {
-        console.log(values)
+        alert(JSON.stringify(values, null, 2));
     }
 
     return <SignupForm initialValues={getInitValue()} onSignup={handleSignup} roles={getRoles()} />

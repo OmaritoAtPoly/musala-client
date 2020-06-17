@@ -4,7 +4,7 @@ import { ErrorMessage, Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { PrimaryButton } from '../../../component/PrimaryButton';
-import { phoneRegExp } from '../../../constants';
+import { phoneRegExp } from '../../../utils/constants';
 import theme from '../../../theme';
 import { SignupInitValue, SignupInput } from '../container';
 

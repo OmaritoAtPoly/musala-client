@@ -2,8 +2,8 @@ import React from 'react'
 import { SignupForm } from '../component/SignpForm'
 
 enum UserRole {
-    'HOST',
-    'CUSTOMER'
+    HOST = 'HOST',
+    CUSTOMER = 'CUSTOMER'
 }
 
 export type SignupInput = {
@@ -11,7 +11,7 @@ export type SignupInput = {
     email: string;
     phone: string;
     password: string;
-    role: UserRole;
+    role: string;
 }
 
 export type SignupInitValue = {
@@ -20,7 +20,7 @@ export type SignupInitValue = {
     phone: string;
     password: string;
     confirmPassword: string;
-    role: UserRole;
+    role: string;
 }
 
 export const Signup = () => {

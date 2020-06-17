@@ -2,6 +2,7 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 import { TextField, Button } from '@material-ui/core';
+import { SelectInput } from '../../../component/SelectInput';
 
 interface Props {
     initialValues: SignupInitValue
@@ -27,6 +28,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         name="fullName"
                         value={values.fullName}
                         onChange={handleChange}
+                        size={'small'}
                         fullWidth
                     />
                     <TextField
@@ -36,6 +38,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         label="Email"
                         type="email"
                         name="email"
+                        size={'small'}
                         value={values.email}
                         onChange={handleChange}
                         fullWidth
@@ -47,9 +50,19 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         label="Phone number"
                         type="phone"
                         name="phone"
+                        size={'small'}
                         value={values.phone}
                         onChange={handleChange}
                         fullWidth
+                    />
+                    <SelectInput
+                        onChange={handleChange}
+                        id="role"
+                        name="role"
+                        fullWidth
+                        size={'small'}
+                        value={values.role}
+                        selectableOptions={[{ label: 'HOST', value: 'HOST' }, { label: 'CUSTOMER', value: 'CUSTOMER' }]}
                     />
                     <TextField
                         variant="outlined"
@@ -58,6 +71,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         label="Password"
                         type="password"
                         name="password"
+                        size={'small'}
                         value={values.password}
                         onChange={handleChange}
                         fullWidth
@@ -69,6 +83,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         label="Confirm Password"
                         type="password"
                         name="confirmPassword"
+                        size={'small'}
                         value={values.confirmPassword}
                         onChange={handleChange}
                         fullWidth

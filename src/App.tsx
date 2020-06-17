@@ -1,22 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
+import { ThemeProvider } from '@material-ui/styles';
+import { Theme } from './theme';
 
-const App: React.FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+const App = () => (
+  <ThemeProvider theme={Theme} >
+    <div>Hello Polymita</div>
+  </ThemeProvider>
 );
 
 export default App;

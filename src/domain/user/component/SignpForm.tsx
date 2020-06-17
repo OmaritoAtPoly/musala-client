@@ -96,7 +96,6 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         fullWidth
                     />
                     <PrimaryButton type={'submit'} >Submit</PrimaryButton>
-                    {/* <Button className={classes.submit} type={"submit"} variant={'contained'} size={'small'} fullWidth color={'primary'} ></Button> */}
                 </Form>
             )}
         </Formik>

@@ -1,6 +1,7 @@
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
+import theme from '../theme';
 
 
 export const PrimaryButton = (props: ButtonProps) => {
@@ -10,8 +11,8 @@ export const PrimaryButton = (props: ButtonProps) => {
 
 const useStyles = makeStyles({
     button: {
-        margin: '10px auto',
-        padding: '10px'
+        margin: `${theme.spacing.margin.small} auto`,
+        padding: `${theme.spacing.margin.smaller}`
     },
 });
 

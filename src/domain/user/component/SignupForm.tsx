@@ -118,9 +118,9 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '20%',
-        margin: '5% auto',
-        padding: '2rem',
+        width: `20%`,
+        margin: `${theme.spacing.margin.m5} auto`,
+        padding: `${theme.spacing.padding.big}`,
         border: `1px solid ${theme.color.grayLight4}`,
         borderRadius: '5px'
     },

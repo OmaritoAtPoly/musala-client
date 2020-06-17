@@ -16,11 +16,10 @@ export type SignupInitValue = {
     confirmPassword: string;
 }
 
-export const Signup = () => {
+const Signup = () => {
     const handleSignup = (values: SignupInput) => {
         alert(JSON.stringify(values, null, 2));
     }
-
     return <SignupForm initialValues={getInitValue()} onSignup={handleSignup} />
 }
 
@@ -33,3 +32,4 @@ const getInitValue = (): SignupInitValue => {
         confirmPassword: '',
     }
 }
+export default Signup

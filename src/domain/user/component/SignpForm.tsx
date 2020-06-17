@@ -6,10 +6,11 @@ import { SelectInput } from '../../../component/SelectInput';
 
 interface Props {
     initialValues: SignupInitValue
+    roles: any[];
     onSignup: (values: SignupInput) => void;
 }
 
-export const SignupForm = ({ initialValues, onSignup }: Props) => {
+export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
     return (
         <Formik
             initialValues={initialValues}
@@ -61,8 +62,9 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         name="role"
                         fullWidth
                         size={'small'}
+                        margin="dense"
                         value={values.role}
-                        selectableOptions={[{ label: 'HOST', value: 'HOST' }, { label: 'CUSTOMER', value: 'CUSTOMER' }]}
+                        selectableOptions={roles}
                     />
                     <TextField
                         variant="outlined"
@@ -88,7 +90,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    <Button disabled={isSubmitting} type={"submit"} >Submit</Button>
+                    <Button type={"submit"} >Submit</Button>
                 </Form>
             )}
         </Formik>

@@ -28,7 +28,7 @@ export const Signup = () => {
         console.log(values)
     }
 
-    return <SignupForm initialValues={getInitValue()} onSignup={handleSignup} />
+    return <SignupForm initialValues={getInitValue()} onSignup={handleSignup} roles={getRoles()} />
 }
 
 const getInitValue = (): SignupInitValue => {
@@ -40,4 +40,17 @@ const getInitValue = (): SignupInitValue => {
         confirmPassword: '',
         role: UserRole.CUSTOMER
     }
+}
+
+const getRoles = () => {
+    return [
+        {
+            label: 'Host',
+            value: 'HOST'
+        },
+        {
+            label: 'Customer',
+            value: 'CUSTOMER'
+        }
+    ]
 }

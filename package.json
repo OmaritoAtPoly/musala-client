@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.9.1",
     "@types/react": "^16.9.36",
     "@types/react-dom": "^16.9.8",
     "cra-template-ts-prettier-eslint-airbnb": "1.1.0",

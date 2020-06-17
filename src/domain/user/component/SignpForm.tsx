@@ -5,6 +5,7 @@ import React from 'react';
 import { SelectInput } from '../../../component/SelectInput';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 import theme from '../../../theme';
+import { PrimaryButton } from '../../../component/PrimaryButton';
 
 interface Props {
     initialValues: SignupInitValue
@@ -94,7 +95,8 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    <Button className={classes.submit} type={"submit"} variant={'contained'} size={'small'} fullWidth color={'primary'} >Submit</Button>
+                    <PrimaryButton type={'submit'} >Submit</PrimaryButton>
+                    {/* <Button className={classes.submit} type={"submit"} variant={'contained'} size={'small'} fullWidth color={'primary'} ></Button> */}
                 </Form>
             )}
         </Formik>

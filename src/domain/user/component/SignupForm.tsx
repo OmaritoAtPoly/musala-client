@@ -1,18 +1,16 @@
 import { TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Form, Formik, ErrorMessage } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import React from 'react';
+import * as Yup from 'yup';
 import { PrimaryButton } from '../../../component/PrimaryButton';
-import { SelectInput } from '../../../component/SelectInput';
+import { phoneRegExp } from '../../../constants';
 import theme from '../../../theme';
 import { SignupInitValue, SignupInput } from '../container/Signup';
-import * as Yup from 'yup';
-import { phoneRegExp } from '../../../constants';
 
 
 interface Props {
     initialValues: SignupInitValue
-    roles: any[];
     onSignup: (values: SignupInput) => void;
 }
 
@@ -23,13 +21,12 @@ const validationSchema = Yup.object({
     phone: Yup.string().matches(phoneRegExp, "Phone number is not valid")
         .required('Phone is required'),
     password: Yup.string().required('Password is required'),
-    role: Yup.string().oneOf(['HOST', 'CUSTOMER']).required('Role is required'),
     confirmPassword: Yup.string()
-        .required('This field is required')
+        .required('Confirm password is required')
         .oneOf([Yup.ref('password'), ''], 'Passwords must match')
 });
 
-export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
+export const SignupForm = ({ initialValues, onSignup }: Props) => {
     const classes = useStyles()
     return (
         <Formik
@@ -81,17 +78,6 @@ export const SignupForm = ({ initialValues, roles, onSignup }: Props) => {
                         fullWidth
                     />
                     {errors.phone && touched.phone ? (<ErrorMessage name="phone" component="div" />) : null}
-                    <SelectInput
-                        onChange={handleChange}
-                        id="role"
-                        name="role"
-                        fullWidth
-                        size={'small'}
-                        margin="dense"
-                        value={values.role}
-                        selectableOptions={roles}
-                    />
-                    {errors.role && touched.role ? (<ErrorMessage name="role" component="div" />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"

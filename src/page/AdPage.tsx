@@ -1,8 +1,8 @@
 import React from 'react'
-import { AdCover } from '../domain/ad/component/AdCover'
+import { AdDetail } from '../domain/ad/component/detail'
 
 export const AdPage = () => {
-    return <AdCover
+    return <AdDetail
         title={'Lorem Ipsum Dolor'}
         price={25}
         image='urlImage'

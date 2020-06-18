@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Button } from '@material-ui/core';
-import customTheme from '../../../theme';
+import customTheme from '../../../../theme';
 
 interface Props {
     price: number;

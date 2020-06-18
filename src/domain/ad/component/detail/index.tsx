@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
-import customTheme from '../../../theme';
+import customTheme from '../../../../theme';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PricePanel } from './PricePanel';
 
@@ -12,7 +12,7 @@ interface Props {
     price: number;
 }
 
-export const AdCover = ({ title, description, image, price }: Props) => {
+export const AdDetail = ({ title, description, image, price }: Props) => {
     const style = { backgroundImage: image }
     const classes = useStyles(style);
 

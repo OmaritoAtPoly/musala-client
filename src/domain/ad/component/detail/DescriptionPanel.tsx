@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles';
-import customTheme from '../../../theme';
 import { Typography } from '@material-ui/core';
+import customTheme from '../../../../theme';
 
 interface Props {
     description: string;

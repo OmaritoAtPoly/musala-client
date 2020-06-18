@@ -12,7 +12,8 @@ export const customTheme = {
             medium: '1.5rem',
             big: '2rem',
             bigger: '4rem',
-            m5: '5%'
+            m5: '5%',
+            m10: '10%'
         },
         padding: {
             smaller: '.5rem',

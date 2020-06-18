@@ -45,13 +45,13 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         transform: 'translate(5%,10%)',
-        marginTop: '5%',
-        marginLeft: '5%'
+        marginTop: customTheme.spacing.margin.m5,
+        marginLeft: customTheme.spacing.margin.m5
     },
     wrapTitle: {
         backgroundColor: rgba(customTheme.color.grayLight1, .1),
         animation: "$slideLeft 1s ease-out",
-        padding: '1rem'
+        padding: customTheme.spacing.padding.small
     },
     title: {
         fontSize: '1.5rem',

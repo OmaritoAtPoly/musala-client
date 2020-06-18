@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     },
     panel: {
         display: 'flex',
-        marginTop: '1rem',
+        marginTop: customTheme.spacing.margin.small,
         alignItems: 'center'
     }
 });

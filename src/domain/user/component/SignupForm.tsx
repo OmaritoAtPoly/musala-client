@@ -14,7 +14,6 @@ interface Props {
     onSignup: (values: SignupInput) => void;
 }
 
-
 const validationSchema = Yup.object({
     fullName: Yup.string().required(NAME_REQUIRED),
     email: Yup.string().email().required(EMAIL_REQUIRED),

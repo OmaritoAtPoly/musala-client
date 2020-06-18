@@ -14,8 +14,8 @@ const initialValues = {
   password: ''
 };
 const validationSchema = Yup.object({
-  email: Yup.string().matches(emailRegExp, 'Incorrect email').required('The email is required'),
-  password: Yup.string().min(8, 'This field should have at least 8 caracther').required('Password is requiered')
+  email: Yup.string().matches(emailRegExp, 'Incorrect email').required('Email is required'),
+  password: Yup.string().required('Password is requiered')
 })
 
 const Login = () => {
@@ -36,11 +36,11 @@ const Login = () => {
       {({ values, errors, touched, handleChange, handleSubmit }) => (
         <div className={classes.container}>
           <Form className={classes.form} onSubmit={handleSubmit}>
-            <Typography className={classes.title}variant={'h1'} color={'textPrimary'}> Login </Typography>
+            <Typography className={classes.title} variant={'h1'} color={'textPrimary'}> Login </Typography>
             <Field name="email">
               {({ field }: any) => (
                 <TextField
-                  className={classes.fields}
+                  name="email"
                   id="email"
                   label="Email"
                   variant="outlined"
@@ -74,8 +74,8 @@ const Login = () => {
                 />
               )}
             </Field>
-            {errors.password && touched.password? (<ErrorMessage className={classes.error} name="password" component="div" />) : null}
-             <PrimaryButton type={'submit'} >Submit</PrimaryButton>
+            {errors.password && touched.password ? (<ErrorMessage className={classes.error} name="password" component="div" />) : null}
+            <PrimaryButton type={'submit'} >Submit</PrimaryButton>
           </Form>
         </div>
       )}
@@ -95,23 +95,25 @@ const useStyles = makeStyles({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    width: '25%',
+    justifyContent: 'center',
+    minwidth: '25%',
     padding: `${theme.spacing.margin.medium}`,
     border: `1px solid ${theme.color.grayLight4}`,
     borderRadius: `${theme.spacing.margin.smaller}`,
     marginBottom: `${theme.spacing.margin.smaller}`,
   },
   fields: {
-    marginBottom: `${theme.spacing.margin.medium}`,
+    margin: `${theme.spacing.margin.big} ${theme.spacing.margin.medium} ${theme.spacing.margin.smaller}  `,
   },
-  title:{
+  title: {
     marginBottom: `${theme.spacing.margin.small}`,
+    textAlign: "center"
   },
+  error: {
+    color: "red",
+    fontSize: "15px"
 
-  error:{
-    color:"red",
   },
   submit: {
     width: '100%',

@@ -1,6 +1,9 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import React from 'react';
+import customTheme from '../../../theme';
+import { DescriptionPanel } from './DescriptionPanel';
+import { PricePanel } from './PricePanel';
 
 interface Props {
     title: string;
@@ -14,11 +17,16 @@ export const AdCover = ({ title, description, image, price }: Props) => {
     const classes = useStyles(style);
 
     return (
-        <div className={classes.root}>
-            <div className={classes.containerTitle} >
-                <Typography className={classes.title} >{title}</Typography>
-                <Typography className={classes.subtitle} variant='h4' >{description}</Typography>
+        <div>
+            <div className={classes.root}>
+                <div className={classes.containerTitle} >
+                    <div className={classes.wrapTitle} >
+                        <Typography className={classes.title} variant='h5' >{title}</Typography>
+                    </div>
+                </div>
             </div>
+            <PricePanel price={price} />
+            <DescriptionPanel description={description} />
         </div>
     )
 }
@@ -26,8 +34,9 @@ export const AdCover = ({ title, description, image, price }: Props) => {
 const useStyles = makeStyles({
     root: ({ backgroundImage }: any) => ({
         display: 'flex',
-        height: '50vh',
-        backgroundImage: `url(${backgroundImage})`,
+        height: '80vh',
+        // backgroundImage: `url(${backgroundImage})`,
+        backgroundColor: customTheme.color.grayLight4,
         backgroundSize: 'cover',
         backgroundPosition: 'top'
 
@@ -35,22 +44,19 @@ const useStyles = makeStyles({
     containerTitle: {
         display: 'flex',
         flexDirection: 'column',
-        color: '#fff',
         transform: 'translate(5%,10%)',
         marginTop: '5%',
         marginLeft: '5%'
     },
+    wrapTitle: {
+        backgroundColor: customTheme.color.grayLight1,
+        animation: "$slideLeft 1s ease-out",
+        padding: '1rem'
+    },
     title: {
-        fontSize: '4rem',
+        fontSize: '2rem',
         fontWeight: 400,
         position: "relative",
-        animation: "$slideLeft 1s ease-out"
-    },
-    subtitle: {
-        fontSize: '1.5rem',
-        fontWeight: 300,
-        position: "relative",
-        animation: "$slideRight 1s ease-out"
     },
 
     "@keyframes slideLeft": {

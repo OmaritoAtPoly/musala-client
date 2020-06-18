@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { emailRegExp } from '../Utils/const'
+import { emailRegExp } from '../utils/constants'
 import { makeStyles } from '@material-ui/styles';
 import { Typography, TextField, Button } from '@material-ui/core';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -36,7 +36,7 @@ const Login = () => {
       {({ values, errors, touched, handleChange, handleSubmit }) => (
         <div className={classes.container}>
           <Form className={classes.form} onSubmit={handleSubmit}>
-            <Typography variant={'h1'} color={'textPrimary'}> Login </Typography>
+            <Typography className={classes.title}variant={'h1'} color={'textPrimary'}> Login </Typography>
             <Field name="email">
               {({ field }: any) => (
                 <TextField
@@ -98,13 +98,18 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
     width: '25%',
-    padding: '2rem',
+    padding: `${theme.spacing.margin.medium}`,
     border: `1px solid ${theme.color.grayLight4}`,
-    borderRadius: '5px'
+    borderRadius: `${theme.spacing.margin.smaller}`,
+    marginBottom: `${theme.spacing.margin.smaller}`,
   },
   fields: {
-    marginBottom: '1.5rem',
+    marginBottom: `${theme.spacing.margin.medium}`,
   },
+  title:{
+    marginBottom: `${theme.spacing.margin.small}`,
+  },
+
   error:{
     color:"red",
   },

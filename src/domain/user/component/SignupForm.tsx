@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { PrimaryButton } from '../../../component/PrimaryButton';
 import { phoneRegExp, NAME_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, PHONE_REQUIRED, PASSWORD_REQUIRED, CONFIRM_PASSWORD_REQUIRED, MATCH_PASSWORD } from '../../../utils/constants';
 import customTheme from '../../../theme';
-import { SignupInitValue, SignupInput } from '../container';
+import { SignupInitValue, SignupInput } from '../container/Signup';
 
 
 interface Props {

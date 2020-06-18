@@ -54,7 +54,7 @@ const Login = () => {
                 />
               )}
             </Field>
-
+            {errors.email && touched.email ? (<ErrorMessage className={classes.error} name="email" component="div" />) : null}
             <Field name="password">
               {({ field }: any) => (
                 <TextField
@@ -73,6 +73,7 @@ const Login = () => {
                 />
               )}
             </Field>
+            {errors.password && touched.password? (<ErrorMessage className={classes.error} name="password" component="div" />) : null}
             <Button className={classes.submit} type="submit" variant="outlined">
               Sing in
               </Button>
@@ -104,6 +105,9 @@ const useStyles = makeStyles({
   },
   fields: {
     marginBottom: '1.5rem',
+  },
+  error:{
+    color:"red",
   },
   submit: {
     width: '100%',

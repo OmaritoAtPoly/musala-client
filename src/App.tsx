@@ -5,7 +5,6 @@ import { theme } from './theme';
 
 const App = () => (
   <ThemeProvider theme={theme} >
-
     <SignupPage />
   </ThemeProvider>
 );

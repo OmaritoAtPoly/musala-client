@@ -67,3 +67,12 @@ const adList = [
 export const fetchMockAdList = () => {
     return adList;
 }
+
+export const getMockUser = () => {
+    return {
+        name: 'Undefinde Mock User',
+        role: 'Customer',
+        email: 'undefined@gmail.com',
+        bookingAmount: 10
+    }
+}

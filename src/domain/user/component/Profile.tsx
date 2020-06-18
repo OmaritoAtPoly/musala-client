@@ -10,7 +10,7 @@ interface Props {
     bookingAmount: number;
 }
 
-const ProfileView = ({ name, role, email, bookingAmount }: Props) => {
+const UserProfile = ({ name, role, email, bookingAmount }: Props) => {
     const classes = useStyles()
     return (
         <div className={classes.container} >
@@ -23,7 +23,7 @@ const ProfileView = ({ name, role, email, bookingAmount }: Props) => {
     )
 }
 
-export default ProfileView
+export default UserProfile
 
 const useStyles = makeStyles({
     container: {

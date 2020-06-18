@@ -1,10 +1,10 @@
 import React from 'react';
-import ProfileView from '../component/ProfileView';
+import UserProfile from '../component/Profile';
 import { getMockUser } from '../../../utils/mockDatas';
 
 const Profile = () => {
     const mockUser = getMockUser()
-    return <ProfileView {...mockUser} />
+    return <UserProfile {...mockUser} />
 }
 export default Profile
 

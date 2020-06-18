@@ -1,10 +1,11 @@
-import React from 'react';
 import { ThemeProvider } from '@material-ui/styles';
-import { Theme } from './theme';
+import React from 'react';
+import SignupPage from './page/Signup';
+import { theme } from './theme';
 
 const App = () => (
-  <ThemeProvider theme={Theme} >
-    <div>Hello Polymita</div>
+  <ThemeProvider theme={theme} >
+    <SignupPage />
   </ThemeProvider>
 );
 

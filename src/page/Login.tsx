@@ -15,7 +15,7 @@ const initialValues = {
 };
 const validationSchema = Yup.object({
   email: Yup.string().matches(emailRegExp, 'Incorrect email').required('Email is required'),
-  password: Yup.string().required('Password is requiered')
+  password: Yup.string().required('Password is required')
 })
 
 const Login = () => {

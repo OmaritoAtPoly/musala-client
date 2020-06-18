@@ -36,7 +36,6 @@ const useStyles = makeStyles({
     root: ({ backgroundImage }: any) => ({
         display: 'flex',
         height: '80vh',
-        // backgroundImage: `url(${backgroundImage})`,
         backgroundColor: customTheme.color.grayLight4,
         backgroundSize: 'cover',
         backgroundPosition: 'top'

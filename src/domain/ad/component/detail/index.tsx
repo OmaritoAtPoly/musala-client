@@ -4,6 +4,7 @@ import React from 'react';
 import customTheme from '../../../../theme';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PricePanel } from './PricePanel';
+import { rgba } from 'polished';
 
 interface Props {
     title: string;
@@ -21,7 +22,7 @@ export const AdDetail = ({ title, description, image, price }: Props) => {
             <div className={classes.root}>
                 <div className={classes.containerTitle} >
                     <div className={classes.wrapTitle} >
-                        <Typography className={classes.title} variant='h5' >{title}</Typography>
+                        <Typography className={classes.title} color='textPrimary' >{title}</Typography>
                     </div>
                 </div>
             </div>
@@ -49,13 +50,14 @@ const useStyles = makeStyles({
         marginLeft: '5%'
     },
     wrapTitle: {
-        backgroundColor: customTheme.color.grayLight1,
+        backgroundColor: rgba(customTheme.color.grayLight1, .1),
         animation: "$slideLeft 1s ease-out",
         padding: '1rem'
     },
     title: {
-        fontSize: '2rem',
+        fontSize: '1.5rem',
         fontWeight: 400,
+        backfaceVisibility: 'hidden',
         position: "relative",
     },
 
@@ -71,19 +73,6 @@ const useStyles = makeStyles({
             opacity: 1,
             transform: "translate(0)"
         }
-    },
-
-    "@keyframes slideRight": {
-        "0%": {
-            opacity: 0,
-            transform: "translate(100px)",
-        },
-        "80%": {
-            transform: "translate(-10px)"
-        },
-        "100%": {
-            opacity: 1,
-            transform: "translate(0)"
-        }
     }
+
 });

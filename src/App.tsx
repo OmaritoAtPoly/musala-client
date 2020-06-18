@@ -1,11 +1,11 @@
 import { ThemeProvider } from '@material-ui/styles';
 import React from 'react';
-import SignupPage from './page/Signup';
+import { HomePage } from './page/Home';
 import { theme } from './theme';
 
 const App = () => (
   <ThemeProvider theme={theme} >
-    <SignupPage />
+    <HomePage />
   </ThemeProvider>
 );
 

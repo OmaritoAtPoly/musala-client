@@ -1,11 +1,11 @@
 import React from 'react'
 import { AdContent } from '../domain/ad/container/AdContent'
-import Container from '../component/Container'
+import PageLayout from '../component/PageLayout'
 
 export const HomePage = () => {
     return (
-        <Container>
+        <PageLayout>
             < AdContent />
-        </Container>
+        </PageLayout>
     )
 }

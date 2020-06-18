@@ -9,7 +9,7 @@ interface Props {
     children?: JSX.Element;
 }
 
-const Container = styled('section')({
+const SectionWrapp = styled('section')({
     marginTop: '3.2rem',
     marginBottom: '3.2rem'
 });
@@ -17,13 +17,13 @@ const Container = styled('section')({
 export const Section = ({ title, description, children }: Props) => {
     const classes = useStyles();
     return (
-        <Container>
+        <SectionWrapp>
             <Typography variant="h3" className={classes.title}>
                 {title}
             </Typography>
             <Typography className={classes.subTitle}>{description}</Typography>
             {children}
-        </Container>
+        </SectionWrapp>
     );
 };
 

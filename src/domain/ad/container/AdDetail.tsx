@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdDetail as AdDetailView } from '../component/detail/AdDetail'
+import AdDetailView from '../component/detail'
 
 export const AdDetail = () => {
     return (

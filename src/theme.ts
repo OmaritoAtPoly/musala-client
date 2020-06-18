@@ -5,6 +5,22 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 const primary = '#da1921';
 
 export const theme = {
+    spacing: {
+        margin: {
+            smaller: '.5rem',
+            small: '1rem',
+            medium: '1.5rem',
+            big: '2rem',
+            bigger: '4rem',
+            m5: '5%'
+        },
+        padding: {
+            smaller: '.5rem',
+            small: '1rem',
+            medium: '1.5rem',
+            big: '2rem'
+        }
+    },
     color: {
         primary,
         foreground: '#707070',

@@ -1,11 +1,12 @@
 import { TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { ErrorFieldForm } from '../../../component/ErrorFieldForm';
 import { PrimaryButton } from '../../../component/PrimaryButton';
-import { phoneRegExp, NAME_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, PHONE_REQUIRED, PASSWORD_REQUIRED, CONFIRM_PASSWORD_REQUIRED, MATCH_PASSWORD } from '../../../utils/constants';
 import customTheme from '../../../theme';
+import { CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED } from '../../../utils/constants';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 
 
@@ -47,7 +48,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         size={'small'}
                         fullWidth
                     />
-                    {errors.fullName && touched.fullName ? (<ErrorMessage name="fullName" component="div" />) : null}
+                    {errors.fullName && touched.fullName ? (<ErrorFieldForm name={'fullName'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -60,7 +61,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.email && touched.email ? (<ErrorMessage name="email" component="div" />) : null}
+                    {errors.email && touched.email ? (<ErrorFieldForm name={'email'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -73,7 +74,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.phone && touched.phone ? (<ErrorMessage name="phone" component="div" />) : null}
+                    {errors.phone && touched.phone ? (<ErrorFieldForm name={'phone'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -86,7 +87,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.password && touched.password ? (<ErrorMessage name="password" component="div" />) : null}
+                    {errors.password && touched.password ? (<ErrorFieldForm name={'password'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -99,7 +100,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.confirmPassword && touched.confirmPassword ? (<ErrorMessage name="confirmPassword" component="div" />) : null}
+                    {errors.confirmPassword && touched.confirmPassword ? (<ErrorFieldForm name={'confirmPassword'} />) : null}
                     <PrimaryButton type={'submit'} >Submit</PrimaryButton>
                 </Form>
             )}
@@ -107,21 +108,26 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
     )
 }
 
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: `20%`,
-        margin: `${customTheme.spacing.margin.m5} auto`,
+        margin: `${customTheme.spacing.margin.big} auto`,
         padding: `${customTheme.spacing.padding.big}`,
         border: `1px solid ${customTheme.color.grayLight4}`,
-        borderRadius: '5px'
+        borderRadius: '5px',
+        '@media (min-width: 700px)': {
+            width: '40%',
+            margin: `${customTheme.spacing.margin.bigger} auto`,
+        },
+        '@media (min-width: 800px)': {
+            width: '35%'
+        }
     },
     submit: {
         margin: `${customTheme.spacing.margin.medium} auto`,
         padding: `${customTheme.spacing.margin.bigger} auto`
     }
-});
+}));

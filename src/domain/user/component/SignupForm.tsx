@@ -4,8 +4,8 @@ import { ErrorMessage, Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { PrimaryButton } from '../../../component/PrimaryButton';
-import { phoneRegExp } from '../../../utils/constants';
-import theme from '../../../theme';
+import { phoneRegExp, NAME_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, PHONE_REQUIRED, PASSWORD_REQUIRED, CONFIRM_PASSWORD_REQUIRED, MATCH_PASSWORD } from '../../../utils/constants';
+import customTheme from '../../../theme';
 import { SignupInitValue, SignupInput } from '../container';
 
 
@@ -16,14 +16,11 @@ interface Props {
 
 
 const validationSchema = Yup.object({
-    fullName: Yup.string().required('Name is required'),
-    email: Yup.string().email().required('Email is required'),
-    phone: Yup.string().matches(phoneRegExp, "Phone number is not valid")
-        .required('Phone is required'),
-    password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string()
-        .required('Confirm password is required')
-        .oneOf([Yup.ref('password'), ''], 'Passwords must match')
+    fullName: Yup.string().required(NAME_REQUIRED),
+    email: Yup.string().email().required(EMAIL_REQUIRED),
+    phone: Yup.string().matches(phoneRegExp, INVALID_PHONE).required(PHONE_REQUIRED),
+    password: Yup.string().required(PASSWORD_REQUIRED),
+    confirmPassword: Yup.string().required(CONFIRM_PASSWORD_REQUIRED).oneOf([Yup.ref('password'), ''], MATCH_PASSWORD)
 });
 
 export const SignupForm = ({ initialValues, onSignup }: Props) => {
@@ -119,13 +116,13 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
         width: `20%`,
-        margin: `${theme.spacing.margin.m5} auto`,
-        padding: `${theme.spacing.padding.big}`,
-        border: `1px solid ${theme.color.grayLight4}`,
+        margin: `${customTheme.spacing.margin.m5} auto`,
+        padding: `${customTheme.spacing.padding.big}`,
+        border: `1px solid ${customTheme.color.grayLight4}`,
         borderRadius: '5px'
     },
     submit: {
-        margin: `${theme.spacing.margin.medium} auto`,
-        padding: `${theme.spacing.margin.bigger} auto`
+        margin: `${customTheme.spacing.margin.medium} auto`,
+        padding: `${customTheme.spacing.margin.bigger} auto`
     }
 });

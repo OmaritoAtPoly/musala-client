@@ -4,7 +4,7 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 const primary = '#da1921';
 
-export const theme = {
+export const customTheme = {
     spacing: {
         margin: {
             smaller: '.5rem',
@@ -45,7 +45,7 @@ export const theme = {
     }
 };
 
-export default theme;
+export default customTheme;
 
 const palette: PaletteOptions = {
     primary: { main: '#da1921', contrastText: '#FAFAFA' },
@@ -62,7 +62,7 @@ const title = {
     fontWeight: 500
 };
 
-export const Theme = createMuiTheme({
+export const theme = createMuiTheme({
     palette: palette,
     shape: {
         borderRadius: 0

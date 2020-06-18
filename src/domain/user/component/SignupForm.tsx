@@ -7,7 +7,7 @@ import { ErrorFieldForm } from '../../../component/ErrorFieldForm';
 import { PrimaryButton } from '../../../component/PrimaryButton';
 import customTheme from '../../../theme';
 import { CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED } from '../../../utils/constants';
-import { SignupInitValue, SignupInput } from '../container';
+import { SignupInitValue, SignupInput } from '../container/Signup';
 
 
 interface Props {

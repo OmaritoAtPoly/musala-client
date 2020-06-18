@@ -7,6 +7,7 @@ import { Typography, TextField, Button } from '@material-ui/core';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import theme from "../theme"
+import { PrimaryButton } from '../component/PrimaryButton';
 
 const initialValues = {
   email: '',
@@ -74,9 +75,7 @@ const Login = () => {
               )}
             </Field>
             {errors.password && touched.password? (<ErrorMessage className={classes.error} name="password" component="div" />) : null}
-            <Button className={classes.submit} type="submit" variant="outlined">
-              Sing in
-              </Button>
+             <PrimaryButton type={'submit'} >Submit</PrimaryButton>
           </Form>
         </div>
       )}

@@ -1,4 +1,5 @@
 schema: https://musala-proyect.herokuapp.com/
+documents: ./src/graphql/*.graphql
 generates:
   ./src/generate/types.ts:
     plugins:

@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@material-ui/styles';
 import React from 'react';
-import SignupPage from './page/Signup';
+import { HomePage } from './page/Home';
 import { theme } from './theme';
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from './apolloClient';
@@ -8,7 +8,7 @@ import client from './apolloClient';
 const App = () => (
   <ApolloProvider client={client}>
   <ThemeProvider theme={theme} >
-    <SignupPage />
+    <HomePage />
   </ThemeProvider>
   </ApolloProvider>
 );

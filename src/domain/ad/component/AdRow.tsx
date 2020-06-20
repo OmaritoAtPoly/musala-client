@@ -3,7 +3,7 @@ import React from 'react';
 import Section from '../../../component/Section';
 
 interface Props {
-    rankedAds: JSX.Element[];
+    rankedAds?: JSX.Element[];
     showMore?: boolean;
     title?: string;
     subtitle?: string;
@@ -14,7 +14,7 @@ export const AdsRow = ({ rankedAds, title, subtitle, showMore = false }: Props) 
     return (
         <Section title={title} description={subtitle}>
             <div className={classes.row} >{
-                rankedAds.map((ad, index: number) => (
+                rankedAds?.map((ad, index: number) => (
                     <div key={index} className={classes.item} >
                         {ad}
                     </div>

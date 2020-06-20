@@ -11,13 +11,21 @@ import { CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWOR
 import { SignupInitValue, SignupInput } from '../container/Signup';
 
 interface Props {
-    initialValues: SignupInitValue
     onSignup: (values: SignupInput) => void;
     closeError: () => void;
     errorMessage?: string;
     loading?: boolean;
-}                
+}
 
+const getInitValue = (): SignupInitValue => {
+    return {
+        fullName: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+    }
+}
 
 const validationSchema = Yup.object({
     fullName: Yup.string().required(NAME_REQUIRED),
@@ -27,93 +35,91 @@ const validationSchema = Yup.object({
     confirmPassword: Yup.string().required(CONFIRM_PASSWORD_REQUIRED).oneOf([Yup.ref('password'), ''], MATCH_PASSWORD)
 });
 
-export const SignupForm = ({ initialValues, onSignup, closeError, errorMessage, loading }: Props) => {
+export const SignupForm = ({ onSignup, closeError, errorMessage, loading }: Props) => {
     const classes = useStyles()
     return (
         <Formik
-            initialValues={initialValues}
+            initialValues={getInitValue()}
             validationSchema={validationSchema}
             onSubmit={(values) => {
                 onSignup(values)
             }}
         >
             {({ values, errors, touched, handleChange, handleSubmit }) => (
-                <>
-                    <Form className={classes.form} onSubmit={handleSubmit} >
-                        <Typography variant={'h3'} color={'textPrimary'} > Signup </Typography>
-                        <TextField
-                            variant="outlined"
-                            margin="dense"
-                            id="fullName"
-                            label="Full Name"
-                            type="text"
-                            name="fullName"
-                            value={values.fullName}
-                            onChange={handleChange}
-                            size={'small'}
-                            fullWidth
-                        />
-                        {errors.fullName && touched.fullName ? (<ErrorFieldForm name={'fullName'} />) : null}
-                        <TextField
-                            variant="outlined"
-                            margin="dense"
-                            id="email"
-                            label="Email"
-                            type="email"
-                            name="email"
-                            size={'small'}
-                            value={values.email}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                        {errors.email && touched.email ? (<ErrorFieldForm name={'email'} />) : null}
-                        <TextField
-                            variant="outlined"
-                            margin="dense"
-                            id="phone"
-                            label="Phone number"
-                            type="phone"
-                            name="phone"
-                            size={'small'}
-                            value={values.phone}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                        {errors.phone && touched.phone ? (<ErrorFieldForm name={'phone'} />) : null}
-                        <TextField
-                            variant="outlined"
-                            margin="dense"
-                            id="password"
-                            label="Password"
-                            type="password"
-                            name="password"
-                            size={'small'}
-                            value={values.password}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                        {errors.password && touched.password ? (<ErrorFieldForm name={'password'} />) : null}
-                        <TextField
-                            variant="outlined"
-                            margin="dense"
-                            id="confirmPassword"
-                            label="Confirm Password"
-                            type="password"
-                            name="confirmPassword"
-                            size={'small'}
-                            value={values.confirmPassword}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                        {errors.confirmPassword && touched.confirmPassword ? (<ErrorFieldForm name={'confirmPassword'} />) : null}
-                        <PrimaryButton loading={loading} type={'submit'} >Submit</PrimaryButton>
-                    </Form>
+                <Form className={classes.form} onSubmit={handleSubmit} >
+                    <Typography variant={'h3'} color={'textPrimary'} > Signup </Typography>
+                    <TextField
+                        variant="outlined"
+                        margin="dense"
+                        id="fullName"
+                        label="Full Name"
+                        type="text"
+                        name="fullName"
+                        value={values.fullName}
+                        onChange={handleChange}
+                        size={'small'}
+                        fullWidth
+                    />
+                    {errors.fullName && touched.fullName ? (<ErrorFieldForm name={'fullName'} />) : null}
+                    <TextField
+                        variant="outlined"
+                        margin="dense"
+                        id="email"
+                        label="Email"
+                        type="email"
+                        name="email"
+                        size={'small'}
+                        value={values.email}
+                        onChange={handleChange}
+                        fullWidth
+                    />
+                    {errors.email && touched.email ? (<ErrorFieldForm name={'email'} />) : null}
+                    <TextField
+                        variant="outlined"
+                        margin="dense"
+                        id="phone"
+                        label="Phone number"
+                        type="phone"
+                        name="phone"
+                        size={'small'}
+                        value={values.phone}
+                        onChange={handleChange}
+                        fullWidth
+                    />
+                    {errors.phone && touched.phone ? (<ErrorFieldForm name={'phone'} />) : null}
+                    <TextField
+                        variant="outlined"
+                        margin="dense"
+                        id="password"
+                        label="Password"
+                        type="password"
+                        name="password"
+                        size={'small'}
+                        value={values.password}
+                        onChange={handleChange}
+                        fullWidth
+                    />
+                    {errors.password && touched.password ? (<ErrorFieldForm name={'password'} />) : null}
+                    <TextField
+                        variant="outlined"
+                        margin="dense"
+                        id="confirmPassword"
+                        label="Confirm Password"
+                        type="password"
+                        name="confirmPassword"
+                        size={'small'}
+                        value={values.confirmPassword}
+                        onChange={handleChange}
+                        fullWidth
+                    />
+                    {errors.confirmPassword && touched.confirmPassword ? (<ErrorFieldForm name={'confirmPassword'} />) : null}
+                    <PrimaryButton loading={loading} type={'submit'} >Submit</PrimaryButton>
                     <Alert
                         message={errorMessage}
                         open={!!errorMessage}
                         onClose={closeError}
                     />
-                </>
+                </Form>
             )}
         </Formik>
     )

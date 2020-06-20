@@ -48,16 +48,7 @@ const Signup = () => {
                 })
         }, [signUpFn])
 
-    return <SignupForm loading={loading} initialValues={getInitValue()} onSignup={handleSignup} closeError={closeError} errorMessage={errorMessage} />
+    return <SignupForm loading={loading} onSignup={handleSignup} closeError={closeError} errorMessage={errorMessage} />
 }
 
-const getInitValue = (): SignupInitValue => {
-    return {
-        fullName: '',
-        email: '',
-        phone: '',
-        password: '',
-        confirmPassword: '',
-    }
-}
 export default Signup

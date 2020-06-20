@@ -16,7 +16,7 @@ const ItemHose = ({ picture, title, height, width }: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-     <div> <img src={picture} width={width} height={height} /></div>
+     <div> <img src={picture} width={width} height={height} alt="photo"/></div>
       <div className={classes.description}><Typography  variant={'body1'} color={'textPrimary'} > {title} </Typography></div>
     </div>
   )

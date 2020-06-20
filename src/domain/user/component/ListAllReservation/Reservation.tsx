@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles';
 import customTheme, { theme } from '../../../../theme';
-import ItemHose from './ItemHose';
+import ItemHouse from './ItemHouse';
 import ItemDescriptions from './ItemDescriptions';
 import ItemDate from './ItemDate';
 import UserItem from './UserItem'
@@ -30,7 +30,7 @@ const ItemReservation = ({checkin,checkout,createdAt,email,emailHost,fullName,ti
   return (
     <div className={classes.container}>
       <div className={classes.leftSide}>
-        <ItemHose picture={image} width={widthImage} height={heightImage} title={title} />
+        <ItemHouse picture={image} width={widthImage} height={heightImage} title={title} />
 
         <div className={classes.detalles}>
           <ItemDate checkin={checkin} checkout={checkout} width={widthIcon} height={heightIcon} />

@@ -10,7 +10,7 @@ interface Props {
   height: number
 
 }
-const ItemHose = ({ picture, title, height, width }: Props) => {
+const ItemHouse = ({ picture, title, height, width }: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -40,4 +40,4 @@ const useStyles = makeStyles({
 
 
 
-export default ItemHose 
+export default ItemHouse 

@@ -1,11 +1,11 @@
-import React from 'react'
-import { AdContent } from '../domain/ad/container/AdContent'
-import PageLayout from '../component/PageLayout'
+import React from 'react';
+import ContainerPage from '../containers/ContainerPage';
+import { AdContent } from '../domain/ad/container/AdContent';
 
-export const HomePage = () => {
-    return (
-        <PageLayout>
-            < AdContent />
-        </PageLayout>
-    )
-}
+const HomePage = () => (
+  <ContainerPage>
+    <AdContent />
+  </ContainerPage>
+);
+
+export default HomePage;

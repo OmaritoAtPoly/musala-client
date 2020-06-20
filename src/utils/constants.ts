@@ -10,4 +10,5 @@ export const CONFIRM_PASSWORD_REQUIRED = 'Confirm password is required';
 export const MATCH_PASSWORD = 'Passwords must match';
 
 export const emailRegExp =  /^[a-zA-Z0-9_\-\.]+@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-           
+
+export const NOT_FOUND = 'not found';

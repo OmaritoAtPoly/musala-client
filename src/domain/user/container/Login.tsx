@@ -3,8 +3,10 @@ import LoginForm from '../component/LoginForm'
 import { useSignInMutation } from '../../../generate/types';
 import { ApolloError } from 'apollo-boost';
 import { set } from 'local-storage';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
+  const { replace } = useHistory();
   const [loginFn, { loading }] = useSignInMutation();
   const [errorMessage, setAlertError] = useState<string | undefined>();
 
@@ -22,8 +24,8 @@ const Login = () => {
         
       })
       .then((data)=>{
-        set("userToken", data?.data?.signIn?.token);
-        //TODO redirect to main page
+        set('userToken', data?.data?.signIn?.token);
+        replace('/');
       })
       .catch((error: ApolloError)=>{
         setAlertError(error?.graphQLErrors.map(({ message }) => (message)).join(", "));

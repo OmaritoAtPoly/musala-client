@@ -1,6 +1,11 @@
 import React from 'react'
 import { AdDetail } from '../domain/ad/container/AdDetail'
+import ContainerPage from '../containers/ContainerPage';
 
-export const AdPage = () => {
-    return <AdDetail />
-}
+const AdPage = () => (
+  <ContainerPage>
+    <AdDetail />
+  </ContainerPage>
+);
+
+export default AdPage;

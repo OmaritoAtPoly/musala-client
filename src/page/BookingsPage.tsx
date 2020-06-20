@@ -6,7 +6,7 @@ import ContainerPage from '../containers/ContainerPage'
 const BookingsPage = () => {
     return (
         <ContainerPage>
-        <Bookings />
+            <Bookings />
         </ContainerPage>
     )
 }

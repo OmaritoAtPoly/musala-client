@@ -25,8 +25,7 @@ const Login = () => {
       })
       .then((data)=>{
         set('userToken', data?.data?.signIn?.token);
-        replace('/')
-        //TODO redirect to main page
+        replace('/');
       })
       .catch((error: ApolloError)=>{
         setAlertError(error?.graphQLErrors.map(({ message }) => (message)).join(", "));

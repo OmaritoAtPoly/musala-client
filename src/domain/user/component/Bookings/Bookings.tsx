@@ -1,5 +1,5 @@
 import React from 'react'
-import ItemBooking from './BookingRow'
+import ItemBooking from '../BookingRow/BookingRow'
 import { makeStyles } from '@material-ui/styles'
 
 interface Booking {

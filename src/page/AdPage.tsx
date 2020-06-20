@@ -1,11 +1,11 @@
 import React from 'react'
-import Signup from '../domain/user/container/Signup'
+import { AdDetail } from '../domain/ad/container/AdDetail'
 import ContainerPage from '../containers/ContainerPage';
 
-const SignupPage = () => (
+const AdPage = () => (
   <ContainerPage>
-    <Signup />
+    <AdDetail />
   </ContainerPage>
 );
 
-export default SignupPage
+export default AdPage;

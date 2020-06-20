@@ -1,0 +1,13 @@
+schema: https://musala-proyect.herokuapp.com/
+documents: ./src/graphql/*.graphql
+generates:
+  ./src/generate/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - fragment-matcher
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false

@@ -1,9 +1,8 @@
 import React from 'react'
-import ale from '../../../../assets/img/ale.png'
-import ItemReservation from './ItemReservation'
+import ItemReservation from './Reservation'
 import { makeStyles } from '@material-ui/styles'
 
-interface Reservations {
+interface Reservation {
     checkin: string
     checkout:string
     createdAt: string
@@ -17,7 +16,7 @@ interface Reservations {
 }
 
 
-const reservations:Reservations[] = [
+const reservations:Reservation[] = [
     {
         checkin: "20/02/2019",
         checkout: "20/02/2019",
@@ -26,7 +25,7 @@ const reservations:Reservations[] = [
         fullName: "Omara Estrada",
         title: "The hose",
         description: "One of the best places in the world",
-        image: ale,
+        image: "photo",
         host: "Pderito Calvo",
         createdAtAds: "20/02/2019",
 
@@ -38,7 +37,7 @@ const reservations:Reservations[] = [
         fullName: "Omara Estrada",
         title: "The hose",
         description: "One of the best places in the world",
-        image: ale,
+        image: "photo",
         host: "Pderito Calvo",
         createdAtAds: "20/02/2019",
     }]
@@ -46,7 +45,7 @@ const reservations:Reservations[] = [
 
 
     
-const ListReservations = () => {
+const Reservations = () => {
    const classes=useStyles();
     return (
         <div className={classes.container}>
@@ -80,4 +79,4 @@ const useStyles = makeStyles({
 
 
 
-export default ListReservations
+export default Reservations

@@ -8,15 +8,16 @@ interface Props {
     description: string;
     image: string;
     price: number;
+    onClick: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
 }
 
-export const AdCard = ({ title, description, image, price }: Props) => {
+export const AdCard = ({ title, description, image, price, onClick }: Props) => {
     const style = {
         backgroundImage: image,
     }
     const classes = useStyles(style)
     return (
-        <div className={classes.card} >
+        <div className={classes.card} onClick={onClick}>
             <div className={classes.media} />
             <div className={classes.content}>
                 <Typography variant='h4' color='textPrimary'>{title}</Typography>

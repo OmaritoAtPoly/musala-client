@@ -1,4 +1,4 @@
-import { Button, createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import React from 'react';
 import Section from '../../../component/Section';
 

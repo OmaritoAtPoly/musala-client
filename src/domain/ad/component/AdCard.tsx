@@ -21,7 +21,7 @@ export const AdCard = ({ title, description, image, price, onClick }: Props) => 
             <div className={classes.media} />
             <div className={classes.content}>
                 <Typography variant='h4' color='textPrimary'>{title}</Typography>
-                <Typography variant='h5' color='textPrimary' >{description}</Typography>
+                <Typography variant='h5' color='textPrimary'>{description}</Typography>
                 <Typography variant='body1' color='textPrimary' >{price + ' per night.'}</Typography>
             </div>
         </div>

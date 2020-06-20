@@ -23,7 +23,7 @@ export type SignupInitValue = {
 const Signup = () => {
 
     const { push } = useHistory();
-    const [signUpFn, { loading, data }] = useSignUpMutation();
+    const [signUpFn, { loading }] = useSignUpMutation();
     const [errorMessage, setAlertError] = useState<string | undefined>();
 
     const closeError = useCallback(() => {
@@ -40,13 +40,13 @@ const Signup = () => {
                     phone
                 }
             })
-                .then((data) => {
+                .then((data) => {  //todo aclara bien el usao de data
                     set("userToken", data?.data?.signUp?.token);
                     push("/");
                 }).catch((error: ApolloError) => {
                     setAlertError(error?.graphQLErrors.map(({ message }) => (message)).join(", "));
                 })
-        }, [signUpFn])
+        }, [signUpFn,push])
 
     return <SignupForm loading={loading} onSignup={handleSignup} closeError={closeError} errorMessage={errorMessage} />
 }

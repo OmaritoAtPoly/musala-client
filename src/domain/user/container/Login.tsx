@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo, useState, useEffect } from 'react'
-import LoginForm from '../component/LoginForm'
-import { useSignInMutation } from '../../../generate/types';
 import { ApolloError } from 'apollo-boost';
 import { set } from 'local-storage';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSignInMutation } from '../../../generate/types';
+import LoginForm from '../component/LoginForm';
 
 const Login = () => {
   const { replace } = useHistory();
@@ -31,7 +31,7 @@ const Login = () => {
         setAlertError(error?.graphQLErrors.map(({ message }) => (message)).join(", "));
       });
     },
-    [loginFn],
+    [loginFn, replace],
   );
 
   return <LoginForm 

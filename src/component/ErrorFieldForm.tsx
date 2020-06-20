@@ -1,7 +1,7 @@
-import React from 'react'
-import { ErrorMessage } from 'formik'
 import { makeStyles } from '@material-ui/styles';
-import customTheme, { theme } from '../theme';
+import { ErrorMessage } from 'formik';
+import React from 'react';
+import customTheme from '../theme';
 
 interface Props {
     name: string;

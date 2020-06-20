@@ -1,11 +1,11 @@
 import React from "react";
 
-const CheckIn = props => (
+const CheckOut = (props:any) => (
   <svg width={53.425} height={53.425} viewBox="0 0 53.425 53.425" {...props}>
     <defs>
       <clipPath id="a">
         <path
-          data-name="Rect\xE1ngulo 456"
+          data-name="Rect\xE1ngulo 457"
           fill="#fff"
           opacity={0.54}
           d="M0 0H53.425V53.425H0z"
@@ -13,41 +13,41 @@ const CheckIn = props => (
       </clipPath>
       <filter
         id="b"
-        x={9.259}
-        y={16.344}
-        width={48.123}
+        x={-3.274}
+        y={14.345}
+        width={48.196}
         height={34.956}
         filterUnits="userSpaceOnUse"
       >
-        <feOffset dx={1} dy={1} />
+        <feOffset dx={-1} dy={-1} />
         <feGaussianBlur stdDeviation={1.5} result="blur" />
         <feFlood floodOpacity={0.078} />
         <feComposite operator="in" in2="blur" />
         <feComposite in="SourceGraphic" />
       </filter>
     </defs>
-    <g data-name="Enmascarar grupo 80">
-      <g data-name="Grupo 804" clipPath="url(#a)">
+    <g data-name="Enmascarar grupo 79">
+      <g data-name="Grupo 1608" clipPath="url(#a)">
         <g data-name="Grupo 789">
           <g
-            transform="translate(2.226 6.678) translate(0 13.166) translate(-2.23 -19.84)"
+            transform="translate(2.226 6.678) rotate(180 24.78 19.561) rotate(180 25.895 22.9)"
             filter="url(#b)"
           >
             <g data-name="Trazado 113" fill="#fff">
               <path
-                d="M38.873 25.706H.25V.25h38.623v25.456z"
-                transform="translate(12.76 19.84)"
+                d="M38.946 25.706H.25V.25h38.696v25.456z"
+                transform="rotate(180 20.71 22.9)"
               />
               <path
-                d="M.5.5v24.956h38.123V.5H.5M0 0h39.123v25.956H0V0z"
+                d="M.5.5v24.956h38.196V.5H.5M0 0h39.196v25.956H0V0z"
                 fill="#dfdfdf"
-                transform="translate(12.76 19.84)"
+                transform="rotate(180 20.71 22.9)"
               />
             </g>
           </g>
           <g
             data-name="Grupo 802"
-            transform="translate(2.226 6.678) translate(0 13.166) translate(15.047 4.514)"
+            transform="translate(2.226 6.678) rotate(180 24.78 19.561) translate(15.31 4.514)"
             fill="#dfdfdf"
           >
             <path data-name="Rect\xE1ngulo 265" d="M0 0H7.9V7.147H0z" />
@@ -77,29 +77,31 @@ const CheckIn = props => (
               d="M0 0H7.9V7.147H0z"
             />
           </g>
-          <g
-            data-name="Grupo 784"
-            fill="none"
-            stroke="#707070"
-            strokeLinecap="round"
-            strokeWidth={1}
-          >
-            <path
-              data-name="Trazado 109"
-              d="M7.668 0l4.633 4.632-4.633 4.633"
-              strokeLinejoin="round"
-              transform="translate(2.226 6.678) translate(0 13.166) translate(0 8.486)"
-            />
-            <path
-              data-name="Trazado 110"
-              d="M12.301 4.632H.001"
-              transform="translate(2.226 6.678) translate(0 13.166) translate(0 8.486)"
-            />
+          <g data-name="Grupo 787">
+            <g
+              data-name="Grupo 784"
+              fill="none"
+              stroke="#707070"
+              strokeLinecap="round"
+              strokeWidth={1}
+            >
+              <path
+                data-name="Trazado 109"
+                d="M7.668 0l4.633 4.632-4.633 4.633"
+                strokeLinejoin="round"
+                transform="translate(2.226 6.678) rotate(180 24.78 19.561) rotate(180 6.15 8.924)"
+              />
+              <path
+                data-name="Trazado 110"
+                d="M12.3 4.632H0"
+                transform="translate(2.226 6.678) rotate(180 24.78 19.561) rotate(180 6.15 8.924)"
+              />
+            </g>
           </g>
         </g>
         <g
           data-name="Grupo 803"
-          transform="translate(2.226 6.678) translate(10.533)"
+          transform="translate(2.226 6.678) translate(.018)"
         >
           <path
             data-name="Rect\xE1ngulo 271"
@@ -125,4 +127,4 @@ const CheckIn = props => (
   </svg>
 );
 
-export default CheckIn;
+export default CheckOut;

@@ -33,8 +33,8 @@ const routesDefinition = [
   },
   {
     exact: true,
-    path: "/reservations",
-    component: lazy(() => import('../page/ReservationsPage')),
+    path: "/bookings",
+    component: lazy(() => import('../page/BookingsPage')),
     needLoggedIn: true,
   }
 ];

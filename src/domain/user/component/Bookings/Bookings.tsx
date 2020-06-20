@@ -1,8 +1,8 @@
 import React from 'react'
-import ItemReservation from './Reservation'
+import ItemBooking from './BookingRow'
 import { makeStyles } from '@material-ui/styles'
 
-interface Reservation {
+interface Booking {
     checkin: string
     checkout:string
     createdAt: string
@@ -16,7 +16,7 @@ interface Reservation {
 }
 
 
-const reservations:Reservation[] = [
+const bookings:Booking[] = [
     {
         checkin: "20/02/2019",
         checkout: "20/02/2019",
@@ -45,12 +45,12 @@ const reservations:Reservation[] = [
 
 
     
-const Reservations = () => {
+const Bookings = () => {
    const classes=useStyles();
     return (
         <div className={classes.container}>
-            {reservations.map(value => {
-                return <ItemReservation 
+            {bookings.map(value => {
+                return <ItemBooking 
                         checkin={value.checkin} 
                         checkout={value.checkout}
                         createdAt={value.createdAt}
@@ -79,4 +79,4 @@ const useStyles = makeStyles({
 
 
 
-export default Reservations
+export default Bookings

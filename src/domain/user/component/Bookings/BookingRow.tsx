@@ -25,7 +25,7 @@ export interface Props {
   heightIcon:number
 }
 
-const ItemReservation = ({checkin,checkout,createdAt,email,emailHost,fullName,title,image,host,createAtAdd,widthImage,widthIcon,heightImage,heightIcon}:Props) => {
+const BookingRow = ({checkin,checkout,createdAt,email,emailHost,fullName,title,image,host,createAtAdd,widthImage,widthIcon,heightImage,heightIcon}:Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -95,4 +95,4 @@ const useStyles = makeStyles({
 
 
 
-export default ItemReservation
+export default BookingRow

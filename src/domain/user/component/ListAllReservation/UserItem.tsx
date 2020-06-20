@@ -1,8 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles';
 import customTheme from '../../../../theme';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import Icon from '@material-ui/core/Icon';
 import { Avatar, Typography } from '@material-ui/core';
 
 interface Props {

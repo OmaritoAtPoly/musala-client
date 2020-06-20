@@ -1,6 +1,4 @@
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 import React from 'react'
-import logo from '../../../../logo.svg'
 import { Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import customTheme from '../../../../theme';

@@ -54,10 +54,14 @@ const useStyles = makeStyles({
     alignSelf: "center",
     justifyContent: "center",
     borderRadius: '1px',
+    boxShadow:"0px 2px 2px 2px #777",
     marginTop: customTheme.spacing.margin.medium,
-    [theme.breakpoints.down('sm')]: {
+    '@media (max-width: 768px)': {
       flexDirection: "column",
-      width: "100%"
+      marginLeft:`${customTheme.spacing.margin.small}`,
+      width: "100%",
+      boxShadow:"0px 2px 2px 2px #777",
+    
     }
   },
   leftSide: {
@@ -65,10 +69,10 @@ const useStyles = makeStyles({
     flexDirection: "column",
     marginLeft: `${customTheme.spacing.margin.medium}`,
     paddingRight: `${customTheme.spacing.margin.bigger}`,
-    [theme.breakpoints.down('sm')]: {
-      width: "100%",
-      marginRight: `${customTheme.spacing.margin.bigger}`
-    },
+    '@media (max-width: 768px)': {
+      width: "90%",
+      marginRight:`${customTheme.spacing.margin.bigger}`,
+    }
   },
   detalles: {
     marginTop: `${customTheme.spacing.margin.big}`
@@ -76,14 +80,14 @@ const useStyles = makeStyles({
   rightSide: {
     width: "40%",
     flexDirection: "column",
-    marginLeft: `${customTheme.spacing.margin.big}`,
+    marginLeft: `${customTheme.spacing.margin.medium}`,
     marginRight: `${customTheme.spacing.margin.bigger}`,
     paddingRight: `${customTheme.spacing.margin.bigger}`,
-    [theme.breakpoints.down('sm')]: {
-      width: "100%",
+    '@media (max-width: 768px)': {
+      width: "90%",
       marginTop: `${customTheme.spacing.margin.small}`,
       marginRight: `${customTheme.spacing.margin.bigger}`
-    },
+    }
   }
 });
 

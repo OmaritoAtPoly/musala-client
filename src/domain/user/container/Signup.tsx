@@ -1,6 +1,9 @@
-import React, { useCallback } from 'react'
-import { SignupForm } from '../component/SignupForm'
+import { ApolloError } from 'apollo-boost'
+import { set } from 'local-storage'
+import React, { useCallback, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useSignUpMutation } from '../../../generate/types'
+import { SignupForm } from '../component/SignupForm'
 
 export type SignupInput = {
     fullName: string;
@@ -19,27 +22,33 @@ export type SignupInitValue = {
 
 const Signup = () => {
 
+    const { push } = useHistory();
     const [signUpFn, { loading, data }] = useSignUpMutation();
+    const [errorMessage, setAlertError] = useState<string | undefined>();
+
+    const closeError = useCallback(() => {
+        setAlertError(undefined);
+    }, [setAlertError])
 
     const handleSignup = useCallback(
-        ({email, fullName, password, phone}) => {
-        signUpFn({
-            variables:{
-                email,
-                password,
-                fullName,
-                phone
-            }
-        })
-    }, [signUpFn])
+        ({ email, fullName, password, phone }) => {
+            signUpFn({
+                variables: {
+                    email,
+                    password,
+                    fullName,
+                    phone
+                }
+            })
+                .then((data) => {
+                    set("userToken", data?.data?.signUp?.token);
+                    push("/");
+                }).catch((error: ApolloError) => {
+                    setAlertError(error?.graphQLErrors.map(({ message }) => (message)).join(", "));
+                })
+        }, [signUpFn])
 
-    if(loading) return <div>Loading...</div>
-    if (data) console.log(data);
-    // const handleSignup = (values: SignupInput) => {
-    //     alert(JSON.stringify(values, null, 2));
-    // }
-
-    return <SignupForm initialValues={getInitValue()} onSignup={handleSignup} />
+    return <SignupForm loading={loading} initialValues={getInitValue()} onSignup={handleSignup} closeError={closeError} errorMessage={errorMessage} />
 }
 
 const getInitValue = (): SignupInitValue => {

@@ -7,7 +7,7 @@ type Props = {
   open?: boolean;
 } & AlertProps;
 
-const Alert = ({ message, open, ...rest }: Props) => {
+const Alert = ({ message,  open, ...rest }: Props) => {
   return (
     <>
       <Snackbar open={open} autoHideDuration={6000}>

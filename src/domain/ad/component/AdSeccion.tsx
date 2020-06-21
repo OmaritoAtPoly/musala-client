@@ -11,7 +11,7 @@ interface Props {
     loading: boolean;
 }
 
-export const AdsRow = ({ rankedAds, title, subtitle, showMore = false, loading }: Props) => {
+export const AdsSeccion = ({ rankedAds, title, subtitle, showMore = false, loading }: Props) => {
     const classes = useStyles()
 
     return (

@@ -2,7 +2,7 @@ import { ApolloError } from 'apollo-boost';
 import { set } from 'local-storage';
 import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {  CurrentUserDocument,  useSignUpMutation} from '../../../generate/types';
+import { CurrentUserDocument, useSignUpMutation } from '../../../generate/types';
 import { SignupForm } from '../component/SignupForm';
 import { useApolloClient } from '@apollo/react-hooks';
 
@@ -50,6 +50,8 @@ const Signup = () => {
         .then((data) => {
           client.resetStore();
           set('userToken', data?.data?.signUp?.token);
+        })
+        .then(() => {
           push('/');
         })
         .catch((error: ApolloError) => {

@@ -33,7 +33,9 @@ const Login = () => {
         .then((data) => {
           client.resetStore();
           set('userToken', data?.data?.signIn?.token);
-          replace('/');
+        })
+        .then(() => {
+           replace('/');
         })
         .catch((error: ApolloError) => {
           setAlertError(

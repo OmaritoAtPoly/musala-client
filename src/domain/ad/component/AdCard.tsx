@@ -24,11 +24,7 @@ export const AdCard = ({ adId, loading, title, description, image, price, onClic
     return (
         <div className={classes.card} onClick={handleClick}>
             <div className={`${classes.content}`}>
-                <Image
-                    src={image}
-                    aspectRatio={(16 / 9)}
-                    disableSpinner={loading}
-                />
+                <Image src={image} aspectRatio={(16 / 9)} disableSpinner={loading} />
                 <div className={classes.texts}>
                     <Typography variant='h4' color='textPrimary'>{title}</Typography>
                     <Typography variant='h5' color='textPrimary'>{description}</Typography>

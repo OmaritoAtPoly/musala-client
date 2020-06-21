@@ -56,7 +56,7 @@ const Header: FC = () => {
     onClick: () => {
       signOut();
       client.resetStore();
-      push('/login');
+      push(auth ? '/' : '/login');
     },
   });
 

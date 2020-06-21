@@ -1,11 +1,11 @@
-import React from 'react'
 import { makeStyles } from '@material-ui/styles';
-import customTheme, { theme } from '../../../../theme';
-import ItemHouse from './ItemHouse';
-import ItemDescriptions from './ItemDescriptions';
+import React from 'react';
+import customTheme from '../../../../theme';
+import { CREATE_AT, RESERVED_AT } from '../../../../utils/constants';
 import ItemDate from './ItemDate';
-import UserItem from './ItemUser'
-import {CREATE_AT, RESERVED_AT } from '../../../../utils/constants'
+import ItemDescriptions from './ItemDescriptions';
+import ItemHouse from './ItemHouse';
+import UserItem from './ItemUser';
 
 
 export interface Props {
@@ -90,9 +90,4 @@ const useStyles = makeStyles({
     }
   }
 });
-
-
-
-
-
 export default BookingRow

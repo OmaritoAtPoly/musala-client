@@ -11,3 +11,16 @@ mutation signIn($email: String!, $password: String!) {
     token
   }
 }
+
+query currentUser {
+  currentUser {
+    id
+    email
+    fullName
+    password
+    createdAt
+    role
+    phone
+    token
+  }
+}

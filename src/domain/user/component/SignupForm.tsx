@@ -3,16 +3,28 @@ import { makeStyles } from '@material-ui/styles';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import Alert from '../../../component/Alert';
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm';
 import { PrimaryButton } from '../../../component/PrimaryButton';
 import customTheme from '../../../theme';
 import { CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED } from '../../../utils/constants';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 
-
 interface Props {
-    initialValues: SignupInitValue
     onSignup: (values: SignupInput) => void;
+    closeError: () => void;
+    errorMessage?: string;
+    loading?: boolean;
+}
+
+const getInitValue = (): SignupInitValue => {
+    return {
+        fullName: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+    }
 }
 
 const validationSchema = Yup.object({
@@ -23,11 +35,11 @@ const validationSchema = Yup.object({
     confirmPassword: Yup.string().required(CONFIRM_PASSWORD_REQUIRED).oneOf([Yup.ref('password'), ''], MATCH_PASSWORD)
 });
 
-export const SignupForm = ({ initialValues, onSignup }: Props) => {
+export const SignupForm = ({ onSignup, closeError, errorMessage, loading }: Props) => {
     const classes = useStyles()
     return (
         <Formik
-            initialValues={initialValues}
+            initialValues={getInitValue()}
             validationSchema={validationSchema}
             onSubmit={(values) => {
                 onSignup(values)
@@ -101,7 +113,12 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         fullWidth
                     />
                     {errors.confirmPassword && touched.confirmPassword ? (<ErrorFieldForm name={'confirmPassword'} />) : null}
-                    <PrimaryButton type={'submit'} >Submit</PrimaryButton>
+                    <PrimaryButton loading={loading} type={'submit'} >Submit</PrimaryButton>
+                    <Alert
+                        message={errorMessage}
+                        open={!!errorMessage}
+                        onClose={closeError}
+                    />
                 </Form>
             )}
         </Formik>

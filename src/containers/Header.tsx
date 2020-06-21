@@ -44,6 +44,12 @@ const Header: FC = () => {
       title: 'Available',
     });
 
+  !auth &&
+    links.push({
+      path: '/sign-up',
+      title: 'Sign Up',
+    });
+
   links.push({
     path: auth ? '/' : '/login',
     title: auth ? 'Sign out' : 'Sign in',

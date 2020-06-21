@@ -8,8 +8,10 @@ export const INVALID_PHONE = 'Phone is invalid';
 export const PASSWORD_REQUIRED = 'Password is required';
 export const CONFIRM_PASSWORD_REQUIRED = 'Confirm password is required';
 export const MATCH_PASSWORD = 'Passwords must match';
-export const  CREATE_AT='Created at';
-export const RESERVED_AT='Reserved at'
+export const CREATE_AT = 'Created at';
+export const RESERVED_AT = 'Reserved at'
+
+export const NO_DATA = "There is no data to show"
 
 export const emailRegExp =  /^[a-zA-Z0-9_\-\.]+@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
 

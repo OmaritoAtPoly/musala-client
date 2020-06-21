@@ -1,27 +1,47 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import UserProfile from '../component/Profile';
-import { CurrentUserDocument, CurrentUserQuery, CurrentUserQueryVariables } from '../../../generate/types'
-import { useQuery } from '@apollo/react-hooks';
+import { useCurrentUserQuery } from '../../../generate/types'
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
+import { CircularProgress } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import customTheme from '../../../theme';
+import { NO_DATA } from '../../../utils/constants'
+
 
 const Profile = () => {
-    const { data, loading, error } = useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument);///
-    if (loading) {
-        return <div>Loading...</div>
-    }
-    if (error) {
-        return <ErrorFieldForm name={"Something was wrong"} />
-    }
-    const prepareData = (data: any) => {
+    const classes = useStyles()
+    const { data, loading, error } = useCurrentUserQuery();
+    console.log(data)
+    const prepareData = useCallback((data) => {
         return {
-            name: data.currentUser.fullName,
-            email: data.currentUser.email,
-            role: data.currentUser.role,
+            name: data?.currentUser?.fullName,
+            email: data?.currentUser?.email,
+            role: data?.currentUser?.role,
             bookingAmount: 30
         }
-    }
-    return <UserProfile {...prepareData(data)} />
+    }, [data])
 
+    if (loading) {
+        return <div className={classes.container}><CircularProgress className={classes.loading} size={25} /></div>
+    }
+    if (error) {
+        return <ErrorFieldForm name={NO_DATA} />
+    }
+
+    return <UserProfile {...prepareData(data)} />
 }
+
+const useStyles = makeStyles({
+    container: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center"
+    },
+    loading: {
+        color: customTheme.color.grayDark4,
+        marginTop: customTheme.spacing.margin.m10,
+    }
+})
+
 export default Profile
 

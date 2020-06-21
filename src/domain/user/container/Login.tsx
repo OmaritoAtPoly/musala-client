@@ -2,10 +2,12 @@ import { ApolloError } from 'apollo-boost';
 import { set } from 'local-storage';
 import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSignInMutation } from '../../../generate/types';
 import LoginForm from '../component/LoginForm';
+import { CurrentUserDocument,  useSignInMutation } from '../../../generate/types';
+import { useApolloClient } from '@apollo/react-hooks';
 
 const Login = () => {
+  const client = useApolloClient();
   const { replace } = useHistory();
   const [loginFn, { loading }] = useSignInMutation();
   const [errorMessage, setAlertError] = useState<string | undefined>();
@@ -15,31 +17,41 @@ const Login = () => {
   }, [setAlertError]);
 
   const onSubmit = useCallback(
-    ({email, password}) => {
+    ({ email, password }) => {
       loginFn({
         variables: {
           email,
-          password
+          password,
         },
-        
+        update(cache, { data }) {
+          cache.writeQuery({
+            query: CurrentUserDocument,
+            data: { currentUser: data?.signIn },
+          });
+        },
       })
-      .then((data)=>{
-        set('userToken', data?.data?.signIn?.token);
-        replace('/');
-      })
-      .catch((error: ApolloError)=>{
-        setAlertError(error?.graphQLErrors.map(({ message }) => (message)).join(", "));
-      });
+        .then((data) => {
+          client.resetStore();
+          set('userToken', data?.data?.signIn?.token);
+          replace('/');
+        })
+        .catch((error: ApolloError) => {
+          setAlertError(
+            error?.graphQLErrors.map(({ message }) => message).join(', '),
+          );
+        });
     },
     [loginFn, replace],
   );
 
-  return <LoginForm 
-            onSubmit={onSubmit} 
-            loading={loading} 
-            errorMessage={errorMessage}
-            closeError={closeError}
-         />;
-}
+  return (
+    <LoginForm
+      onSubmit={onSubmit}
+      loading={loading}
+      errorMessage={errorMessage}
+      closeError={closeError}
+    />
+  );
+};
 
-export default Login
+export default Login;

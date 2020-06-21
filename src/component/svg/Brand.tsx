@@ -1,7 +1,7 @@
 import { SvgIcon, Theme } from '@material-ui/core';
 import { makeStyles, styled } from '@material-ui/styles';
 import React, { FC } from 'react';
-import customTheme from '../theme';
+import customTheme from '../../theme';
 
 const BrandContainer = styled('div')({
   display: 'flex',

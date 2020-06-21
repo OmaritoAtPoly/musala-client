@@ -2,7 +2,7 @@ import { AppBar, Theme, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { FC } from 'react';
 import customTheme from '../../theme';
-import Brand from '../Brand';
+import Brand from '../svg/Brand';
 import FakeNavLink from './FakeNavLink';
 import NavLink from './NavLink';
 

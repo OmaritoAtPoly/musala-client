@@ -11,7 +11,6 @@ import { NO_DATA } from '../../../utils/constants'
 const Profile = () => {
     const classes = useStyles()
     const { data, loading, error } = useCurrentUserQuery();
-    console.log(data)
     const prepareData = useCallback((data) => {
         return {
             name: data?.currentUser?.fullName,

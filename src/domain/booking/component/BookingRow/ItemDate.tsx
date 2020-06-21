@@ -1,9 +1,8 @@
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
-import React from 'react'
 import { makeStyles } from '@material-ui/styles';
+import React from 'react';
+import Checkin from '../../../../component/svg/CheckIn';
+import CheckOut from '../../../../component/svg/CheckOut';
 import customTheme from '../../../../theme';
-import Checkin from '../../../../component/svg/CheckIn'
-import CheckOut from '../../../../component/svg/CheckOut'
 
 interface Props {
   checkin:string

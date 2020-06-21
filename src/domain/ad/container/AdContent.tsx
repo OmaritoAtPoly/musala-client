@@ -37,19 +37,16 @@ export const AdContent = () => {
     return <AdCard onClick={onClickFunction} adId={ad.id} title={ad.title} description={ad.description} image={ad.image} price={ad.price} loading={loading} />
   }, [onClickFunction])
 
-  const prepare = useCallback(() => {
+  const dataSetReady = useMemo(() => {
     let result;
+    
     if (data) {
       result = data.ads.map((a: AdlistElements | null) => {
         return prepareRankedAd(a as AdlistElements, onClickFunction)
       });
     }
-    return result
+    return result;
   }, [prepareRankedAd, data, onClickFunction])
-
-  const dataSetReady = useMemo(() => prepare(), [prepare]);
-
-  if (error) console.log(error);
 
   return (
     <Ads loading={loading} dataSetReady={dataSetReady} closeError={closeError} errorMessage={errorMessage} />

@@ -11,3 +11,5 @@ export const emailRegExp = /^[a-zA-Z0-9_\-\.]+@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,
 export const CREATE_AT='Created at';
 export const RESERVED_AT='Reserved at'
 export const NOT_FOUND = 'not found';
+export const LOREM_TITLE = 'Lorem ipsum dolor sit amet'
+export const LOREM_BODY = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'

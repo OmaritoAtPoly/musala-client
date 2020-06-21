@@ -2,6 +2,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Image from 'material-ui-image';
 import React, { useCallback } from 'react';
+import customTheme from '../../../theme';
 
 interface Props {
     adId: string;
@@ -46,10 +47,11 @@ const useStyles = makeStyles({
         },
     },
     content: {
-        marginBottom: '10px',
-        padding: 0,
+        marginBottom: customTheme.spacing.margin.medium,
+        marginTop:customTheme.spacing.margin.none,
+        padding: customTheme.spacing.padding.none,
     },
     texts: {
-        marginTop: '10px',
+        marginTop: customTheme.spacing.margin.smaller,
     },
 });

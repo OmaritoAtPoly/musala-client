@@ -20,6 +20,7 @@
     "graphql": "^15.1.0",
     "graphql-tag": "^2.10.3",
     "local-storage": "^2.0.0",
+    "material-ui-image": "^3.2.3",
     "polished": "^3.6.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

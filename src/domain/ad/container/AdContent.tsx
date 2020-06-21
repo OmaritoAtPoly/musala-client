@@ -1,5 +1,4 @@
-import { CircularProgress } from '@material-ui/core'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Ad, useListAdsQuery, User } from '../../../generate/types'
 import { AdCard } from '../component/AdCard'
@@ -19,42 +18,40 @@ type AdlistElements = (
 export const AdContent = () => {
   const { push } = useHistory();
   const { data, loading, error } = useListAdsQuery();
-
-  const onClickMock = useCallback(
-    ({ title }) => {
-      alert("title")
+  
+  
+  const onClickFunction = useCallback(
+    (id) => {
+      alert(id)
       // push('/details-ad:id-test');
     },
     [push],
-  )
+    )
+    
+    const prepareRankedAd = useCallback((
+      ad: AdlistElements,
+      onClickFunction: (value: string) => void) => {
+        return <AdCard onClick={onClickFunction} adId={ad.id} title={ad.title} description={ad.description} image={ad.image} price={ad.price} loading={loading} />
+      }, [onClickFunction])
+      
+      const prepare = useCallback(() => {
+        let result;
+        if (data) {
+          result = data.ads.map((a: AdlistElements | null) => {
+            return prepareRankedAd(a as AdlistElements, onClickFunction)
+          });
+        }
+        return result
+      }, [prepareRankedAd,data, onClickFunction])
+      
+      const dataSetReady = useMemo(() => prepare(), [prepare]);
+      
+      if (error) console.log((error?.graphQLErrors.map(({ message }) => (message)).join(", ")))
 
-  const prepare = useCallback(() => {
-    let result;
-    if (data) {
-      result = data.ads.map((a: AdlistElements | null) => {
-        return prepareRankedAd(a as AdlistElements, onClickMock)
-      });
-    }
-    return result
-  }, [data, onClickMock])
-
-  const prepareRankedAd = useCallback((
-    ad: AdlistElements,
-    onClickMock: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)) => {
-    return <AdCard onClick={onClickMock} title={ad.title} description={ad.description} image={ad.image} price={ad.price} />
-  }, []
-  )
-
-  if (error) console.log("oooooooooooooooo", error)
-  if (loading) return <CircularProgress size={20} />
-
-  
-  const dataSetReady = prepare();
-
-  return (
+      return (
     <>
-      <AdsRow title="Lorem ipsum, dolor sit amet." subtitle="Voluptates, exercitationem? Eligendi eveniet, magni" rankedAds={dataSetReady?.slice(0, 4)} />
-      <AdsRow title="Lorem ipsum, dolor sit amet." subtitle="Voluptates, exercitationem? Eligendi eveniet, magni" rankedAds={dataSetReady?.slice(0, 4)} />
+      <AdsRow loading={loading} title="Popular Places" subtitle="Voluptates, exercitationem? Eligendi eveniet, magni" rankedAds={dataSetReady?.slice(0, 2)} />
+      <AdsRow loading={loading} title="New places over here" subtitle="Voluptates, exercitationem? Eligendi eveniet, magni" rankedAds={dataSetReady?.slice(2, 5)} />
     </>
   )
 }

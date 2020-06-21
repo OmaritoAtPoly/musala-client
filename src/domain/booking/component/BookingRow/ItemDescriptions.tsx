@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
   description: {
     marginTop: `${customTheme.spacing.margin.smaller}`,
-    border: `1px solid ${customTheme.color.grayLight4}`,
+    border: `1px solid ${customTheme.color.grayLight1}`,
     borderRadius: '1px',
     paddingLeft:customTheme.spacing.margin.smaller
 

@@ -54,13 +54,13 @@ const useStyles = makeStyles({
     alignSelf: "center",
     justifyContent: "center",
     borderRadius: '1px',
-    boxShadow:"0px 2px 2px 2px #777",
+    boxShadow:"1px 2px 13px -5px rgba(0,0,0,0.75)",
     marginTop: customTheme.spacing.margin.medium,
     '@media (max-width: 768px)': {
       flexDirection: "column",
       marginLeft:`${customTheme.spacing.margin.small}`,
       width: "100%",
-      boxShadow:"0px 2px 2px 2px #777",
+      boxShadow:"1px 2px 13px -5px rgba(0,0,0,0.75)",
     
     }
   },

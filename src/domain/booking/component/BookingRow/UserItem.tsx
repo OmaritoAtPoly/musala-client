@@ -44,7 +44,7 @@ const useStyles = makeStyles({
      width:"100%"
     },
     items: {
-        border: `1px solid ${customTheme.color.grayLight4}`,
+        border: `1px solid ${customTheme.color.grayLight1}`,
         marginBottom:customTheme.spacing.margin.smaller,
         paddingLeft:`${customTheme.spacing.margin.smaller}`
     },

@@ -1,13 +1,13 @@
 import React from 'react'
-import Bookings from '../domain/booking/component/BookingRow/Bookings'
+import Bookings from '../domain/booking/component/Bookings'
 import ContainerPage from '../containers/ContainerPage'
 
 
 const BookingsPage = () => {
     return (
-        <ContainerPage>
+        // <ContainerPage>
             <Bookings />
-        </ContainerPage>
+        // </ContainerPage>
     )
 }
 

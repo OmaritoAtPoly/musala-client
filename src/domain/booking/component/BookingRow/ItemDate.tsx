@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent:"space-between",
-        border: `1px solid ${customTheme.color.grayLight4}`,
+        border: `1px solid ${customTheme.color.grayLight1}`,
         borderRadius: '1px'
     },
     left:{

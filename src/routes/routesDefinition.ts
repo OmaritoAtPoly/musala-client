@@ -30,6 +30,12 @@ const routesDefinition = [
     path: "/details-ad:id",
     component: lazy(() => import('../page/AdPage')),
     needLoggedIn: false,
+  },
+  {
+    exact: true,
+    path: "/bookings",
+    component: lazy(() => import('../page/BookingsPage')),
+    needLoggedIn: true,
   }
 ];
 

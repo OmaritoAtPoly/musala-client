@@ -16,6 +16,7 @@ export const customTheme = {
   },
   spacing: {
     margin: {
+      none: 0,
       smaller: '.5rem',
       small: '1rem',
       medium: '1.5rem',

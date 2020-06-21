@@ -1,6 +1,6 @@
-import React from 'react'
-import { Typography, Divider } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import React from 'react';
 import customTheme from '../../../../theme';
 
 interface Props {
@@ -14,7 +14,7 @@ const ItemHouse = ({ picture, title, height, width }: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-     <div> <img src={picture} width={width} height={height} alt="photo"/></div>
+     <div> <img src={picture} width={width} height={height} alt="photo_not_shown"/></div>
       <div className={classes.description}><Typography  variant={'body1'} color={'textPrimary'} > {title} </Typography></div>
     </div>
   )

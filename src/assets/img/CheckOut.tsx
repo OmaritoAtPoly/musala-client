@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckOut = (props:any) => (
+const CheckOut = (props:React.SVGProps<SVGSVGElement>) => (
   <svg width={53.425} height={53.425} viewBox="0 0 53.425 53.425" {...props}>
     <defs>
       <clipPath id="a">
@@ -26,14 +26,14 @@ const CheckOut = (props:any) => (
         <feComposite in="SourceGraphic" />
       </filter>
     </defs>
-    <g data-name="Enmascarar grupo 79">
-      <g data-name="Grupo 1608" clipPath="url(#a)">
-        <g data-name="Grupo 789">
+    <g data-name="Mask group 79">
+      <g data-name="Group 1608" clipPath="url(#a)">
+        <g data-name="Group 789">
           <g
             transform="translate(2.226 6.678) rotate(180 24.78 19.561) rotate(180 25.895 22.9)"
             filter="url(#b)"
           >
-            <g data-name="Trazado 113" fill="#fff">
+            <g data-name="Mask 113" fill="#fff">
               <path
                 d="M38.946 25.706H.25V.25h38.696v25.456z"
                 transform="rotate(180 20.71 22.9)"
@@ -46,7 +46,7 @@ const CheckOut = (props:any) => (
             </g>
           </g>
           <g
-            data-name="Grupo 802"
+            data-name="Group 802"
             transform="translate(2.226 6.678) rotate(180 24.78 19.561) translate(15.31 4.514)"
             fill="#dfdfdf"
           >
@@ -77,22 +77,22 @@ const CheckOut = (props:any) => (
               d="M0 0H7.9V7.147H0z"
             />
           </g>
-          <g data-name="Grupo 787">
+          <g data-name="Group 787">
             <g
-              data-name="Grupo 784"
+              data-name="Group 784"
               fill="none"
               stroke="#707070"
               strokeLinecap="round"
               strokeWidth={1}
             >
               <path
-                data-name="Trazado 109"
+                data-name="Outline 109"
                 d="M7.668 0l4.633 4.632-4.633 4.633"
                 strokeLinejoin="round"
                 transform="translate(2.226 6.678) rotate(180 24.78 19.561) rotate(180 6.15 8.924)"
               />
               <path
-                data-name="Trazado 110"
+                data-name="Outline 110"
                 d="M12.3 4.632H0"
                 transform="translate(2.226 6.678) rotate(180 24.78 19.561) rotate(180 6.15 8.924)"
               />
@@ -100,7 +100,7 @@ const CheckOut = (props:any) => (
           </g>
         </g>
         <g
-          data-name="Grupo 803"
+          data-name="Group 803"
           transform="translate(2.226 6.678) translate(.018)"
         >
           <path

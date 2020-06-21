@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckIn = (props:any) => (
+const CheckIn = (props:React.SVGProps<SVGSVGElement>) => (
   <svg width={53.425} height={53.425} viewBox="0 0 53.425 53.425" {...props}>
     <defs>
       <clipPath id="a">
@@ -26,14 +26,14 @@ const CheckIn = (props:any) => (
         <feComposite in="SourceGraphic" />
       </filter>
     </defs>
-    <g data-name="Enmascarar grupo 80">
-      <g data-name="Grupo 804" clipPath="url(#a)">
-        <g data-name="Grupo 789">
+    <g data-name="Mask group 80">
+      <g data-name="Group 804" clipPath="url(#a)">
+        <g data-name="Group 789">
           <g
             transform="translate(2.226 6.678) translate(0 13.166) translate(-2.23 -19.84)"
             filter="url(#b)"
           >
-            <g data-name="Trazado 113" fill="#fff">
+            <g data-name="Outline 113" fill="#fff">
               <path
                 d="M38.873 25.706H.25V.25h38.623v25.456z"
                 transform="translate(12.76 19.84)"
@@ -46,7 +46,7 @@ const CheckIn = (props:any) => (
             </g>
           </g>
           <g
-            data-name="Grupo 802"
+            data-name="Group 802"
             transform="translate(2.226 6.678) translate(0 13.166) translate(15.047 4.514)"
             fill="#dfdfdf"
           >
@@ -78,27 +78,27 @@ const CheckIn = (props:any) => (
             />
           </g>
           <g
-            data-name="Grupo 784"
+            data-name="Group 784"
             fill="none"
             stroke="#707070"
             strokeLinecap="round"
             strokeWidth={1}
           >
             <path
-              data-name="Trazado 109"
+              data-name="Outline 109"
               d="M7.668 0l4.633 4.632-4.633 4.633"
               strokeLinejoin="round"
               transform="translate(2.226 6.678) translate(0 13.166) translate(0 8.486)"
             />
             <path
-              data-name="Trazado 110"
+              data-name="Outline 110"
               d="M12.301 4.632H.001"
               transform="translate(2.226 6.678) translate(0 13.166) translate(0 8.486)"
             />
           </g>
         </g>
         <g
-          data-name="Grupo 803"
+          data-name="Group 803"
           transform="translate(2.226 6.678) translate(10.533)"
         >
           <path

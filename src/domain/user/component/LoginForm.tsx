@@ -1,16 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
-import { emailRegExp } from '../../../utils/constants';
-import { makeStyles } from '@material-ui/styles';
-import { Typography, TextField } from '@material-ui/core';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import { TextField, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import theme from "../../../theme";
-import { PrimaryButton } from '../../../component/PrimaryButton';
-import { EMAIL_REQUIRED, PASSWORD_REQUIRED, EMAIL_INCORRECT } from '../../../utils/constants';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import { makeStyles } from '@material-ui/styles';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
 import Alert from '../../../component/Alert';
-
+import { PrimaryButton } from '../../../component/PrimaryButton';
+import theme from "../../../theme";
+import { emailRegExp, EMAIL_INCORRECT, EMAIL_REQUIRED, PASSWORD_REQUIRED } from '../../../utils/constants';
 
 const validationSchema = Yup.object({
   email: Yup.string().matches(emailRegExp, EMAIL_INCORRECT).required(EMAIL_REQUIRED),
@@ -21,7 +19,6 @@ interface FormLoginValues {
   email: string;
   password: string;
 }
-
 
 interface Props {
   loading: boolean;

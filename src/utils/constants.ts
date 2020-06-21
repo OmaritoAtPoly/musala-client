@@ -1,5 +1,4 @@
 export const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-
 export const NAME_REQUIRED = 'Name is required';
 export const EMAIL_REQUIRED = 'Email is required';
 export const EMAIL_INCORRECT = 'Incorrect email';
@@ -14,3 +13,7 @@ export const emailRegExp = /^[a-zA-Z0-9_\-\.]+@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,
 export const NOT_FOUND = 'not found';
 export const PER_NIGHT = 'per night';
 export const BOOK_NOW = 'Book Now!';
+export const CREATE_AT = 'Created at';
+export const RESERVED_AT = 'Reserved at'
+export const LOREM_TITLE = 'Lorem ipsum dolor sit amet'
+export const LOREM_BODY = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'

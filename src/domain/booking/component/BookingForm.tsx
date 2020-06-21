@@ -7,10 +7,6 @@ import { PER_NIGHT } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 
-interface InitValues {
-	range: Range,
-	pax: number
-}
 
 interface Props {
 	bookedDays: Range[];
@@ -19,15 +15,14 @@ interface Props {
 	price: number;
 	onChangeRange: (range: Range) => void;
 	range: Range | undefined;
-	initialValues: InitValues;
 }
 
-export const BookingForm = ({ bookedDays, adTitle, adRanking, price, initialValues, range, onChangeRange }: Props) => {
+export const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRange }: Props) => {
 	const classes = useStyles();
 
 	return (
 		<Formik
-			initialValues={initialValues}
+			initialValues={{ range, pax: 0 }}
 			onSubmit={(values, actions) => { console.log(values) }}
 		>
 			{({ values, handleChange }) =>
@@ -73,4 +68,5 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexDirection: 'column',
 		justifyContent: 'center',
 	}
-}));
+})
+);

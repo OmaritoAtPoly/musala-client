@@ -4,8 +4,8 @@ import customTheme, { theme } from '../../../../theme';
 import ItemHouse from './ItemHouse';
 import ItemDescriptions from './ItemDescriptions';
 import ItemDate from './ItemDate';
-import UserItem from './UserItem'
-
+import UserItem from './ItemUser'
+import {CREATE_AT, RESERVED_AT } from '../../../../utils/constants'
 
 
 export interface Props {
@@ -34,8 +34,8 @@ const BookingRow = ({checkin,checkout,createdAt,email,emailHost,fullName,title,i
 
         <div className={classes.detalles}>
           <ItemDate checkin={checkin} checkout={checkout} width={widthIcon} height={heightIcon} />
-          <ItemDescriptions description={"Creado el "} date={createAtAdd} />
-          <ItemDescriptions description={"Reservado el"} date={createdAt} />
+          <ItemDescriptions description={CREATE_AT} date={createAtAdd} />
+          <ItemDescriptions description={RESERVED_AT} date={createdAt} />
         </div>
       </div>
       <div className={classes.rightSide}>

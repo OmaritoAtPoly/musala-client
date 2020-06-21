@@ -1,0 +1,14 @@
+query listAds {
+  ads {
+    id
+    title
+    description
+    image
+    price
+    ranking
+    host {
+      fullName
+    }
+    createdAt
+  }
+}

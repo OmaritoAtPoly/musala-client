@@ -299,6 +299,21 @@ export type SignUpInput = {
   phone: Scalars['String'];
 };
 
+export type ListAdsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListAdsQuery = (
+  { __typename?: 'Query' }
+  & { ads: Array<Maybe<(
+    { __typename?: 'Ad' }
+    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking' | 'createdAt'>
+    & { host: (
+      { __typename?: 'User' }
+      & Pick<User, 'fullName'>
+    ) }
+  )>> }
+);
+
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
   fullName: Scalars['String'];
@@ -329,7 +344,59 @@ export type SignInMutation = (
   )> }
 );
 
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
+
+export type CurrentUserQuery = (
+  { __typename?: 'Query' }
+  & { currentUser?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'email' | 'fullName' | 'password' | 'createdAt' | 'role' | 'phone' | 'token'>
+  )> }
+);
+
+
+export const ListAdsDocument = gql`
+    query listAds {
+  ads {
+    id
+    title
+    description
+    image
+    price
+    ranking
+    host {
+      fullName
+    }
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useListAdsQuery__
+ *
+ * To run a query within a React component, call `useListAdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListAdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListAdsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useListAdsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListAdsQuery, ListAdsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ListAdsQuery, ListAdsQueryVariables>(ListAdsDocument, baseOptions);
+      }
+export function useListAdsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListAdsQuery, ListAdsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ListAdsQuery, ListAdsQueryVariables>(ListAdsDocument, baseOptions);
+        }
+export type ListAdsQueryHookResult = ReturnType<typeof useListAdsQuery>;
+export type ListAdsLazyQueryHookResult = ReturnType<typeof useListAdsLazyQuery>;
+export type ListAdsQueryResult = ApolloReactCommon.QueryResult<ListAdsQuery, ListAdsQueryVariables>;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $fullName: String!, $password: String!, $phone: String!) {
   signUp(data: {email: $email, fullName: $fullName, password: $password, phone: $phone}) {
@@ -408,6 +475,45 @@ export function useSignInMutation(baseOptions?: ApolloReactHooks.MutationHookOpt
 export type SignInMutationHookResult = ReturnType<typeof useSignInMutation>;
 export type SignInMutationResult = ApolloReactCommon.MutationResult<SignInMutation>;
 export type SignInMutationOptions = ApolloReactCommon.BaseMutationOptions<SignInMutation, SignInMutationVariables>;
+export const CurrentUserDocument = gql`
+    query currentUser {
+  currentUser {
+    id
+    email
+    fullName
+    password
+    createdAt
+    role
+    phone
+    token
+  }
+}
+    `;
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+        return ApolloReactHooks.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
+      }
+export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
+        }
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
+export type CurrentUserQueryResult = ApolloReactCommon.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
 
       export interface IntrospectionResultData {
         __schema: {

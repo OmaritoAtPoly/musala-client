@@ -1,13 +1,22 @@
 mutation signIn($email: String!, $password: String!) {
-  signIn (data: {
-    email: $email
-    password: $password
-  }){
+  signIn(data: { email: $email, password: $password }) {
     id
     email
     fullName
     createdAt
     role
+    token
+  }
+}
+query currentUser {
+  currentUser {
+    id
+    email
+    fullName
+    password
+    createdAt
+    role
+    phone
     token
   }
 }

@@ -1,40 +1,54 @@
-import React, { useCallback } from 'react'
-import { fetchMockAdList } from '../../../utils/mockDatas'
-import { AdCard } from '../component/AdCard'
-import { AdsRow } from '../component/AdRow'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Ad, useListAdsQuery, User } from '../../../generate/types'
+import { AdCard } from '../component/AdCard'
+import { Ads } from '../component/Ads'
+
+type AdlistElements = (
+  { __typename?: 'Ad' }
+  & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking' | 'createdAt'>
+  & {
+    host: (
+      { __typename?: 'User' }
+      & Pick<User, 'fullName'>
+    )
+  }
+)
 
 export const AdContent = () => {
-    const { push } = useHistory();
-    const onClickMock = useCallback(
-      () => {
-        push('/details-ad:id-test');
-      },
-      [push],
-    )
-    const adList = fetchMockAdList();
-    const ads = getAds(adList,onClickMock);
-    return (
-        <>
-            <AdsRow title="Lorem ipsum, dolor sit amet." subtitle="Voluptates, exercitationem? Eligendi eveniet, magni" rankedAds={ads.slice(0, 3)} />
-            <AdsRow title="Lorem ipsum, dolor sit amet." subtitle="Voluptates, exercitationem? Eligendi eveniet, magni" rankedAds={ads.slice(0, 4)} />
-        </>
-    )
+  const { push } = useHistory();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const { data, loading, error } = useListAdsQuery();
+
+  const closeError = useCallback(() => {
+    setErrorMessage(undefined);
+  }, [setErrorMessage])
+
+  const onClickFunction = useCallback(
+    (id) => {
+      push(`/details-ad:${id}`);
+    },
+    [push],
+  )
+
+  const prepareRankedAd = useCallback((
+    ad: AdlistElements,
+    onClickFunction: (value: string) => void) => {
+    return <AdCard onClick={onClickFunction} adId={ad.id} title={ad.title} description={ad.description} image={ad.image} price={ad.price} loading={loading} />
+  }, [onClickFunction])
+
+  const dataSetReady = useMemo(() => {
+    let result;
+    
+    if (data) {
+      result = data.ads.map((a: AdlistElements | null) => {
+        return prepareRankedAd(a as AdlistElements, onClickFunction)
+      });
+    }
+    return result;
+  }, [prepareRankedAd, data, onClickFunction])
+
+  return (
+    <Ads loading={loading} dataSetReady={dataSetReady} closeError={closeError} errorMessage={errorMessage} />
+  )
 }
-
-export const getAds = (
-  rankedAds: any[],
-  onClickMock: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)): JSX.Element[] => {
-    return rankedAds.map((ad) => prepareRankedAd(ad, onClickMock))
-};
-
-const onClickMock = ()=>{
-
-}
-
-const prepareRankedAd = (
-  ad: any,
-  onClickMock: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
-  ): JSX.Element => {
-    return <AdCard onClick={onClickMock} title={ad.title} description={ad.description} image={ad.image} price={ad.price} />
-};

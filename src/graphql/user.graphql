@@ -8,6 +8,7 @@ mutation signIn($email: String!, $password: String!) {
     token
   }
 }
+
 query currentUser {
   currentUser {
     id
@@ -19,4 +20,5 @@ query currentUser {
     phone
     token
   }
+}
 }

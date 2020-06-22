@@ -13,7 +13,7 @@ interface Props {
     handleShowDialog: () => void;
 }
 
-export const BookingForm = ({ adId, adTitle, adRanking, blockedDays, visible, handleShowDialog }: Props) => {
+export const AvailableDayForm = ({ adId, adTitle, adRanking, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
 

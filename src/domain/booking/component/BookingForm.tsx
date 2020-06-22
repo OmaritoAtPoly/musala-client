@@ -73,6 +73,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 		margin: '0 1rem',
 		flexDirection: 'column',
 		justifyContent: 'center',
+		[theme.breakpoints.down('md')]: {
+			marginTop: theme.spacing(2)
+		}
+
 	},
 	price: {
 		marginTop: theme.spacing(1),

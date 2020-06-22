@@ -6,6 +6,7 @@ import { PrimaryButton } from '../../../component/PrimaryButton'
 import { PER_NIGHT } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
+import { Calendar } from '../../../containers/calendar/Calendar'
 
 
 interface Props {
@@ -13,21 +14,25 @@ interface Props {
 	adTitle: string;
 	adRanking: number;
 	price: number;
-	onChangeRange: (range: Range) => void;
 	range: Range | undefined;
+	onChangeRange: (range: Range) => void;
+	onSubmit: (values: any) => void;
 }
 
-const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRange }: Props) => {
+const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRange, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
 		<Formik
 			initialValues={{ range, pax: 0 }}
-			onSubmit={(values, actions) => { console.log(values) }}
+			onSubmit={(values, actions) => {
+				onSubmit(values)
+			}}
 		>
 			{({ values, handleChange }) =>
 				<Form>
 					<div className={classes.container}>
+						<Calendar bookedDays={bookedDays} onChangeRange={onChangeRange} />
 						<div className={classes.fields}>
 							<TitlePanel title={adTitle} ranking={adRanking} />
 							<TextField
@@ -41,8 +46,10 @@ const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRan
 								size='small'
 								onChange={handleChange}
 							/>
-							<Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
-							<PrimaryButton type='submit' >{'Book'}</PrimaryButton>
+							<Typography className={classes.price} color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
+							<div className={classes.button}>
+								<PrimaryButton type='submit' >{'Book'}</PrimaryButton>
+							</div>
 						</div>
 					</div>
 				</Form>
@@ -57,14 +64,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 	container: {
 		display: 'flex',
 		flexFlow: 'row wrap',
+		alignItems: 'baseline',
 		justifyContent: 'center',
 		marginTop: '1rem',
 		padding: theme.spacing(1),
 	},
 	fields: {
-		flex: 1,
+		margin: '0 1rem',
 		flexDirection: 'column',
 		justifyContent: 'center',
+	},
+	price: {
+		marginTop: theme.spacing(1),
+	},
+	button: {
+		marginTop: theme.spacing(2),
+		display: 'inline-block'
 	}
 })
 );

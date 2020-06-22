@@ -19,6 +19,10 @@ export const BookingForm = ({ adTitle, adRanking, adPrice, bookedDays, visible, 
         setRange(range)
     }
 
+    const onSubmit = (values: any) => {
+        console.log(values)
+    }
+
     return (
         <BookingDialog
             adTitle={adTitle}
@@ -26,6 +30,7 @@ export const BookingForm = ({ adTitle, adRanking, adPrice, bookedDays, visible, 
             price={adPrice}
             bookedDays={bookedDays}
             onRangeChanged={handldeOnRangeChange}
+            onSubmit={onSubmit}
             onClose={handleShowDialog}
             range={range}
             visible={visible}

@@ -9,6 +9,7 @@ interface Props {
 	visible: boolean;
 	onClose: () => void;
 	onRangeChanged: (range: Range) => void;
+	onSubmit: (values: any) => void;
 	price: number;
 	ranking: number;
 	adTitle: string;
@@ -16,7 +17,7 @@ interface Props {
 	range: Range | undefined;
 }
 
-export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged, bookedDays, range, onClose }: Props) => {
+export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged, onSubmit, bookedDays, range, onClose }: Props) => {
 	const classes = useStyles();
 	return (
 		<Dialog fullScreen open={visible} onClose={onClose}>
@@ -33,6 +34,7 @@ export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged
 					bookedDays={bookedDays}
 					range={range}
 					onChangeRange={onRangeChanged}
+					onSubmit={onSubmit}
 				/>
 			</DialogContent>
 		</Dialog>

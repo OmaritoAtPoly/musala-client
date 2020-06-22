@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
-import customTheme from '../../../../theme';
+import customTheme, { theme } from '../../../../theme';
 import { CREATE_AT, RESERVED_AT } from '../../../../utils/constants';
 import ItemDate from './ItemDate';
 import ItemDescriptions from './ItemDescriptions';
@@ -13,19 +13,19 @@ export interface Props {
   checkout: string
   createdAt: string
   email: string
-  emailHost:string
+  emailHost: string
   fullName: string
   title: string
   image: string
   host: string
-  createAtAdd:string 
-  widthImage:number
-  heightImage:number
-  widthIcon:number
-  heightIcon:number
+  createAtAdd: string
+  widthImage: number
+  heightImage: number
+  widthIcon: number
+  heightIcon: number
 }
 
-const BookingRow = ({checkin,checkout,createdAt,email,emailHost,fullName,title,image,host,createAtAdd,widthImage,widthIcon,heightImage,heightIcon}:Props) => {
+const BookingRow = ({ checkin, checkout, createdAt, email, emailHost, fullName, title, image, host, createAtAdd, widthImage, widthIcon, heightImage, heightIcon }: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -49,30 +49,30 @@ const BookingRow = ({checkin,checkout,createdAt,email,emailHost,fullName,title,i
 const useStyles = makeStyles({
   container: {
     display: "flex",
-    minwidth: "100%",
+    width: "100%",
     flexDirection: "row",
     alignSelf: "center",
     justifyContent: "center",
     borderRadius: '1px',
-    boxShadow:"1px 2px 13px -5px rgba(0,0,0,0.75)",
+    boxShadow: "1px 2px 13px -5px rgba(0,0,0,0.75)",
     marginTop: customTheme.spacing.margin.medium,
-    '@media (max-width: 768px)': {
-      flexDirection: "column",
-      marginLeft:`${customTheme.spacing.margin.small}`,
+    [theme.breakpoints.down('sm')]: {
       width: "100%",
-      boxShadow:"1px 2px 13px -5px rgba(0,0,0,0.75)",
-    
-    }
+      flexDirection: "column",
+      boxShadow: "1px 2px 13px -5px rgba(0,0,0,0.75)",
+
+    },
+
   },
   leftSide: {
-    width: "40%",
     flexDirection: "column",
     marginLeft: `${customTheme.spacing.margin.medium}`,
     paddingRight: `${customTheme.spacing.margin.bigger}`,
-    '@media (max-width: 768px)': {
-      width: "90%",
-      marginRight:`${customTheme.spacing.margin.bigger}`,
-    }
+    [theme.breakpoints.down('sm')]: {
+      width: "95%",
+      marginLeft: `${customTheme.spacing.margin.smaller}`,
+      paddingRight: `${customTheme.spacing.margin.none}`,
+    },
   },
   detalles: {
     marginTop: `${customTheme.spacing.margin.big}`
@@ -82,12 +82,11 @@ const useStyles = makeStyles({
     flexDirection: "column",
     marginLeft: `${customTheme.spacing.margin.medium}`,
     marginRight: `${customTheme.spacing.margin.bigger}`,
-    paddingRight: `${customTheme.spacing.margin.bigger}`,
-    '@media (max-width: 768px)': {
-      width: "90%",
-      marginTop: `${customTheme.spacing.margin.small}`,
-      marginRight: `${customTheme.spacing.margin.bigger}`
-    }
+    [theme.breakpoints.down('sm')]: {
+      width: "95%",
+      marginLeft: `${customTheme.spacing.margin.smaller}`,
+      paddingRight: `${customTheme.spacing.margin.none}`,
+    },
   }
 });
 export default BookingRow

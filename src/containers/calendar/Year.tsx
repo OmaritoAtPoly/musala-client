@@ -1,6 +1,7 @@
 import moment, { Moment } from 'moment';
 import React, { useMemo } from 'react';
 import { DayModel, DAY_STATE, Range } from './utils/types';
+import YearView from '../../component/calendar/Year'
 
 interface Props {
     currentMonth: Moment;

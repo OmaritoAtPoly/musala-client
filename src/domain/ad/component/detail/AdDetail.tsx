@@ -9,6 +9,7 @@ import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
 import { TitlePanel } from './TitlePanel';
 import { BookingForm } from '../../../booking/container/BookingForm';
+import { Calendar } from '../../../../containers/calendar/Calendar';
 
 interface Props {
     title: string;
@@ -25,7 +26,7 @@ export const AdDetail = ({ title, description, image, price, ranking, visible, b
     const classes = useStyles()
     return (
         <>
-            <div className={classes.container} >
+            {/* <div className={classes.container} >
                 <div className={classes.imageContainer} >
                     <PicturePanel urlImage={image} />
                 </div>
@@ -35,15 +36,16 @@ export const AdDetail = ({ title, description, image, price, ranking, visible, b
                     <BookPanel onClick={handleOnShowDialog} />
                 </div>
             </div>
-            <DescriptionPanel description={description} />
-            <BookingForm
+            <DescriptionPanel description={description} /> */}
+            <Calendar bookedDays={bookedDays} onChangeRange={() => console.log('Range')} />
+            {/* <BookingForm
                 adPrice={price}
                 adRanking={ranking}
                 adTitle={title}
                 bookedDays={bookedDays}
                 handleShowDialog={handleOnShowDialog}
                 visible={visible}
-            />
+            /> */}
         </>
     )
 }

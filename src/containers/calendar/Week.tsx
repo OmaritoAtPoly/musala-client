@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     container: {
         display: 'flex',
         alignItems: 'flex-start',
+        width: 'fit-content',
         marginTop: '.2rem'
     }
 });

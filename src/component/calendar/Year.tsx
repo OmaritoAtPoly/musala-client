@@ -22,7 +22,7 @@ const Year = ({ previousMonth, nextMonth, onDayClick, currentMonth, ...props }: 
             <CalendarNavBar nextMonth={nextMonth} previousMonth={previousMonth} />
             <div className={classes.month}>
                 <Month month={currentMonth} dayList={props.firstMonthDayList} onDayClick={onDayClick} />
-                <Hidden only={["sm", "xs"]} >
+                <Hidden only={['xs']} >
                     <Month month={currentMonth.clone().add(1, 'M')} dayList={props.secondMonthDayList} onDayClick={onDayClick} />
                 </Hidden>
             </div>
@@ -34,24 +34,14 @@ export default Year;
 
 const useStyles = makeStyles({
     container: {
+        width: 'max-content',
         display: 'flex',
-        alignItems: 'center',
         flexDirection: 'column',
+        alignItems: 'center',
     },
     month: {
         display: 'flex',
         flexFlow: 'row wrap',
         justifyContent: 'center',
-        marginTop: '-3.5rem'
-    },
-    calendar: {
-        padding: '1rem'
-    },
-    week: {
-        display: 'flex'
-    },
-    buttonStyle: {
-        display: 'flex',
-        justifyContent: 'flex-start'
     }
 });

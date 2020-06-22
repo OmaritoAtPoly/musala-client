@@ -25,8 +25,8 @@ export default Month;
 
 const useStyles = makeStyles({
     container: {
-        flex: 1,
-        margin: '1.5rem',
+        width: 'fit-content',
+        margin: '-1.8rem 1.5rem 0 1.5rem',
     },
     month: {
         display: 'flex',

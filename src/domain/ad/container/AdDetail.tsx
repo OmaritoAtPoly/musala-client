@@ -33,6 +33,12 @@ const getMockAd = () => {
          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, modi! Cumque impedit, quia quidem itaque inventore dolor sed quos, odio soluta tempore eum in? Iste facere similique minus atque eum.
         `,
         ranking: 4,
-        bookedDays: [{ checkIn: moment('2020-07-10', DATE_FORMAT), checkOut: moment('2020-07-15', DATE_FORMAT) }]
+        blockedDays: [
+            moment('2020-07-10', DATE_FORMAT),
+            moment('2020-07-11', DATE_FORMAT),
+            moment('2020-07-12', DATE_FORMAT),
+            moment('2020-07-13', DATE_FORMAT),
+            moment('2020-07-14', DATE_FORMAT),
+            moment('2020-07-15', DATE_FORMAT)]
     }
 }

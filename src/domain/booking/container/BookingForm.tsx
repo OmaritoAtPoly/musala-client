@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { BookingDialog } from '../component/BookingDialog'
 import { Range } from '../utils'
+import { Moment } from 'moment'
 
 interface Props {
     adTitle: string;
     adRanking: number;
     adPrice: number;
     visible: boolean;
-    bookedDays: Range[];
+    blockedDays: Moment[];
     handleShowDialog: () => void;
 
 }
 
-export const BookingForm = ({ adTitle, adRanking, adPrice, bookedDays, visible, handleShowDialog }: Props) => {
+export const BookingForm = ({ adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
 
     const handldeOnRangeChange = (range: Range) => {
@@ -29,7 +30,7 @@ export const BookingForm = ({ adTitle, adRanking, adPrice, bookedDays, visible, 
             adTitle={adTitle}
             ranking={adRanking}
             price={adPrice}
-            bookedDays={bookedDays}
+            blockedDays={blockedDays}
             onRangeChanged={handldeOnRangeChange}
             onSubmit={onSubmit}
             onClose={handleShowDialog}

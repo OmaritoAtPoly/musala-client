@@ -5,23 +5,23 @@ import { Range } from './utils/types';
 import CalendarView from '../../component/calendar/Calendar'
 
 interface Props {
-    bookedDays: Range[];
+    blockedDays: Moment[];
     onChangeRange: (range: Range) => void;
 }
 
-export const Calendar = ({ bookedDays, onChangeRange }: Props) => {
+export const Calendar = ({ blockedDays, onChangeRange }: Props) => {
     const [currentMonth, setCurrentMonth] = useState(moment(new Date(), DATE_FORMAT));
     const [range, setRange] = useState<Range>()
 
     const checkRange = (date: Moment) => {
-        if (!range && isSelectedCheckInValid(date, bookedDays)) {
+        if (!range && isSelectedCheckInValid(date, blockedDays)) {
             setRange({ checkIn: date, checkOut: undefined })
             onChangeRange({ checkIn: date, checkOut: undefined })
-        } else if (range && range.checkOut === undefined && isSelectedRangeValid(range.checkIn!, date, bookedDays)) {
+        } else if (range && range.checkOut === undefined && isSelectedRangeValid(range.checkIn!, date, blockedDays)) {
             const orderedRange = checkRangeOrder(date, range.checkIn!)
             setRange(orderedRange)
             onChangeRange(orderedRange)
-        } else if (isSelectedCheckInValid(date, bookedDays)) {
+        } else if (isSelectedCheckInValid(date, blockedDays)) {
             setRange({ checkIn: date, checkOut: undefined })
             onChangeRange({ checkIn: date, checkOut: undefined })
         }
@@ -31,7 +31,7 @@ export const Calendar = ({ bookedDays, onChangeRange }: Props) => {
         checkRange(date)
     }
 
-    return <CalendarView currentMonth={currentMonth} bookedDays={bookedDays} range={range} setCurrentMonth={setCurrentMonth} handleOnClickedDay={handleOnClickedDay} />
+    return <CalendarView currentMonth={currentMonth} blockedDays={blockedDays} range={range} setCurrentMonth={setCurrentMonth} handleOnClickedDay={handleOnClickedDay} />
 }
 
 const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {
@@ -40,18 +40,18 @@ const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {
     } else return { checkIn: checkIn, checkOut: date }
 }
 
-const isSelectedCheckInValid = (date: Moment, bookedDays: Range[]) => {
-    for (let i = 0; i < bookedDays.length; i++) {
-        if (date.isSame(bookedDays[i].checkIn) || date.isBetween(bookedDays[i].checkIn, bookedDays[i].checkOut)) {
+const isSelectedCheckInValid = (date: Moment, blockedDays: Moment[]) => {
+    for (let i = 0; i < blockedDays.length; i++) {
+        if (date.isSame(blockedDays[i])) {
             return false;
         }
     } return true;
 }
 
-const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, bookedDays: Range[]) => {
+const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: Moment[]) => {
     if (checkIn.isBefore(checkOut)) {
-        for (let i = 0; i < bookedDays.length; i++) {
-            if (bookedDays[i].checkIn?.isBetween(checkIn, checkOut)) return false;
+        for (let i = 0; i < blockedDays.length; i++) {
+            if (blockedDays[i].isBetween(checkIn, checkOut)) return false;
         } return true;
     } return false;
 }

@@ -5,17 +5,17 @@ import { Year } from '../../containers/calendar/Year';
 
 interface Props {
     currentMonth: Moment;
-    bookedDays: Range[];
+    blockedDays: Moment[];
     range: Range | undefined;
     setCurrentMonth: (date: Moment) => void;
     handleOnClickedDay: (date: Moment) => void;
 }
 
-const Calendar = ({ currentMonth, bookedDays, range, setCurrentMonth, handleOnClickedDay }: Props) => {
+const Calendar = ({ currentMonth, blockedDays, range, setCurrentMonth, handleOnClickedDay }: Props) => {
     return (
         <Year
             currentMonth={currentMonth}
-            bookedDays={bookedDays}
+            blockedDays={blockedDays}
             range={range}
             setCurrentMonth={setCurrentMonth}
             onDayClick={handleOnClickedDay}

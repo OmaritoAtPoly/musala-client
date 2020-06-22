@@ -1,15 +1,14 @@
 import { Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { Moment } from 'moment';
 import React from 'react';
 import customTheme from '../../../../theme';
 import { PER_NIGHT } from '../../../../utils/constants';
-import { Range } from '../../../booking/utils';
+import { BookingForm } from '../../../booking/container/BookingForm';
 import { BookPanel } from './BookPanel';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
 import { TitlePanel } from './TitlePanel';
-import { BookingForm } from '../../../booking/container/BookingForm';
-import { Calendar } from '../../../../containers/calendar/Calendar';
 
 interface Props {
     title: string;
@@ -17,12 +16,12 @@ interface Props {
     image: string;
     price: number;
     ranking: number;
-    bookedDays: Range[]
+    blockedDays: Moment[]
     handleOnShowDialog: () => void;
     visible: boolean;
 }
 
-export const AdDetail = ({ title, description, image, price, ranking, visible, bookedDays, handleOnShowDialog }: Props) => {
+export const AdDetail = ({ title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
     return (
         <>
@@ -41,7 +40,7 @@ export const AdDetail = ({ title, description, image, price, ranking, visible, b
                 adPrice={price}
                 adRanking={ranking}
                 adTitle={title}
-                bookedDays={bookedDays}
+                blockedDays={blockedDays}
                 handleShowDialog={handleOnShowDialog}
                 visible={visible}
             />

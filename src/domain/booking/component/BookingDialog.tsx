@@ -4,6 +4,7 @@ import React from 'react';
 import Form from './BookingForm'
 import customTheme from '../../../theme';
 import { Range } from '../utils';
+import { Moment } from 'moment';
 
 interface Props {
 	visible: boolean;
@@ -13,11 +14,11 @@ interface Props {
 	price: number;
 	ranking: number;
 	adTitle: string;
-	bookedDays: Range[];
+	blockedDays: Moment[];
 	range: Range | undefined;
 }
 
-export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged, onSubmit, bookedDays, range, onClose }: Props) => {
+export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged, onSubmit, blockedDays, range, onClose }: Props) => {
 	const classes = useStyles();
 	return (
 		<Dialog fullScreen open={visible} onClose={onClose}>
@@ -31,7 +32,7 @@ export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged
 					price={price}
 					adRanking={ranking}
 					adTitle={adTitle}
-					bookedDays={bookedDays}
+					blockedDays={blockedDays}
 					range={range}
 					onChangeRange={onRangeChanged}
 					onSubmit={onSubmit}

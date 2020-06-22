@@ -7,10 +7,11 @@ import { PER_NIGHT, BOOK_NOW } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 import { Calendar } from '../../../containers/calendar/Calendar'
+import { Moment } from 'moment'
 
 
 interface Props {
-	bookedDays: Range[];
+	blockedDays: Moment[];
 	adTitle: string;
 	adRanking: number;
 	price: number;
@@ -19,7 +20,7 @@ interface Props {
 	onSubmit: (values: any) => void;
 }
 
-const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRange, onSubmit }: Props) => {
+const BookingForm = ({ blockedDays, adTitle, adRanking, price, range, onChangeRange, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -32,7 +33,7 @@ const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRan
 			{({ values, handleChange }) =>
 				<Form>
 					<div className={classes.container}>
-						<Calendar bookedDays={bookedDays} onChangeRange={onChangeRange} />
+						<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} />
 						<div className={classes.fields}>
 							<TitlePanel title={adTitle} ranking={adRanking} />
 							<TextField

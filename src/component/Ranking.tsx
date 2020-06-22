@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     ratingTypo: {
         fontWeight: 'bold',
-        marginRight: '.3rem',
+        marginRight: theme.spacing(1),
         color: theme.palette.text.primary
     }
 }));

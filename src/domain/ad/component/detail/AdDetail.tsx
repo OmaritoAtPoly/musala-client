@@ -3,20 +3,25 @@ import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import customTheme from '../../../../theme';
 import { PER_NIGHT } from '../../../../utils/constants';
+import { Range } from '../../../booking/utils';
 import { BookPanel } from './BookPanel';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
 import { TitlePanel } from './TitlePanel';
+import { BookingForm } from '../../../booking/container/BookingForm';
 
 interface Props {
     title: string;
     description: string;
     image: string;
     price: number;
-    onBook: () => void;
+    ranking: number;
+    bookedDays: Range[]
+    handleOnShowDialog: () => void;
+    visible: boolean;
 }
 
-export const AdDetail = ({ title, description, image, price, onBook }: Props) => {
+export const AdDetail = ({ title, description, image, price, ranking, visible, bookedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
     return (
         <>
@@ -27,10 +32,18 @@ export const AdDetail = ({ title, description, image, price, onBook }: Props) =>
                 <div className={classes.detailContainer}>
                     <TitlePanel ranking={5} title={title} />
                     <Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
-                    <BookPanel onClick={onBook} />
+                    <BookPanel onClick={handleOnShowDialog} />
                 </div>
             </div>
             <DescriptionPanel description={description} />
+            <BookingForm
+                adPrice={price}
+                adRanking={ranking}
+                adTitle={title}
+                bookedDays={bookedDays}
+                handleShowDialog={handleOnShowDialog}
+                visible={visible}
+            />
         </>
     )
 }

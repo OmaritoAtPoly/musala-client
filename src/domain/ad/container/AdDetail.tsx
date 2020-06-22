@@ -21,6 +21,7 @@ export const AdDetail = () => {
 
 const getMockAd = () => {
     return {
+        adId: 'ad23bt1r23tsdgavdh2djfhsdfh',
         title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
         image: 'urlImage',
         price: 25,

@@ -11,6 +11,7 @@ import { PicturePanel } from './PicturePanel';
 import { TitlePanel } from './TitlePanel';
 
 interface Props {
+    adId: string;
     title: string;
     description: string;
     image: string;
@@ -21,7 +22,7 @@ interface Props {
     visible: boolean;
 }
 
-export const AdDetail = ({ title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
+export const AdDetail = ({ adId, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
     return (
         <>
@@ -37,6 +38,7 @@ export const AdDetail = ({ title, description, image, price, ranking, visible, b
             </div>
             <DescriptionPanel description={description} />
             <BookingForm
+                adId={adId}
                 adPrice={price}
                 adRanking={ranking}
                 adTitle={title}

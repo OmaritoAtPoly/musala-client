@@ -1,4 +1,4 @@
-import { TextField, Theme, Typography } from '@material-ui/core'
+import { TextField, Theme, Typography, Collapse } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
 import React from 'react'
@@ -7,7 +7,14 @@ import { PER_NIGHT, BOOK_NOW } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 import { Calendar } from '../../../containers/calendar/Calendar'
+import * as Yup from 'yup';
 import { Moment } from 'moment'
+import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
+import Alert from '@material-ui/lab/Alert'
+
+const validationSchema = Yup.object({
+	pax: Yup.number().positive('Pax must be greater than zero')
+})
 
 
 interface Props {
@@ -17,23 +24,34 @@ interface Props {
 	price: number;
 	range: Range | undefined;
 	onChangeRange: (range: Range) => void;
+	handleValidRangeAlert: () => void;
+	validRange: boolean;
 	onSubmit: (values: any) => void;
 }
 
-const BookingForm = ({ blockedDays, adTitle, adRanking, price, range, onChangeRange, onSubmit }: Props) => {
+const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
 		<Formik
 			initialValues={{ range, pax: 0 }}
+			validationSchema={validationSchema}
 			onSubmit={(values) => {
-				onSubmit(values)
+				if (range && range.checkIn && range.checkOut) {
+					onSubmit(values)
+				} else handleValidRangeAlert();
 			}}
 		>
-			{({ values, handleChange }) =>
+			{({ values, errors, touched, handleChange }) =>
 				<Form>
 					<div className={classes.container}>
-						<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} />
+						<div>
+							<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} />
+							<Collapse in={!validRange}>
+								<Alert severity="error">Range must be selected!!</Alert>
+							</Collapse>
+
+						</div>
 						<div className={classes.fields}>
 							<TitlePanel title={adTitle} ranking={adRanking} />
 							<TextField
@@ -47,6 +65,8 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, price, range, onChangeRa
 								size='small'
 								onChange={handleChange}
 							/>
+							{errors.pax && touched.pax ? (<ErrorFieldForm name='pax' />) : null}
+
 							<Typography className={classes.price} color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
 							<div className={classes.button}>
 								<PrimaryButton type='submit' >{BOOK_NOW}</PrimaryButton>

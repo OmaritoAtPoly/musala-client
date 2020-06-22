@@ -10,15 +10,17 @@ interface Props {
 	visible: boolean;
 	onClose: () => void;
 	onRangeChanged: (range: Range) => void;
+	handleValidRangeAlert: () => void;
 	onSubmit: (values: any) => void;
 	price: number;
 	ranking: number;
 	adTitle: string;
 	blockedDays: Moment[];
 	range: Range | undefined;
+	validRange: boolean;
 }
 
-export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged, onSubmit, blockedDays, range, onClose }: Props) => {
+export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged, handleValidRangeAlert, validRange, onSubmit, blockedDays, range, onClose }: Props) => {
 	const classes = useStyles();
 	return (
 		<Dialog fullScreen open={visible} onClose={onClose}>
@@ -36,6 +38,8 @@ export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged
 					range={range}
 					onChangeRange={onRangeChanged}
 					onSubmit={onSubmit}
+					handleValidRangeAlert={handleValidRangeAlert}
+					validRange={validRange}
 				/>
 			</DialogContent>
 		</Dialog>

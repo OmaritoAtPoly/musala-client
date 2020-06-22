@@ -30,6 +30,7 @@ export const BookingForm = ({ adId, adTitle, adRanking, adPrice, blockedDays, vi
         console.log(values)
         console.log(range)
         setIsValidRange(true);
+        setRange(undefined)
         handleShowDialog()
         alert(`adId:${adId},
          totalPaid:${calculateTotalPaid()},

@@ -8,7 +8,7 @@ import { ErrorFieldForm } from '../../../component/ErrorFieldForm';
 import FakeNavLink from '../../../component/Header/FakeNavLink';
 import { PrimaryButton } from '../../../component/PrimaryButton';
 import customTheme from '../../../theme';
-import { CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED } from '../../../utils/constants';
+import { CLICK_ME, CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED, REGISTERED } from '../../../utils/constants';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 
 interface Props {
@@ -121,9 +121,8 @@ export const SignupForm = ({ onSignup, closeError, errorMessage, loading, signIn
                         open={!!errorMessage}
                         onClose={closeError}
                     />
-                    <div>Already have an account_? <FakeNavLink className={classes.signIn} onClick={signIn}> click here</FakeNavLink></div>
+                    <div>{REGISTERED}<FakeNavLink className={classes.signIn} onClick={signIn}>{CLICK_ME}</FakeNavLink></div>
                 </Form>
-
             )}
         </Formik>
     )

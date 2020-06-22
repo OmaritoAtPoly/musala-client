@@ -5,9 +5,10 @@ import React from 'react';
 import * as Yup from 'yup';
 import Alert from '../../../component/Alert';
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm';
+import FakeNavLink from '../../../component/Header/FakeNavLink';
 import { PrimaryButton } from '../../../component/PrimaryButton';
 import customTheme from '../../../theme';
-import { CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED } from '../../../utils/constants';
+import { CLICK_ME, CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED, REGISTERED } from '../../../utils/constants';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
     closeError: () => void;
     errorMessage?: string;
     loading?: boolean;
+    signIn: () => void;
 }
 
 const getInitValue = (): SignupInitValue => {
@@ -35,7 +37,7 @@ const validationSchema = Yup.object({
     confirmPassword: Yup.string().required(CONFIRM_PASSWORD_REQUIRED).oneOf([Yup.ref('password'), ''], MATCH_PASSWORD)
 });
 
-export const SignupForm = ({ onSignup, closeError, errorMessage, loading }: Props) => {
+export const SignupForm = ({ onSignup, closeError, errorMessage, loading, signIn }: Props) => {
     const classes = useStyles()
     return (
         <Formik
@@ -119,6 +121,7 @@ export const SignupForm = ({ onSignup, closeError, errorMessage, loading }: Prop
                         open={!!errorMessage}
                         onClose={closeError}
                     />
+                    <div>{REGISTERED}<FakeNavLink className={classes.signIn} onClick={signIn}>{CLICK_ME}</FakeNavLink></div>
                 </Form>
             )}
         </Formik>
@@ -146,5 +149,8 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: `${customTheme.spacing.margin.medium} auto`,
         padding: `${customTheme.spacing.margin.bigger} auto`
+    },
+    signIn:{
+        color:customTheme.color.primary
     }
 }));

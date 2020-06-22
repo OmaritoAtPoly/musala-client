@@ -21,6 +21,7 @@ export const BookingForm = ({ adTitle, adRanking, adPrice, bookedDays, visible, 
 
     const onSubmit = (values: any) => {
         console.log(values)
+        console.log(range)
     }
 
     return (

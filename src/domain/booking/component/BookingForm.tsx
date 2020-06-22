@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
 import React from 'react'
 import { PrimaryButton } from '../../../component/PrimaryButton'
-import { PER_NIGHT } from '../../../utils/constants'
+import { PER_NIGHT, BOOK_NOW } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 import { Calendar } from '../../../containers/calendar/Calendar'
@@ -25,7 +25,7 @@ const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRan
 	return (
 		<Formik
 			initialValues={{ range, pax: 0 }}
-			onSubmit={(values, actions) => {
+			onSubmit={(values) => {
 				onSubmit(values)
 			}}
 		>
@@ -48,7 +48,7 @@ const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRan
 							/>
 							<Typography className={classes.price} color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
 							<div className={classes.button}>
-								<PrimaryButton type='submit' >{'Book'}</PrimaryButton>
+								<PrimaryButton type='submit' >{BOOK_NOW}</PrimaryButton>
 							</div>
 						</div>
 					</div>

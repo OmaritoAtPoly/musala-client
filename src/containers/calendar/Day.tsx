@@ -42,9 +42,9 @@ const getDayStyle = (day: DayModel) => {
     } else if (day.state === DAY_STATE.LAST_RANGE_SELECTED) {
         return {
             backgroundColor: 'green',
+            color: 'white',
             borderTopRightRadius: '50%',
             borderBottomRightRadius: '50%',
-            color: theme.palette.background
         }
     } else if (day.state === DAY_STATE.EMPTY) {
         return {

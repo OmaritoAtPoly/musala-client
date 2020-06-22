@@ -12,6 +12,7 @@ export const NO_DATA = "There is no data to show"
 export const NOT_FOUND = 'not found';
 export const DATE_FORMAT = 'YYYY-MM-DD';
 export const PER_NIGHT = 'per night';
+export const REQUIRED_RANGE = 'Range must be selected!!';
 export const BOOK_NOW = 'Book Now!';
 export const CREATE_AT = 'Created at';
 export const RESERVED_AT = 'Reserved at'

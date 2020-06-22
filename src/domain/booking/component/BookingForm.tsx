@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
 import React from 'react'
 import { PrimaryButton } from '../../../component/PrimaryButton'
-import { PER_NIGHT, BOOK_NOW } from '../../../utils/constants'
+import { PER_NIGHT, BOOK_NOW, REQUIRED_RANGE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 import { Calendar } from '../../../containers/calendar/Calendar'
@@ -26,7 +26,7 @@ interface Props {
 	onChangeRange: (range: Range) => void;
 	handleValidRangeAlert: () => void;
 	validRange: boolean;
-	onSubmit: (values: any) => void;
+	onSubmit: (pax: number) => void;
 }
 
 const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
@@ -34,11 +34,11 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 
 	return (
 		<Formik
-			initialValues={{ range, pax: 0 }}
+			initialValues={{ pax: 0 }}
 			validationSchema={validationSchema}
 			onSubmit={(values) => {
 				if (range && range.checkIn && range.checkOut) {
-					onSubmit(values)
+					onSubmit(values.pax)
 				} else handleValidRangeAlert();
 			}}
 		>
@@ -48,7 +48,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 						<div>
 							<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
-								<Alert severity="error">Range must be selected!!</Alert>
+								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>
 
 						</div>

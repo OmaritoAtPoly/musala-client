@@ -31,11 +31,11 @@ const Header: FC<Props> = ({ links, userName }) => {
           </NavLink>
         </div>
         <div>
-          {links.map(({ path, title, onClick }) =>
+          {links.map(({ path, title, onClick }, i) =>
             onClick ? (
-              <FakeNavLink onClick={onClick}>{title}</FakeNavLink>
+              <FakeNavLink key={i} onClick={onClick}>{title}</FakeNavLink>
             ) : (
-              <NavLink to={path}>{title}</NavLink>
+              <NavLink key={i} to={path}>{title}</NavLink>
             ),
           )}
         </div>

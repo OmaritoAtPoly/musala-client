@@ -31,6 +31,10 @@ const Signup = () => {
     setAlertError(undefined);
   }, [setAlertError]);
 
+  const signIn = useCallback(() => {
+    push("/login");
+  }, [push])
+
   const handleSignup = useCallback(
     ({ email, fullName, password, phone }) => {
       signUpFn({
@@ -69,6 +73,7 @@ const Signup = () => {
       onSignup={handleSignup}
       closeError={closeError}
       errorMessage={errorMessage}
+      signIn={signIn}
     />
   );
 };

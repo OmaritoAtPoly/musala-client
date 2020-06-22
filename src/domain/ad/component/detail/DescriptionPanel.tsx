@@ -1,7 +1,6 @@
-import React from 'react'
+import { Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
-import customTheme from '../../../../theme';
+import React from 'react';
 
 interface Props {
     description: string;
@@ -9,11 +8,11 @@ interface Props {
 
 export const DescriptionPanel = ({ description }: Props) => {
     const classes = useStyles()
-    return <Typography className={classes.text} variant='body1' >{description}</Typography>
+    return <Typography className={classes.text} variant='body2' color='textPrimary' >{description}</Typography>
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
     text: {
-        margin: `${customTheme.spacing.margin.medium} auto`
+        padding: theme.spacing(2)
     }
-});
+}));

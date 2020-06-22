@@ -28,10 +28,6 @@ const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRan
 			{({ values, handleChange }) =>
 				<Form>
 					<div className={classes.container}>
-						{/* <Calendar
-							onChangeRange={onChangeRange}
-							bookedDays={bookedDays}
-						/> */}
 						<div className={classes.fields}>
 							<TitlePanel title={adTitle} ranking={adRanking} />
 							<TextField

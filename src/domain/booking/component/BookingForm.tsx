@@ -17,7 +17,7 @@ interface Props {
 	range: Range | undefined;
 }
 
-export const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRange }: Props) => {
+const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onChangeRange }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -54,6 +54,8 @@ export const BookingForm = ({ bookedDays, adTitle, adRanking, price, range, onCh
 		</Formik>
 	)
 }
+
+export default BookingForm;
 
 const useStyles = makeStyles((theme: Theme) => ({
 	container: {

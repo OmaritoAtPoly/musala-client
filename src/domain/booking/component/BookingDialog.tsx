@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogTitle, IconButton, makeStyles } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
-import { BookingForm } from './BookingForm'
+import Form from './BookingForm'
 import customTheme from '../../../theme';
 import { Range } from '../utils';
 
@@ -26,7 +26,7 @@ export const BookingDialog = ({ visible, price, ranking, adTitle, onRangeChanged
 				</IconButton>
 			</DialogTitle>
 			<DialogContent>
-				<BookingForm
+				<Form
 					price={price}
 					adRanking={ranking}
 					adTitle={adTitle}

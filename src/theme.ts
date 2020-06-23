@@ -5,6 +5,12 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 const primary = '#da1921';
 
 export const customTheme = {
+  font: {
+    size: {
+      small: '.8rem',
+      medium: '1rem'
+    }
+  },
   dimension: {
     radius: {
       small: '0.3rem'

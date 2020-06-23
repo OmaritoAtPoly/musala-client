@@ -25,15 +25,15 @@ const getDayStyle = (day: DayModel) => {
     } else if (day.state === DAY_STATE.SINGLE_SELECTED) {
         return {
             color: customTheme.color.white,
-            borderRadius: '100%',
+            borderRadius: customTheme.dimension.width.w100,
             backgroundColor: customTheme.color.primaryAccent,
             fontWeight: customTheme.dimension.font.bold
         }
     } else if (day.state === DAY_STATE.FIRST_RANGE_SELECTED) {
         return {
             backgroundColor: customTheme.color.primaryAccent,
-            borderTopLeftRadius: '50%',
-            borderBottomLeftRadius: '50%',
+            borderTopLeftRadius: customTheme.dimension.width.w50,
+            borderBottomLeftRadius: customTheme.dimension.width.w50,
             fontWeight: customTheme.dimension.font.bold,
             color: customTheme.color.white
         }
@@ -47,19 +47,21 @@ const getDayStyle = (day: DayModel) => {
         return {
             backgroundColor: customTheme.color.primaryAccent,
             color: customTheme.color.white,
-            borderTopRightRadius: '50%',
-            borderBottomRightRadius: '50%',
+            borderTopRightRadius: customTheme.dimension.width.w50,
+            borderBottomRightRadius: customTheme.dimension.width.w50,
             fontWeight: customTheme.dimension.font.bold
         }
     } else if (day.state === DAY_STATE.EMPTY) {
         return {
-            borderRadius: '0.3rem',
+            borderRadius: customTheme.dimension.radius.small,
             color: theme.palette.text.primary,
             backgroundColor: customTheme.color.white
         }
     } else if (day.state === DAY_STATE.BEFORE_CURRENT) {
         return {
             textDecoration: 'line-through',
+            backgroundColor: customTheme.color.grayLight1,
+            cursor: 'default',
             color: theme.palette.text.secondary
         }
     } else return {}

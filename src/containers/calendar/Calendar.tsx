@@ -22,29 +22,29 @@ export const Calendar = ({ blockedDays, mode, onChangeRange }: Props) => {
 
     const checkRangeInEditableMode = (date: Moment) => {
         if (!range && isSelectedCheckInValid(date, blockedDays)) {
-            setRange({ checkIn: date, checkOut: undefined })
-            onChangeRange({ checkIn: date, checkOut: undefined })
-        } else if (range && range.checkOut === undefined && isSelectedRangeValid(range.checkIn!, date, blockedDays)) {
-            const orderedRange = checkRangeOrder(date, range.checkIn!)
+            setRange({ checkin: date, checkout: undefined })
+            onChangeRange({ checkin: date, checkout: undefined })
+        } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDays)) {
+            const orderedRange = checkRangeOrder(date, range.checkin!)
             setRange(orderedRange)
             onChangeRange(orderedRange)
         } else if (isSelectedCheckInValid(date, blockedDays)) {
-            setRange({ checkIn: date, checkOut: undefined })
-            onChangeRange({ checkIn: date, checkOut: undefined })
+            setRange({ checkin: date, checkout: undefined })
+            onChangeRange({ checkin: date, checkout: undefined })
         }
     }
 
     const checkRangeInFullEditableMode = (date: Moment) => {
         if (!range) {
-            setRange({ checkIn: date, checkOut: undefined })
-            onChangeRange({ checkIn: date, checkOut: undefined })
-        } else if (range && range.checkOut === undefined) {
-            const orderedRange = checkRangeOrder(date, range.checkIn!)
+            setRange({ checkin: date, checkout: undefined })
+            onChangeRange({ checkin: date, checkout: undefined })
+        } else if (range && range.checkout === undefined) {
+            const orderedRange = checkRangeOrder(date, range.checkin!)
             setRange(orderedRange)
             onChangeRange(orderedRange)
         } else {
-            setRange({ checkIn: date, checkOut: undefined })
-            onChangeRange({ checkIn: date, checkOut: undefined })
+            setRange({ checkin: date, checkout: undefined })
+            onChangeRange({ checkin: date, checkout: undefined })
         }
     }
 
@@ -57,8 +57,8 @@ export const Calendar = ({ blockedDays, mode, onChangeRange }: Props) => {
 
 const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {
     if (date.isBefore(checkIn)) {
-        return { checkIn: date, checkOut: checkIn }
-    } else return { checkIn: checkIn, checkOut: date }
+        return { checkin: date, checkout: checkIn }
+    } else return { checkin: checkIn, checkout: date }
 }
 
 const isSelectedCheckInValid = (date: Moment, blockedDays: Moment[]) => {

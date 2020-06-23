@@ -5,7 +5,16 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 const primary = '#da1921';
 
 export const customTheme = {
+  font: {
+    size: {
+      small: '.8rem',
+      medium: '1rem'
+    }
+  },
   dimension: {
+    radius: {
+      small: '0.3rem'
+    },
     font: {
       bold: 800
     },
@@ -26,6 +35,7 @@ export const customTheme = {
   spacing: {
     margin: {
       none: 0,
+      smaller1: '.2rem',
       smaller: '.5rem',
       small: '1rem',
       medium: '1.5rem',

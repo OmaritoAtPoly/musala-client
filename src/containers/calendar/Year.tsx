@@ -53,13 +53,13 @@ const generateDayList = (firstDay: Moment, endOfMonth: Moment, currentMonth: Mom
 const getDayState = (day: Moment, currentDate: Moment, range: Range | undefined, blockedDays: Moment[]) => {
     if (day.isBefore(currentDate)) {
         return DAY_STATE.BEFORE_CURRENT;
-    } else if (range && day.isSame(range.checkIn) && range.checkOut === undefined) {
+    } else if (range && day.isSame(range.checkin) && range.checkout === undefined) {
         return DAY_STATE.SINGLE_SELECTED;
-    } else if (range && day.isSame(range.checkIn) && range.checkOut !== undefined) {
+    } else if (range && day.isSame(range.checkin) && range.checkout !== undefined) {
         return DAY_STATE.FIRST_RANGE_SELECTED;
-    } else if (range && day.isBetween(range.checkIn, range.checkOut)) {
+    } else if (range && day.isBetween(range.checkin, range.checkout)) {
         return DAY_STATE.MIDDLE_RANGE_SELECTED;
-    } else if (range && day.isSame(range.checkOut)) {
+    } else if (range && day.isSame(range.checkout)) {
         return DAY_STATE.LAST_RANGE_SELECTED;
     }
     for (let i = 0; i < blockedDays.length; i++) {

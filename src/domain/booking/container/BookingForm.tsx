@@ -33,14 +33,14 @@ export const BookingForm = ({ adId, adTitle, adRanking, adPrice, blockedDays, vi
         alert(`adId:${adId},
             pax:${pax},
          totalPaid:${calculateTotalPaid()},
-         checkIn:${ range?.checkIn?.format(DATE_FORMAT)},
-         checkOut:${ range?.checkOut?.format(DATE_FORMAT)}`
+         checkIn:${ range?.checkin?.format(DATE_FORMAT)},
+         checkOut:${ range?.checkout?.format(DATE_FORMAT)}`
         )
     }
 
     const calculateTotalPaid = () => {
-        if (range && range.checkIn && range.checkOut) {
-            return adPrice * range.checkOut.diff(range.checkIn, 'days')
+        if (range && range.checkin && range.checkout) {
+            return adPrice * range.checkout.diff(range.checkin, 'days')
         } else return 0
     }
 

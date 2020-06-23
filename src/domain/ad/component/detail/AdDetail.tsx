@@ -28,35 +28,34 @@ interface Props {
 export const AdDetail = ({ errorMessage, closeError, loading, title, description, image, price, ranking, visible, bookedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
 
-    if (loading) return <CircularProgress size={50} className={classes.loading} />
-
     return (
         <div>
-            <div className={classes.container} >
-                <div className={classes.imageContainer} >
-                    <PicturePanel urlImage={image} loading={loading} />
+            {loading && <CircularProgress size={50} className={classes.loading} /> }
+                <div className={classes.container} >
+                    <div className={classes.imageContainer} >
+                        <PicturePanel urlImage={image} loading={loading} />
+                    </div>
+                    <div className={classes.detailContainer}>
+                        <TitlePanel ranking={ranking} title={title} />
+                        <Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
+                        <BookPanel onClick={handleOnShowDialog} />
+                    </div>
                 </div>
-                <div className={classes.detailContainer}>
-                    <TitlePanel ranking={ranking} title={title} />
-                    <Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
-                    <BookPanel onClick={handleOnShowDialog} />
-                </div>
+                <DescriptionPanel description={description} />
+                <BookingForm
+                    adPrice={price}
+                    adRanking={ranking}
+                    adTitle={title}
+                    bookedDays={bookedDays}
+                    handleShowDialog={handleOnShowDialog}
+                    visible={visible}
+                />
+                <Alert
+                    message={errorMessage}
+                    open={!!errorMessage}
+                    onClose={closeError}
+                />
             </div>
-            <DescriptionPanel description={description} />
-            <BookingForm
-                adPrice={price}
-                adRanking={ranking}
-                adTitle={title}
-                bookedDays={bookedDays}
-                handleShowDialog={handleOnShowDialog}
-                visible={visible}
-            />
-            <Alert
-                message={errorMessage}
-                open={!!errorMessage}
-                onClose={closeError}
-            />
-        </div>
     )
 }
 

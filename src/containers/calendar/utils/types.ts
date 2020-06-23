@@ -11,7 +11,9 @@ export enum DAY_STATE {
     OUT_MONTH = 7,
     FIRST_IN_BOOKING_RANGE = 8,
     MIDDLE_IN_BOOKING_RANGE = 9,
-    LAST_IN_BOOKING_RANGE = 10
+    LAST_IN_BOOKING_RANGE = 10,
+    BLOCKED_BY_BOOKING = 11,
+
 }
 
 export type Range = {

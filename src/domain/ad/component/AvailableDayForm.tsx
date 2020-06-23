@@ -44,7 +44,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDayList={blockedDays} mode={FULL_EDITABLE_MODE} onChangeRange={onChangeRange} />
+							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>

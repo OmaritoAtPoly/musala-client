@@ -4,6 +4,7 @@ import { DayModel, DAY_STATE, Range } from './utils/types';
 import YearView from '../../component/calendar/Year';
 import { DATE_FORMAT } from '../../utils/constants';
 import { BlockedDay } from './Calendar';
+import { getBlockedDateRange } from '../../utils/calendar';
 
 interface Props {
     currentMonth: Moment;
@@ -68,39 +69,20 @@ const getDayState = (day: Moment, currentDate: Moment, range: Range | undefined,
 }
 
 const resolveByDefaultState = (day: Moment, blockedDayList: BlockedDay[]) => {
+
     for (let i = 0; i < blockedDayList.length; i++) {
-        const range: Range = getRange(blockedDayList[i])
-        if (blockedDayList[i].byBooking) {
-            if (isFirstInBookingRange(day, range)) {
-                return DAY_STATE.FIRST_IN_BOOKING_RANGE
-            } else if (isMiddleInBookingRange(day, range)) {
-                return DAY_STATE.MIDDLE_IN_BOOKING_RANGE
-            } else if (isLastInBookingRange(day, range)) {
-                return DAY_STATE.LAST_IN_BOOKING_RANGE
-            }
+        const range = getBlockedDateRange(blockedDayList[i])
+        if (isBLockedByBooking(day, range, blockedDayList[i].byBooking)) {
+            return DAY_STATE.BLOCKED_BY_BOOKING;
         } else if (isBLocked(day, range)) {
             return DAY_STATE.BLOCKED_DAY
         }
     } return DAY_STATE.EMPTY
 }
 
-const getRange = (blockedDay: BlockedDay): Range => {
-    return {
-        checkin: moment(blockedDay.checkin, DATE_FORMAT),
-        checkout: moment(blockedDay.checkout, DATE_FORMAT)
-    }
-}
 
-const isFirstInBookingRange = (day: Moment, range: Range) => {
-    return (day.isSame(range.checkin)) ? true : false
-}
-
-const isMiddleInBookingRange = (day: Moment, range: Range) => {
-    return (day.isBetween(range.checkin, range.checkout)) ? true : false
-}
-
-const isLastInBookingRange = (day: Moment, range: Range) => {
-    return (day.isSame(range.checkout)) ? true : false
+const isBLockedByBooking = (day: Moment, range: Range, byBooking: boolean | undefined | null) => {
+    return (day.isSameOrAfter(range.checkin) && day.isSameOrBefore(range.checkout) && byBooking) ? true : false
 }
 
 const isBLocked = (day: Moment, range: Range) => {

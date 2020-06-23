@@ -1,10 +1,9 @@
 import { Moment } from 'moment';
 import React from 'react';
-import { DayModel, DAY_STATE } from './utils/types';
-import customTheme, { theme } from '../../theme';
 import DayView from '../../component/calendar/Day';
 import { FakeDay } from '../../component/calendar/FakeDay';
-import { DATE_FORMAT } from '../../utils/constants';
+import customTheme, { theme } from '../../theme';
+import { DayModel, DAY_STATE } from './utils/types';
 
 interface Props {
     day: DayModel;
@@ -21,8 +20,16 @@ const getDayStyle = (day: DayModel) => {
             return {
                 textDecoration: 'line-through',
                 backgroundColor: customTheme.color.grayLight1,
-                cursor: 'default',
                 color: customTheme.color.primary,
+            }
+        }
+        case DAY_STATE.BLOCKED_BY_BOOKING: {
+            return {
+                textDecoration: 'line-through',
+                color: customTheme.color.white,
+                cursor: 'default',
+                backgroundColor: customTheme.color.foreground,
+                fontWeight: customTheme.dimension.font.bold
             }
         }
         case DAY_STATE.SINGLE_SELECTED: {
@@ -71,31 +78,6 @@ const getDayStyle = (day: DayModel) => {
                 backgroundColor: customTheme.color.grayLight1,
                 cursor: 'default',
                 color: theme.palette.text.secondary
-            }
-        }
-        case DAY_STATE.FIRST_IN_BOOKING_RANGE: {
-            return {
-                backgroundColor: customTheme.color.primaryAccent,
-                borderTopLeftRadius: customTheme.dimension.width.w50,
-                borderBottomLeftRadius: customTheme.dimension.width.w50,
-                fontWeight: customTheme.dimension.font.bold,
-                color: customTheme.color.white
-            }
-        }
-        case DAY_STATE.MIDDLE_IN_BOOKING_RANGE: {
-            return {
-                backgroundColor: customTheme.color.primaryAccent,
-                color: customTheme.color.white,
-                fontWeight: customTheme.dimension.font.bold
-            }
-        }
-        case DAY_STATE.LAST_IN_BOOKING_RANGE: {
-            return {
-                backgroundColor: customTheme.color.primaryAccent,
-                color: customTheme.color.white,
-                borderTopRightRadius: customTheme.dimension.width.w50,
-                borderBottomRightRadius: customTheme.dimension.width.w50,
-                fontWeight: customTheme.dimension.font.bold
             }
         }
         default: { return {} }

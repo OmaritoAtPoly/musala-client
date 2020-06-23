@@ -1,8 +1,9 @@
 import moment, { Moment } from 'moment';
 import React, { useState } from 'react';
+import CalendarView from '../../component/calendar/Calendar';
+import { getBlockedDateRange } from '../../utils/calendar';
+import { DATE_FORMAT } from '../../utils/constants';
 import { Range } from './utils/types';
-import CalendarView from '../../component/calendar/Calendar'
-import { DATE_FORMAT, FULL_EDITABLE_MODE } from '../../utils/constants';
 
 export type BlockedDay = {
     checkin: string;
@@ -13,52 +14,33 @@ export type BlockedDay = {
 interface Props {
     blockedDayList: BlockedDay[]
     onChangeRange: (range: Range) => void;
-    mode: string;
 }
 
-export const Calendar = ({ blockedDayList, mode, onChangeRange }: Props) => {
+export const Calendar = ({ blockedDayList, onChangeRange }: Props) => {
     const [currentMonth, setCurrentMonth] = useState(moment(new Date(), DATE_FORMAT));
     const [range, setRange] = useState<Range>()
 
     const checkRange = (date: Moment) => {
-        // if (mode === FULL_EDITABLE_MODE) {
-        //     checkRangeInFullEditableMode(date)
-        // } else checkRangeInEditableMode(date)
+        checkRangeInEditableMode(date)
     }
 
-    // const checkRangeInEditableMode = (date: Moment) => {
-    //     if (!range && isSelectedCheckInValid(date, blockedDays)) {
-    //         setRange({ checkin: date, checkout: undefined })
-    //         onChangeRange({ checkin: date, checkout: undefined })
-    //     } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDays)) {
-    //         const orderedRange = checkRangeOrder(date, range.checkin!)
-    //         setRange(orderedRange)
-    //         onChangeRange(orderedRange)
-    //     } else if (isSelectedCheckInValid(date, blockedDays)) {
-    //         setRange({ checkin: date, checkout: undefined })
-    //         onChangeRange({ checkin: date, checkout: undefined })
-    //     }
-    // }
-
-    // const checkRangeInFullEditableMode = (date: Moment) => {
-    //     if (date.isSameOrAfter(moment()))
-    //         if (!range) {
-    //             setRange({ checkin: date, checkout: undefined })
-    //             onChangeRange({ checkin: date, checkout: undefined })
-    //         } else if (range && range.checkout === undefined) {
-    //             const orderedRange = checkRangeOrder(date, range.checkin!)
-    //             setRange(orderedRange)
-    //             onChangeRange(orderedRange)
-    //         } else {
-    //             setRange({ checkin: date, checkout: undefined })
-    //             onChangeRange({ checkin: date, checkout: undefined })
-    //         }
-    // }
+    const checkRangeInEditableMode = (date: Moment) => {
+        if (!range && isSelectedCheckInValid(date, blockedDayList)) {
+            setRange({ checkin: date, checkout: undefined })
+            onChangeRange({ checkin: date, checkout: undefined })
+        } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDayList)) {
+            const orderedRange = checkRangeOrder(date, range.checkin!)
+            setRange(orderedRange)
+            onChangeRange(orderedRange)
+        } else if (isSelectedCheckInValid(date, blockedDayList)) {
+            setRange({ checkin: date, checkout: undefined })
+            onChangeRange({ checkin: date, checkout: undefined })
+        }
+    }
 
     const handleOnClickedDay = (date: Moment) => {
         checkRange(date)
     }
-
     return <CalendarView currentMonth={currentMonth} blockedDayList={blockedDayList} range={range} setCurrentMonth={setCurrentMonth} handleOnClickedDay={handleOnClickedDay} />
 }
 
@@ -68,20 +50,24 @@ const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {
     } else return { checkin: checkIn, checkout: date }
 }
 
-const isSelectedCheckInValid = (date: Moment, blockedDays: Moment[]) => {
+const isSelectedCheckInValid = (date: Moment, blockedDays: BlockedDay[]) => {
     for (let i = 0; i < blockedDays.length; i++) {
-        if (date.isSame(blockedDays[i])) {
+        const range = getBlockedDateRange(blockedDays[i])
+        if (date.isSameOrAfter(range.checkin) && date.isSameOrBefore(range.checkout) && blockedDays[i].byBooking) {
             return false;
         }
     } return true;
 }
 
-const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: Moment[]) => {
+const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: BlockedDay[]) => {
     if (checkIn.isBefore(checkOut)) {
         for (let i = 0; i < blockedDays.length; i++) {
-            if (blockedDays[i].isBetween(checkIn, checkOut)) return false;
+            const range = getBlockedDateRange(blockedDays[i])
+            if (range.checkin!.isBetween(checkIn, checkOut) && blockedDays[i].byBooking) return false;
         } return true;
     } return false;
 }
+
+
 
 

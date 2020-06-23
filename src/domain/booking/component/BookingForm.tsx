@@ -45,7 +45,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} mode={EDITABLE_MODE} />
+							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>

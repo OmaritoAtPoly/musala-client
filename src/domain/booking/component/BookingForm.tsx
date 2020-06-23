@@ -1,16 +1,17 @@
 import { TextField, Theme, Typography, Collapse } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
+import { Moment } from 'moment'
 import React from 'react'
+import * as Yup from 'yup'
+import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
-import { PER_NIGHT, BOOK_NOW, REQUIRED_RANGE, EDITABLE_MODE } from '../../../utils/constants'
+import { Calendar } from '../../../containers/calendar/Calendar'
+import { BOOK_NOW, EDITABLE_MODE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
-import { Calendar } from '../../../containers/calendar/Calendar'
-import * as Yup from 'yup';
-import { Moment } from 'moment'
-import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import Alert from '@material-ui/lab/Alert'
+import customTheme from '../../../theme'
 
 const validationSchema = Yup.object({
 	pax: Yup.number().positive('Pax must be greater than zero')
@@ -86,11 +87,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexFlow: 'row wrap',
 		alignItems: 'baseline',
 		justifyContent: 'center',
-		marginTop: '1rem',
+		marginTop: customTheme.spacing.margin.small,
 		padding: theme.spacing(1),
 	},
 	fields: {
-		margin: '0 1rem',
+		margin: `0 ${customTheme.spacing.margin.small}`,
 		flexDirection: 'column',
 		justifyContent: 'center',
 		[theme.breakpoints.down('md')]: {

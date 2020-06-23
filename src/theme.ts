@@ -6,6 +6,9 @@ const primary = '#da1921';
 
 export const customTheme = {
   dimension: {
+    font: {
+      bold: 800
+    },
     height: {
       small: '1rem',
       medium: '13rem',

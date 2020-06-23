@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 import React from 'react';
 import { DayModel, DAY_STATE } from './utils/types';
-import { theme } from '../../theme';
+import customTheme, { theme } from '../../theme';
 import DayView from '../../component/calendar/Day';
 import { FakeDay } from '../../component/calendar/FakeDay';
 
@@ -18,46 +18,51 @@ const getDayStyle = (day: DayModel) => {
     if (day.state === DAY_STATE.BOOKED_DAY) {
         return {
             textDecoration: 'line-through',
-            color: theme.palette.text.primary
+            backgroundColor: customTheme.color.grayLight1,
+            cursor: 'default',
+            color: customTheme.color.primary,
         }
     } else if (day.state === DAY_STATE.SINGLE_SELECTED) {
         return {
-            color: 'white',
+            color: customTheme.color.white,
             borderRadius: '100%',
-            backgroundColor: 'green',
-
+            backgroundColor: customTheme.color.primaryAccent,
+            fontWeight: customTheme.dimension.font.bold
         }
     } else if (day.state === DAY_STATE.FIRST_RANGE_SELECTED) {
         return {
-            backgroundColor: 'green',
+            backgroundColor: customTheme.color.primaryAccent,
             borderTopLeftRadius: '50%',
             borderBottomLeftRadius: '50%',
-            color: 'white'
+            fontWeight: customTheme.dimension.font.bold,
+            color: customTheme.color.white
         }
     } else if (day.state === DAY_STATE.MIDDLE_RANGE_SELECTED) {
         return {
-            backgroundColor: 'green',
-            color: 'white'
+            backgroundColor: customTheme.color.primaryAccent,
+            color: customTheme.color.white,
+            fontWeight: customTheme.dimension.font.bold
         }
     } else if (day.state === DAY_STATE.LAST_RANGE_SELECTED) {
         return {
-            backgroundColor: 'green',
-            color: 'white',
+            backgroundColor: customTheme.color.primaryAccent,
+            color: customTheme.color.white,
             borderTopRightRadius: '50%',
             borderBottomRightRadius: '50%',
+            fontWeight: customTheme.dimension.font.bold
         }
     } else if (day.state === DAY_STATE.EMPTY) {
         return {
             borderRadius: '0.3rem',
             color: theme.palette.text.primary,
-            backgroundColor: theme.palette.background,
+            backgroundColor: customTheme.color.white
         }
     } else if (day.state === DAY_STATE.BEFORE_CURRENT) {
         return {
             textDecoration: 'line-through',
             color: theme.palette.text.secondary
         }
-    }
+    } else return {}
 };
 
 

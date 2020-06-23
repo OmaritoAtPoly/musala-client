@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles, CSSProperties } from '@material-ui/styles'
 import { Moment } from 'moment'
 import React from 'react'
 import { DayModel } from '../../containers/calendar/utils/types'
@@ -7,7 +7,7 @@ import customTheme from '../../theme'
 interface Props {
     day: DayModel;
     onDayClick: (date: Moment) => void;
-    style: any;
+    style: CSSProperties;
 }
 
 const Day = ({ day: { dateOfDay }, style, onDayClick }: Props) => {
@@ -24,7 +24,7 @@ const Day = ({ day: { dateOfDay }, style, onDayClick }: Props) => {
 }
 export default Day;
 
-const useStyles = (props: any) => makeStyles({
+const useStyles = (props: CSSProperties) => makeStyles({
     container: {
         display: 'flex',
         width: customTheme.dimension.width.day_calendar_width,
@@ -33,9 +33,6 @@ const useStyles = (props: any) => makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
         cursor: 'pointer',
-        '&:hover': {
-            fontWeight: 'bold'
-        },
         ...props
     }
 });

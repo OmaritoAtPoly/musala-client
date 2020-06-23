@@ -50,7 +50,6 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>
-
 						</div>
 						<div className={classes.fields}>
 							<TitlePanel title={adTitle} ranking={adRanking} />

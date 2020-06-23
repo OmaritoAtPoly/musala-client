@@ -26,7 +26,7 @@ export const UNDEFINED = 'Undefained';
 export const AVAILABILITY = 'Availability';
 
 /*CALENDAR*/
-export const WIDTH_OF_DAY = '2.5rem';
-export const HEIGHT_OF_DAY = '2.5rem';
 export const DATE_FORMAT = 'YYYY-MM-DD';
+export const FULL_EDITABLE_MODE = 'FULL_EDITABLE_MODE';
+export const EDITABLE_MODE = 'EDITABLE_MODE';
 export const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

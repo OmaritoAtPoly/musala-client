@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles';
 import { WeekDay } from './WeekDay';
 import { Moment } from 'moment';
+import customTheme from '../../theme';
 
 interface Props {
     month: Moment
@@ -35,10 +36,10 @@ const useStyles = makeStyles({
     },
     name: {
         display: 'flex',
-        width: '100%',
+        width: customTheme.dimension.width.w100,
         fontWeight: 'bold',
         fontSize: 'small',
         justifyContent: 'center',
-        marginBottom: '1rem'
+        marginBottom: customTheme.spacing.margin.small
     }
 });

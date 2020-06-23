@@ -5,18 +5,35 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 const primary = '#da1921';
 
 export const customTheme = {
+  font: {
+    size: {
+      small: '.8rem',
+      medium: '1rem'
+    }
+  },
   dimension: {
+    radius: {
+      small: '0.3rem'
+    },
+    font: {
+      bold: 800
+    },
     height: {
       small: '1rem',
       medium: '13rem',
+      day_calendar_height: '2.5rem'
     },
     width: {
       small: '1rem',
+      day_calendar_width: '2.5rem',
+      w100: '100%',
+      w50: '50%'
     },
   },
   spacing: {
     margin: {
       none: 0,
+      smaller1: '.2rem',
       smaller: '.5rem',
       small: '1rem',
       medium: '1.5rem',

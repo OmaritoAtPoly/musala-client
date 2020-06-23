@@ -11,7 +11,7 @@ interface Props {
 	onClose: () => void;
 	onRangeChanged: (range: Range) => void;
 	handleValidRangeAlert: () => void;
-	onSubmit: (values: any) => void;
+	onSubmit: (pax: number) => void;
 	price: number;
 	ranking: number;
 	adTitle: string;

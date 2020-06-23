@@ -12,7 +12,7 @@ const initialValues = {
     price: 0,
     description: '',
     ranking: 0,
-    blockedDays: [moment(DATE_FORMAT), moment(DATE_FORMAT)]
+    blockedDays: []
 }
 
 export const AdDetail = () => {
@@ -46,10 +46,11 @@ export const AdDetail = () => {
             price: data.ad.price,
             description: data.ad.description,
             ranking: data.ad.ranking,
-            blockedDays: [
-                moment(data.ad.blockedDays.map(day => day.checkin).find(a => a), DATE_FORMAT),
-                moment(data.ad.blockedDays.map(day => day.checkout).find(a => a), DATE_FORMAT)
-            ],
+            blockedDays: data.ad.blockedDays
+            //     [
+            //     // moment(data.ad.blockedDays.map(day => day.checkin).find(a => a), DATE_FORMAT),
+            //     // moment(data.ad.blockedDays.map(day => day.checkout).find(a => a), DATE_FORMAT)
+            // ],
         }
     }, [data])
 

@@ -3,13 +3,14 @@ import { AvailableDayDialog } from '../component/AvailableDayDialog'
 import { Moment } from 'moment'
 import { DATE_FORMAT, AVAILABLE, BLOCKED, UNDEFINED } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
+import { BlockedDay } from '../../../containers/calendar/Calendar'
 
 interface Props {
     adId: string;
     adTitle: string;
     adRanking: number;
     visible: boolean;
-    blockedDays: Moment[];
+    blockedDays: BlockedDay[];
     handleShowDialog: () => void;
 }
 
@@ -24,8 +25,8 @@ export const AvailableDayForm = ({ adId, adTitle, adRanking, blockedDays, visibl
 
     const handldeOnRangeChange = (range: Range) => {
         if (range && range.checkin && range.checkout)
-            setAvailability(handleAvailability(range, blockedDays));
-        setRange(range)
+            // setAvailability(handleAvailability(range, blockedDays));
+            setRange(range)
     }
 
     const onSubmit = (availability: string) => {

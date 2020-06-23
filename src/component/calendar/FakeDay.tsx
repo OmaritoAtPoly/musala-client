@@ -12,6 +12,6 @@ const useStyles = makeStyles({
         display: 'flex',
         width: customTheme.dimension.width.day_calendar_width,
         height: customTheme.dimension.height.day_calendar_height,
-        backgroundColor: 'white'
+        backgroundColor: customTheme.color.background
     }
 });

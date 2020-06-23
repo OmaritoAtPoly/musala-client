@@ -23,7 +23,7 @@ export const AvailableDayForm = ({ adId, adTitle, adRanking, blockedDays, visibl
     }
 
     const handldeOnRangeChange = (range: Range) => {
-        if (range && range.checkIn && range.checkOut)
+        if (range && range.checkin && range.checkout)
             setAvailability(handleAvailability(range, blockedDays));
         setRange(range)
     }
@@ -34,8 +34,8 @@ export const AvailableDayForm = ({ adId, adTitle, adRanking, blockedDays, visibl
         handleShowDialog()
         alert(`adId:${adId},
             availability:${availability}
-         checkIn:${ range?.checkIn?.format(DATE_FORMAT)},
-         checkOut:${ range?.checkOut?.format(DATE_FORMAT)}`
+         checkIn:${ range?.checkin?.format(DATE_FORMAT)},
+         checkOut:${ range?.checkout?.format(DATE_FORMAT)}`
         )
     }
 
@@ -63,8 +63,8 @@ const handleAvailability = (range: Range, blockedDays: Moment[]) => {
 }
 
 const isFullBlocked = (range: Range, blockedDayList: Moment[]) => {
-    let checkIn = range.checkIn?.clone()
-    while (checkIn?.isBefore(range.checkOut)) {
+    let checkIn = range.checkin?.clone()
+    while (checkIn?.isBefore(range.checkout)) {
         const isBLocked = (isBlocked(checkIn, blockedDayList));
         if (!isBLocked) return false;
         checkIn.add(24, 'hours')
@@ -73,8 +73,8 @@ const isFullBlocked = (range: Range, blockedDayList: Moment[]) => {
 }
 
 const isFullAvailable = (range: Range, blockedDayList: Moment[]) => {
-    let checkIn = range.checkIn?.clone()
-    while (checkIn?.isBefore(range.checkOut)) {
+    let checkIn = range.checkin?.clone()
+    while (checkIn?.isBefore(range.checkout)) {
         if (isBlocked(checkIn, blockedDayList)) return false
         checkIn.add(24, 'hours')
     }

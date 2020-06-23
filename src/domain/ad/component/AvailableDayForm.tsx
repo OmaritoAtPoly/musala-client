@@ -6,9 +6,9 @@ import { Moment } from 'moment'
 import React from 'react'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { Calendar } from '../../../containers/calendar/Calendar'
-import { AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
-import { Range } from '../../../utils/type'
+import { AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, SUBMIT, FULL_EDITABLE_MODE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
+import { Range } from '../../../utils/type'
 
 interface Props {
 	blockedDays: Moment[];
@@ -29,7 +29,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
 		<Formik
 			initialValues={{ availability }}
 			onSubmit={(values) => {
-				if (range && range.checkIn && range.checkOut) {
+				if (range && range.checkin && range.checkout) {
 					onSubmit(values.availability)
 				} else handleValidRangeAlert();
 			}}
@@ -38,7 +38,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} />
+							<Calendar blockedDays={blockedDays} mode={FULL_EDITABLE_MODE} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>

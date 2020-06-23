@@ -45,6 +45,7 @@ export const AvailableDayForm = ({ adId, adTitle, adRanking, blockedDays, visibl
         onSubmit={onSubmit}
         onClose={handleShowDialog}
         range={range}
+        availability={'blocked'}
         visible={visible}
     />
 }

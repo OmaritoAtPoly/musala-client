@@ -16,10 +16,11 @@ interface Props {
     adTitle: string;
     blockedDays: Moment[];
     range: Range | undefined;
+    availability: string;
     validRange: boolean;
 }
 
-export const AvailableDayDialog = ({ visible, ranking, adTitle, onRangeChanged, handleValidRangeAlert, validRange, onSubmit, blockedDays, range, onClose }: Props) => {
+export const AvailableDayDialog = ({ visible, ranking, adTitle, onRangeChanged, availability, handleValidRangeAlert, validRange, onSubmit, blockedDays, range, onClose }: Props) => {
     const classes = useStyles();
     return (
         <Dialog fullScreen open={visible} onClose={onClose}>
@@ -37,6 +38,7 @@ export const AvailableDayDialog = ({ visible, ranking, adTitle, onRangeChanged, 
                     onChangeRange={onRangeChanged}
                     onSubmit={onSubmit}
                     handleValidRangeAlert={handleValidRangeAlert}
+                    availability={availability}
                     validRange={validRange}
                 />
             </DialogContent>

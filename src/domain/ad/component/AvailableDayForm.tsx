@@ -1,4 +1,4 @@
-import { Collapse, Theme } from '@material-ui/core'
+import { Collapse, Theme, FormGroup, FormControlLabel, Checkbox, FormControl, FormLabel, RadioGroup, Radio, Typography } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
@@ -6,10 +6,9 @@ import { Moment } from 'moment'
 import React from 'react'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { Calendar } from '../../../containers/calendar/Calendar'
-import { BOOK_NOW, REQUIRED_RANGE } from '../../../utils/constants'
+import { REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
-
 
 interface Props {
     blockedDays: Moment[];
@@ -18,16 +17,17 @@ interface Props {
     range: Range | undefined;
     onChangeRange: (range: Range) => void;
     handleValidRangeAlert: () => void;
+    availability: string;
     validRange: boolean;
     onSubmit: () => void;
 }
 
-const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
+const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, availability, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
     const classes = useStyles();
 
     return (
         <Formik
-            initialValues={{ pax: 0 }}
+            initialValues={{ availability }}
             onSubmit={(values) => {
                 if (range && range.checkIn && range.checkOut) {
                     // onSubmit(values.pax)
@@ -45,9 +45,15 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
                         </div>
                         <div className={classes.fields}>
                             <TitlePanel title={adTitle} ranking={adRanking} />
-
+                            <div>
+                                <Typography variant='h5'>Availability</Typography>
+                                <RadioGroup aria-label="availability" name="availability" value={values.availability} onChange={handleChange}>
+                                    <FormControlLabel value='blocked' control={<Radio color={'primary'} />} label="Blocked" />
+                                    <FormControlLabel value='available' control={<Radio color={'primary'} />} label="Available" />
+                                </RadioGroup>
+                            </div>
                             <div className={classes.button}>
-                                <PrimaryButton type='submit' >{BOOK_NOW}</PrimaryButton>
+                                <PrimaryButton disabled={values.availability === 'blocked'} type='submit' >{SUBMIT}</PrimaryButton>
                             </div>
                         </div>
                     </div>

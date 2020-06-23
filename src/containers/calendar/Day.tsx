@@ -60,6 +60,8 @@ const getDayStyle = (day: DayModel) => {
     } else if (day.state === DAY_STATE.BEFORE_CURRENT) {
         return {
             textDecoration: 'line-through',
+            backgroundColor: customTheme.color.grayLight1,
+            cursor: 'default',
             color: theme.palette.text.secondary
         }
     } else return {}

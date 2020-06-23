@@ -26,12 +26,12 @@ export const BookingForm = ({ adId, adTitle, adRanking, adPrice, blockedDays, vi
         setRange(range)
     }
 
-    const onSubmit = (values: any) => {
-        console.log(values)
-        console.log(range)
+    const onSubmit = (pax: number) => {
         setIsValidRange(true);
+        setRange(undefined)
         handleShowDialog()
         alert(`adId:${adId},
+            pax:${pax},
          totalPaid:${calculateTotalPaid()},
          checkIn:${ range?.checkIn?.format(DATE_FORMAT)},
          checkOut:${ range?.checkOut?.format(DATE_FORMAT)}`

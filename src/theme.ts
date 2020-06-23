@@ -6,12 +6,17 @@ const primary = '#da1921';
 
 export const customTheme = {
   dimension: {
+    font: {
+      bold: 800
+    },
     height: {
       small: '1rem',
       medium: '13rem',
+      day_calendar_height: '2.5rem'
     },
     width: {
       small: '1rem',
+      day_calendar_width: '2.5rem'
     },
   },
   spacing: {

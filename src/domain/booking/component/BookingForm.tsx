@@ -37,7 +37,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 			initialValues={{ pax: 0 }}
 			validationSchema={validationSchema}
 			onSubmit={(values) => {
-				if (range && range.checkIn && range.checkOut) {
+				if (range && range.checkin && range.checkout) {
 					onSubmit(values.pax)
 				} else handleValidRangeAlert();
 			}}

@@ -12,8 +12,8 @@ export enum DAY_STATE {
 }
 
 export type Range = {
-    checkIn: Moment | undefined;
-    checkOut: Moment | undefined;
+    checkin: Moment | undefined;
+    checkout: Moment | undefined;
 }
 
 export type DayModel = {

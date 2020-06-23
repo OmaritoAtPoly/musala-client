@@ -14,6 +14,7 @@ export const customTheme = {
       small: '1rem',
       w50: '50%',
       w90: '90%',
+      wLayout:"1400px",
       w100: '100%', 
     },
   },

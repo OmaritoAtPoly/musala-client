@@ -11,7 +11,7 @@ interface Props {
     onClose: () => void;
     onRangeChanged: (range: Range) => void;
     handleValidRangeAlert: () => void;
-    onSubmit: () => void;
+    onSubmit: (availability: string) => void;
     ranking: number;
     adTitle: string;
     blockedDays: Moment[];

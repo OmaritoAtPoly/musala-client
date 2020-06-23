@@ -20,6 +20,10 @@ export const LOREM_TITLE = 'Lorem ipsum dolor sit amet';
 export const LOREM_BODY = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod';
 export const REGISTERED = 'Already have an account ?';
 export const CLICK_ME = 'click here';
+export const BLOCKED = 'Blocked';
+export const AVAILABLE = 'Available';
+export const UNDEFINED = 'Undefained';
+export const AVAILABILITY = 'Availability';
 
 /*CALENDAR*/
 export const WIDTH_OF_DAY = '2.5rem';

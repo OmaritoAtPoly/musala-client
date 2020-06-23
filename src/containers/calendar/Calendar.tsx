@@ -1,8 +1,8 @@
 import moment, { Moment } from 'moment';
 import React, { useState } from 'react';
-import { DATE_FORMAT } from '../../utils/constants';
 import { Range } from './utils/types';
 import CalendarView from '../../component/calendar/Calendar'
+import { DATE_FORMAT } from '../../utils/constants';
 
 interface Props {
     blockedDays: Moment[];

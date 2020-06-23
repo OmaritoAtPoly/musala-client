@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/styles'
 import { Moment } from 'moment'
 import React from 'react'
-import { WIDTH_OF_DAY, HEIGHT_OF_DAY } from '../../containers/calendar/utils/constants'
 import { DayModel } from '../../containers/calendar/utils/types'
+import { WIDTH_OF_DAY, HEIGHT_OF_DAY } from '../../utils/constants'
 
 interface Props {
     day: DayModel;

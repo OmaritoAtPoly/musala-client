@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { WIDTH_OF_DAY, HEIGHT_OF_DAY } from '../../containers/calendar/utils/constants';
+import { WIDTH_OF_DAY, HEIGHT_OF_DAY } from '../../utils/constants';
 
 export const FakeDay = () => {
     const classes = useStyles();

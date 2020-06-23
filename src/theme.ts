@@ -16,7 +16,11 @@ export const customTheme = {
     },
     width: {
       small: '1rem',
-      day_calendar_width: '2.5rem'
+      day_calendar_width: '2.5rem',
+      wLayout:"1400px",
+      w50: '50%',
+      w90: '90%',
+      w100: '100%', 
     },
   },
   spacing: {

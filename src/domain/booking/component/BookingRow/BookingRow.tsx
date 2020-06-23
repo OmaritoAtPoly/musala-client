@@ -6,6 +6,7 @@ import ItemDate from './ItemDate';
 import ItemDescriptions from './ItemDescriptions';
 import ItemHouse from './ItemHouse';
 import UserItem from './ItemUser';
+import { Box } from '@material-ui/core';
 
 export interface Props {
   checkin: string;
@@ -42,56 +43,56 @@ const BookingRow = ({
 }: Props) => {
   const classes = useStyles();
   return (
-    <div className={classes.container}>
-      <div className={classes.leftSide}>
-        <ItemHouse
-          picture={image}
-          width={widthImage}
-          height={heightImage}
-          title={title}
-        />
-        <div className={classes.detalles}>
-          <ItemDate
-            checkin={checkin}
-            checkout={checkout}
-            width={widthIcon}
-            height={heightIcon}
+    <Box boxShadow={3} bgcolor="background.paper">
+      <div className={classes.container}>
+        <div className={classes.leftSide}>
+          <ItemHouse
+            picture={image}
+            width={widthImage}
+            height={heightImage}
+            title={title}
           />
-          <ItemDescriptions description={CREATE_AT} date={createAtAdd} />
-          <ItemDescriptions description={RESERVED_AT} date={createdAt} />
+          <div className={classes.detalles}>
+            <ItemDate
+              checkin={checkin}
+              checkout={checkout}
+              width={widthIcon}
+              height={heightIcon}
+            />
+            <ItemDescriptions description={CREATE_AT} date={createAtAdd} />
+            <ItemDescriptions description={RESERVED_AT} date={createdAt} />
+          </div>
+        </div>
+        <div className={classes.rightSide}>
+          <UserItem email={email} name={fullName} role={'Client'} />
+          <UserItem email={emailHost} name={host} role={'Host'} />
         </div>
       </div>
-      <div className={classes.rightSide}>
-        <UserItem email={email} name={fullName} role={'Client'} />
-        <UserItem email={emailHost} name={host} role={'Host'} />
-      </div>
-    </div>
+    </Box>
   );
 };
 
 const useStyles = makeStyles({
   container: {
     display: 'flex',
-    width: '100%',
+    width: customTheme.dimension.width.w100,
     flexDirection: 'row',
     alignSelf: 'center',
     justifyContent: 'center',
-    borderRadius: '1px',
-    boxShadow: '1px 2px 13px -5px rgba(0,0,0,0.75)',
+    borderRadius: customTheme.spacing.margin.none,
     marginTop: customTheme.spacing.margin.medium,
     [theme.breakpoints.down('sm')]: {
-      width: '100%',
       flexDirection: 'column',
-      boxShadow: '1px 2px 13px -5px rgba(0,0,0,0.75)',
     },
   },
   leftSide: {
+    width: `${customTheme.dimension.width.w50}`,
     flexDirection: 'column',
     marginLeft: `${customTheme.spacing.margin.medium}`,
     paddingRight: `${customTheme.spacing.margin.bigger}`,
     [theme.breakpoints.down('sm')]: {
-      width: '95%',
-      marginLeft: `${customTheme.spacing.margin.smaller}`,
+      width: `${customTheme.dimension.width.w90}`,
+      marginLeft: `${customTheme.spacing.margin.small}`,
       paddingRight: `${customTheme.spacing.margin.none}`,
     },
   },
@@ -99,14 +100,14 @@ const useStyles = makeStyles({
     marginTop: `${customTheme.spacing.margin.big}`,
   },
   rightSide: {
-    width: '40%',
+    width: `${customTheme.dimension.width.w50}`,
     flexDirection: 'column',
     marginLeft: `${customTheme.spacing.margin.medium}`,
     marginRight: `${customTheme.spacing.margin.bigger}`,
     [theme.breakpoints.down('sm')]: {
-      width: '95%',
-      marginLeft: `${customTheme.spacing.margin.smaller}`,
-      paddingRight: `${customTheme.spacing.margin.none}`,
+      width: `${customTheme.dimension.width.w90}`,
+      marginLeft: `${customTheme.spacing.margin.small}`,
+      marginTop: `${customTheme.spacing.margin.small}`,
     },
   },
 });

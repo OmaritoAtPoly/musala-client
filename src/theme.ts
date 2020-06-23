@@ -12,6 +12,9 @@ export const customTheme = {
     },
     width: {
       small: '1rem',
+      w50: '50%',
+      w90: '90%',
+      w100: '100%', 
     },
   },
   spacing: {

@@ -9,7 +9,6 @@ import { BookPanel } from './BookPanel';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
 import { TitlePanel } from './TitlePanel';
-import { AvailableDayForm } from '../../container/AvailableDayForm';
 
 interface Props {
     adId: string;
@@ -38,15 +37,7 @@ export const AdDetail = ({ adId, title, description, image, price, ranking, visi
                 </div>
             </div>
             <DescriptionPanel description={description} />
-            <AvailableDayForm
-                adId={adId}
-                adRanking={ranking}
-                adTitle={title}
-                blockedDays={blockedDays}
-                handleShowDialog={handleOnShowDialog}
-                visible={visible}
-            />
-            {/* <BookingForm
+            <BookingForm
                 adId={adId}
                 adPrice={price}
                 adRanking={ranking}
@@ -54,7 +45,7 @@ export const AdDetail = ({ adId, title, description, image, price, ranking, visi
                 blockedDays={blockedDays}
                 handleShowDialog={handleOnShowDialog}
                 visible={visible}
-            /> */}
+            />
         </>
     )
 }
@@ -69,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     imageContainer: {
-        backgroundColor: 'white',
+        backgroundColor: customTheme.color.background,
         padding: theme.spacing(2),
         flex: 1,
     },

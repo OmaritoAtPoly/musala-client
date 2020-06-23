@@ -1,16 +1,17 @@
-import React from 'react'
-import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import Image from 'material-ui-image';
+import React from 'react';
 
 interface Props {
     urlImage: string;
+    loading:boolean;
 }
 
-export const PicturePanel = ({ urlImage }: Props) => {
+export const PicturePanel = ({ urlImage,loading }: Props) => {
     const classes = useStyles();
     return (
         <div className={classes.img}>
-            <img src={urlImage} />
+            <Image src={urlImage} aspectRatio={(16 / 9)} disableSpinner={loading} />
         </div>
     )
 }
@@ -18,6 +19,5 @@ export const PicturePanel = ({ urlImage }: Props) => {
 const useStyles = makeStyles({
     img: {
         backgroundColor: '#ccc',
-        height: '300px',
-    },
+    }
 });

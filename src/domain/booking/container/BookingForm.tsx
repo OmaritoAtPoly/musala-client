@@ -23,7 +23,7 @@ export const BookingForm = ({ adId, adTitle, adRanking, adPrice, blockedDays, vi
     }
 
     const handldeOnRangeChange = (range: Range) => {
-        setRange(range)
+        setRange(range);
     }
 
     const onSubmit = (pax: number) => {

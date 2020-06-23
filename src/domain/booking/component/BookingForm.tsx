@@ -17,7 +17,6 @@ const validationSchema = Yup.object({
 	pax: Yup.number().positive(PAX_VALIDATE)
 })
 
-
 interface Props {
 	blockedDays: Moment[];
 	adTitle: string;
@@ -66,7 +65,6 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 								onChange={handleChange}
 							/>
 							{errors.pax && touched.pax ? (<ErrorFieldForm name='pax' />) : null}
-
 							<Typography className={classes.price} color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
 							<div className={classes.button}>
 								<PrimaryButton type='submit' >{BOOK_NOW}</PrimaryButton>

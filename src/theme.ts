@@ -12,9 +12,9 @@ export const customTheme = {
     },
     width: {
       small: '1rem',
+      wLayout:"1400px",
       w50: '50%',
       w90: '90%',
-      wLayout:"1400px",
       w100: '100%', 
     },
   },

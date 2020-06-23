@@ -7,14 +7,14 @@ import * as Yup from 'yup'
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { Calendar } from '../../../containers/calendar/Calendar'
-import { BOOK_NOW, EDITABLE_MODE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
+import { BOOK_NOW, EDITABLE_MODE, PER_NIGHT, PAX_VALIDATE, REQUIRED_RANGE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 import Alert from '@material-ui/lab/Alert'
 import customTheme from '../../../theme'
 
 const validationSchema = Yup.object({
-	pax: Yup.number().positive('Pax must be greater than zero')
+	pax: Yup.number().positive(PAX_VALIDATE)
 })
 
 
@@ -97,7 +97,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 		[theme.breakpoints.down('md')]: {
 			marginTop: theme.spacing(2)
 		}
-
 	},
 	price: {
 		marginTop: theme.spacing(1),

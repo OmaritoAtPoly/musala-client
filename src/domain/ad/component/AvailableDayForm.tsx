@@ -6,9 +6,11 @@ import { Moment } from 'moment'
 import React from 'react'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { Calendar } from '../../../containers/calendar/Calendar'
-import { AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, SUBMIT, FULL_EDITABLE_MODE } from '../../../utils/constants'
+import { AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, ACTION_VALIDATE, SUBMIT, FULL_EDITABLE_MODE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../../../utils/type'
+import * as Yup from 'yup'
+import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 
 interface Props {
 	blockedDays: Moment[];
@@ -22,19 +24,24 @@ interface Props {
 	onSubmit: (availability: string) => void;
 }
 
+const validationSchema = Yup.object({
+	availability: Yup.string().oneOf([BLOCKED, AVAILABLE], ACTION_VALIDATE),
+})
+
 const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, availability, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
 		<Formik
 			initialValues={{ availability }}
+			validationSchema={validationSchema}
 			onSubmit={(values) => {
 				if (range && range.checkin && range.checkout) {
 					onSubmit(values.availability)
 				} else handleValidRangeAlert();
 			}}
 		>
-			{({ values, handleChange }) =>
+			{({ values, errors, handleChange }) =>
 				<Form>
 					<div className={classes.container}>
 						<div>
@@ -51,6 +58,8 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
 									<FormControlLabel value={BLOCKED} control={<Radio color={'primary'} />} label={BLOCKED} />
 									<FormControlLabel value={AVAILABLE} control={<Radio color={'primary'} />} label={AVAILABLE} />
 								</RadioGroup>
+								{errors.availability ? (<ErrorFieldForm name='availability' />) : null}
+
 							</div>
 							<div className={classes.button}>
 								<PrimaryButton

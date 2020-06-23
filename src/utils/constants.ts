@@ -24,6 +24,8 @@ export const BLOCKED = 'Blocked';
 export const AVAILABLE = 'Available';
 export const UNDEFINED = 'Undefained';
 export const AVAILABILITY = 'Availability';
+export const ACTION_VALIDATE = 'Must select an option';
+export const PAX_VALIDATE = 'Pax must be greater than zero';
 
 /*CALENDAR*/
 export const DATE_FORMAT = 'YYYY-MM-DD';

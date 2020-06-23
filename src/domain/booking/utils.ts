@@ -1,6 +1,6 @@
 import { Moment } from 'moment'
 
 export type Range = {
-    checkIn: Moment,
-    checkOut: Moment,
+    checkin: Moment | undefined,
+    checkout: Moment | undefined,
 }

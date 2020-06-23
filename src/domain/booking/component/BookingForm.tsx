@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
 import React from 'react'
 import { PrimaryButton } from '../../../component/PrimaryButton'
-import { PER_NIGHT, BOOK_NOW, REQUIRED_RANGE } from '../../../utils/constants'
+import { PER_NIGHT, BOOK_NOW, REQUIRED_RANGE, EDITABLE_MODE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 import { Calendar } from '../../../containers/calendar/Calendar'
@@ -46,7 +46,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} />
+							<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} mode={EDITABLE_MODE} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>

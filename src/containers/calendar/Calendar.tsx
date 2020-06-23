@@ -2,18 +2,25 @@ import moment, { Moment } from 'moment';
 import React, { useState } from 'react';
 import { Range } from './utils/types';
 import CalendarView from '../../component/calendar/Calendar'
-import { DATE_FORMAT } from '../../utils/constants';
+import { DATE_FORMAT, FULL_EDITABLE_MODE } from '../../utils/constants';
 
 interface Props {
     blockedDays: Moment[];
     onChangeRange: (range: Range) => void;
+    mode: string;
 }
 
-export const Calendar = ({ blockedDays, onChangeRange }: Props) => {
+export const Calendar = ({ blockedDays, mode, onChangeRange }: Props) => {
     const [currentMonth, setCurrentMonth] = useState(moment(new Date(), DATE_FORMAT));
     const [range, setRange] = useState<Range>()
 
     const checkRange = (date: Moment) => {
+        if (mode === FULL_EDITABLE_MODE) {
+            checkRangeInFullEditableMode(date)
+        } else checkRangeInEditableMode(date)
+    }
+
+    const checkRangeInEditableMode = (date: Moment) => {
         if (!range && isSelectedCheckInValid(date, blockedDays)) {
             setRange({ checkIn: date, checkOut: undefined })
             onChangeRange({ checkIn: date, checkOut: undefined })
@@ -22,6 +29,20 @@ export const Calendar = ({ blockedDays, onChangeRange }: Props) => {
             setRange(orderedRange)
             onChangeRange(orderedRange)
         } else if (isSelectedCheckInValid(date, blockedDays)) {
+            setRange({ checkIn: date, checkOut: undefined })
+            onChangeRange({ checkIn: date, checkOut: undefined })
+        }
+    }
+
+    const checkRangeInFullEditableMode = (date: Moment) => {
+        if (!range) {
+            setRange({ checkIn: date, checkOut: undefined })
+            onChangeRange({ checkIn: date, checkOut: undefined })
+        } else if (range && range.checkOut === undefined) {
+            const orderedRange = checkRangeOrder(date, range.checkIn!)
+            setRange(orderedRange)
+            onChangeRange(orderedRange)
+        } else {
             setRange({ checkIn: date, checkOut: undefined })
             onChangeRange({ checkIn: date, checkOut: undefined })
         }

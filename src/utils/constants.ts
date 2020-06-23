@@ -22,4 +22,6 @@ export const CLICK_ME = 'click here';
 
 /*CALENDAR*/
 export const DATE_FORMAT = 'YYYY-MM-DD';
+export const FULL_EDITABLE_MODE = 'FULL_EDITABLE_MODE';
+export const EDITABLE_MODE = 'EDITABLE_MODE';
 export const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

@@ -24,6 +24,7 @@ export const customTheme = {
       bigger: '4rem',
       m5: '5%',
       m10: '10%',
+      m50: '50%'
     },
     padding: {
       none: 0,

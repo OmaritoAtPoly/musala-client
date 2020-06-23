@@ -9,14 +9,13 @@ interface Props {
     visible: boolean;
     bookedDays: Range[];
     handleShowDialog: () => void;
-
 }
 
 export const BookingForm = ({ adTitle, adRanking, adPrice, bookedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
 
     const handldeOnRangeChange = (range: Range) => {
-        setRange(range)
+        setRange(range);
     }
 
     return (

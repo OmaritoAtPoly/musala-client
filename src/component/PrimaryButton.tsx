@@ -12,7 +12,7 @@ export const PrimaryButton = ({loading, children, ...rest}: Props) => {
     const classes = useStyles();
 
     return <Button className={classes.button} size="small" fullWidth variant="contained" color='primary'   {...rest} >
-      { loading && <CircularProgress className={classes.loading} size={20} /> }
+      { loading && <CircularProgress className={classes.loading} size={50} /> }
       { !loading && children }
     </Button>
 }

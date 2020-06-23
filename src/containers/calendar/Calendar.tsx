@@ -4,56 +4,62 @@ import { Range } from './utils/types';
 import CalendarView from '../../component/calendar/Calendar'
 import { DATE_FORMAT, FULL_EDITABLE_MODE } from '../../utils/constants';
 
+export type BlockedDay = {
+    checkin: string;
+    checkout: string
+    byBooking?: boolean | undefined | null;
+}
+
 interface Props {
-    blockedDays: Moment[];
+    blockedDayList: BlockedDay[]
     onChangeRange: (range: Range) => void;
     mode: string;
 }
 
-export const Calendar = ({ blockedDays, mode, onChangeRange }: Props) => {
+export const Calendar = ({ blockedDayList, mode, onChangeRange }: Props) => {
     const [currentMonth, setCurrentMonth] = useState(moment(new Date(), DATE_FORMAT));
     const [range, setRange] = useState<Range>()
 
     const checkRange = (date: Moment) => {
-        if (mode === FULL_EDITABLE_MODE) {
-            checkRangeInFullEditableMode(date)
-        } else checkRangeInEditableMode(date)
+        // if (mode === FULL_EDITABLE_MODE) {
+        //     checkRangeInFullEditableMode(date)
+        // } else checkRangeInEditableMode(date)
     }
 
-    const checkRangeInEditableMode = (date: Moment) => {
-        if (!range && isSelectedCheckInValid(date, blockedDays)) {
-            setRange({ checkin: date, checkout: undefined })
-            onChangeRange({ checkin: date, checkout: undefined })
-        } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDays)) {
-            const orderedRange = checkRangeOrder(date, range.checkin!)
-            setRange(orderedRange)
-            onChangeRange(orderedRange)
-        } else if (isSelectedCheckInValid(date, blockedDays)) {
-            setRange({ checkin: date, checkout: undefined })
-            onChangeRange({ checkin: date, checkout: undefined })
-        }
-    }
+    // const checkRangeInEditableMode = (date: Moment) => {
+    //     if (!range && isSelectedCheckInValid(date, blockedDays)) {
+    //         setRange({ checkin: date, checkout: undefined })
+    //         onChangeRange({ checkin: date, checkout: undefined })
+    //     } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDays)) {
+    //         const orderedRange = checkRangeOrder(date, range.checkin!)
+    //         setRange(orderedRange)
+    //         onChangeRange(orderedRange)
+    //     } else if (isSelectedCheckInValid(date, blockedDays)) {
+    //         setRange({ checkin: date, checkout: undefined })
+    //         onChangeRange({ checkin: date, checkout: undefined })
+    //     }
+    // }
 
-    const checkRangeInFullEditableMode = (date: Moment) => {
-        if (date.isSameOrAfter(moment()))
-            if (!range) {
-                setRange({ checkin: date, checkout: undefined })
-                onChangeRange({ checkin: date, checkout: undefined })
-            } else if (range && range.checkout === undefined) {
-                const orderedRange = checkRangeOrder(date, range.checkin!)
-                setRange(orderedRange)
-                onChangeRange(orderedRange)
-            } else {
-                setRange({ checkin: date, checkout: undefined })
-                onChangeRange({ checkin: date, checkout: undefined })
-            }
-    }
+    // const checkRangeInFullEditableMode = (date: Moment) => {
+    //     if (date.isSameOrAfter(moment()))
+    //         if (!range) {
+    //             setRange({ checkin: date, checkout: undefined })
+    //             onChangeRange({ checkin: date, checkout: undefined })
+    //         } else if (range && range.checkout === undefined) {
+    //             const orderedRange = checkRangeOrder(date, range.checkin!)
+    //             setRange(orderedRange)
+    //             onChangeRange(orderedRange)
+    //         } else {
+    //             setRange({ checkin: date, checkout: undefined })
+    //             onChangeRange({ checkin: date, checkout: undefined })
+    //         }
+    // }
 
     const handleOnClickedDay = (date: Moment) => {
         checkRange(date)
     }
 
-    return <CalendarView currentMonth={currentMonth} blockedDays={blockedDays} range={range} setCurrentMonth={setCurrentMonth} handleOnClickedDay={handleOnClickedDay} />
+    return <CalendarView currentMonth={currentMonth} blockedDayList={blockedDayList} range={range} setCurrentMonth={setCurrentMonth} handleOnClickedDay={handleOnClickedDay} />
 }
 
 const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {

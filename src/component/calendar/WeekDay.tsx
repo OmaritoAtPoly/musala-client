@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
-import { WIDTH_OF_DAY, WEEK_DAYS } from '../../containers/calendar/utils/constants';
+import { WEEK_DAYS, WIDTH_OF_DAY } from '../../utils/constants';
 
 export const WeekDay = () => {
     const classes = useStyles();

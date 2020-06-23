@@ -3,6 +3,7 @@ import { Moment } from 'moment'
 import { makeStyles } from '@material-ui/styles'
 import { DayModel } from './utils/types'
 import { Day } from './Day'
+import customTheme from '../../theme'
 
 
 interface Props {
@@ -24,6 +25,6 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'flex-start',
         width: 'fit-content',
-        marginTop: '.2rem'
+        marginTop: customTheme.spacing.margin.smaller1
     }
 });

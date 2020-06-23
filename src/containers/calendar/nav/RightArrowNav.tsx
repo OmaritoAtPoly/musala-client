@@ -2,6 +2,7 @@ import React from 'react'
 import { IconButton } from '@material-ui/core'
 import RightArrow from '../icons/RightArrow'
 import { makeStyles } from '@material-ui/styles'
+import customTheme from '../../../theme'
 
 interface Props {
     nextMonth: () => void;
@@ -19,6 +20,6 @@ export const RightArrowNav = ({ nextMonth }: Props) => {
 
 const useStyles = makeStyles({
     arrow: {
-        marginRight: '1rem'
+        marginRight: customTheme.dimension.width.small
     }
 });

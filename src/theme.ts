@@ -6,6 +6,9 @@ const primary = '#da1921';
 
 export const customTheme = {
   dimension: {
+    radius: {
+      small: '0.3rem'
+    },
     font: {
       bold: 800
     },
@@ -16,12 +19,15 @@ export const customTheme = {
     },
     width: {
       small: '1rem',
-      day_calendar_width: '2.5rem'
+      day_calendar_width: '2.5rem',
+      w100: '100%',
+      w50: '50%'
     },
   },
   spacing: {
     margin: {
       none: 0,
+      smaller1: '.2rem',
       smaller: '.5rem',
       small: '1rem',
       medium: '1.5rem',

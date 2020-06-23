@@ -35,17 +35,18 @@ export const Calendar = ({ blockedDays, mode, onChangeRange }: Props) => {
     }
 
     const checkRangeInFullEditableMode = (date: Moment) => {
-        if (!range) {
-            setRange({ checkin: date, checkout: undefined })
-            onChangeRange({ checkin: date, checkout: undefined })
-        } else if (range && range.checkout === undefined) {
-            const orderedRange = checkRangeOrder(date, range.checkin!)
-            setRange(orderedRange)
-            onChangeRange(orderedRange)
-        } else {
-            setRange({ checkin: date, checkout: undefined })
-            onChangeRange({ checkin: date, checkout: undefined })
-        }
+        if (date.isSameOrAfter(moment()))
+            if (!range) {
+                setRange({ checkin: date, checkout: undefined })
+                onChangeRange({ checkin: date, checkout: undefined })
+            } else if (range && range.checkout === undefined) {
+                const orderedRange = checkRangeOrder(date, range.checkin!)
+                setRange(orderedRange)
+                onChangeRange(orderedRange)
+            } else {
+                setRange({ checkin: date, checkout: undefined })
+                onChangeRange({ checkin: date, checkout: undefined })
+            }
     }
 
     const handleOnClickedDay = (date: Moment) => {

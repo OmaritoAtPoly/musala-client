@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     imageContainer: {
-        backgroundColor: 'white',
+        backgroundColor: customTheme.color.background,
         padding: theme.spacing(2),
         flex: 1,
     },

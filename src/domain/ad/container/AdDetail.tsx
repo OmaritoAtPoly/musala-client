@@ -6,12 +6,13 @@ import { DATE_FORMAT } from '../../../utils/constants';
 import AdDetailView from '../component/detail';
 
 const initialValues = {
+    adId: '',
     title: '',
     image: '',
     price: 0,
     description: '',
     ranking: 0,
-    bookedDays: [{ checkin: moment( DATE_FORMAT), checkout: moment( DATE_FORMAT) }]
+    blockedDays: [moment(DATE_FORMAT), moment(DATE_FORMAT)]
 }
 
 export const AdDetail = () => {
@@ -22,8 +23,8 @@ export const AdDetail = () => {
 
     const closeError = useCallback(() => {
         setAlertError('');
-      }, [setAlertError]);
-     
+    }, [setAlertError]);
+
     const handleOnShowBookingDialog = () => {
         setVisibleBookingDialog(!visibleBookingDialog)
     }
@@ -39,16 +40,17 @@ export const AdDetail = () => {
     const querySetValues = useMemo(() => {
         if (!data || !data.ad) return initialValues;
         return {
+            adId: data.ad.id,
             title: data.ad.title,
             image: data.ad.image,
             price: data.ad.price,
             description: data.ad.description,
             ranking: data.ad.ranking,
-            bookedDays: [{
-                checkin: moment(data.ad.blockedDays.map(day => day.checkin).find(a => a), DATE_FORMAT),
-                checkout: moment(data.ad.blockedDays.map(day => day.checkout).find(a => a), DATE_FORMAT)
-            }],
-        } 
+            blockedDays: [
+                moment(data.ad.blockedDays.map(day => day.checkin).find(a => a), DATE_FORMAT),
+                moment(data.ad.blockedDays.map(day => day.checkout).find(a => a), DATE_FORMAT)
+            ],
+        }
     }, [data])
 
     return (

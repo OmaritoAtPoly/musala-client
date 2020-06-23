@@ -1,23 +1,24 @@
 import { Theme, Typography, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { Moment } from 'moment';
 import React from 'react';
 import customTheme from '../../../../theme';
 import { PER_NIGHT } from '../../../../utils/constants';
-import { Range } from '../../../booking/utils';
+import { BookingForm } from '../../../booking/container/BookingForm';
 import { BookPanel } from './BookPanel';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
 import { TitlePanel } from './TitlePanel';
-import { BookingForm } from '../../../booking/container/BookingForm';
 import Alert from '../../../../component/Alert';
 
 interface Props {
+    adId: string;
     title: string;
     description: string;
     image: string;
     price: number;
     ranking: number;
-    bookedDays: Range[]
+    blockedDays: Moment[]
     handleOnShowDialog: () => void;
     visible: boolean;
     loading: boolean
@@ -25,37 +26,38 @@ interface Props {
     errorMessage: string;
 }
 
-export const AdDetail = ({ errorMessage, closeError, loading, title, description, image, price, ranking, visible, bookedDays, handleOnShowDialog }: Props) => {
+export const AdDetail = ({ adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
 
     return (
         <div>
-            {loading && <CircularProgress size={50} className={classes.loading} /> }
-                <div className={classes.container} >
-                    <div className={classes.imageContainer} >
-                        <PicturePanel urlImage={image} loading={loading} />
-                    </div>
-                    <div className={classes.detailContainer}>
-                        <TitlePanel ranking={ranking} title={title} />
-                        <Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
-                        <BookPanel onClick={handleOnShowDialog} />
-                    </div>
+            {loading && <CircularProgress size={50} className={classes.loading} />}
+            <div className={classes.container} >
+                <div className={classes.imageContainer} >
+                    <PicturePanel urlImage={image} loading={loading} />
                 </div>
-                <DescriptionPanel description={description} />
-                <BookingForm
-                    adPrice={price}
-                    adRanking={ranking}
-                    adTitle={title}
-                    bookedDays={bookedDays}
-                    handleShowDialog={handleOnShowDialog}
-                    visible={visible}
-                />
-                <Alert
-                    message={errorMessage}
-                    open={!!errorMessage}
-                    onClose={closeError}
-                />
+                <div className={classes.detailContainer}>
+                    <TitlePanel ranking={ranking} title={title} />
+                    <Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
+                    <BookPanel onClick={handleOnShowDialog} />
+                </div>
             </div>
+            <DescriptionPanel description={description} />
+            <BookingForm
+                adId={adId}
+                adPrice={price}
+                adRanking={ranking}
+                adTitle={title}
+                blockedDays={blockedDays}
+                handleShowDialog={handleOnShowDialog}
+                visible={visible}
+            />
+            <Alert
+                message={errorMessage}
+                open={!!errorMessage}
+                onClose={closeError}
+            />
+        </div>
     )
 }
 

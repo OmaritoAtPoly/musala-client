@@ -31,13 +31,13 @@ const UserProfile = ({
         {loading && <CircularProgress size={20} />}
       </div>
       <Typography variant={'h4'} color={'textPrimary'}>
-        {` ${name} `}
+        {name}
       </Typography>
       <Typography variant={'body1'} color={'textPrimary'}>
-        {`${role} `}
+        {role}
       </Typography>
       <Typography variant={'h5'} color={'textPrimary'}>
-        {` ${email} `}
+        {email}
       </Typography>
       {bookingAmount && (
         <Typography variant={'body1'} color={'textPrimary'}>

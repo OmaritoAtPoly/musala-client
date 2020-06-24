@@ -1,8 +1,6 @@
-import moment from 'moment';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelectAdByIdQuery } from '../../../generate/types';
-import { DATE_FORMAT } from '../../../utils/constants';
 import AdDetailView from '../component/detail';
 
 const initialValues = {

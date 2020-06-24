@@ -35,7 +35,7 @@ export const Availability = () => {
 					ops: availability === OpsEnum.Blocked ? OpsEnum.Blocked : OpsEnum.Available
 				}
 			}
-		})
+		}).catch((err) => console.log(err))
 	}
 
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import UserProfile from '../component/Profile';
 import { useCurrentUserQuery } from '../../../generate/types';
 import { Role } from '../../../utils/type';
@@ -14,14 +14,8 @@ const Profile = () => {
     setErrorMessage(undefined);
   }, [setErrorMessage]);
 
-  const numberOfBooking = useCallback(
-    (data) => {
-      let bookings = 0;
-      data.map((value: any) => {
-        bookings++;
-      });
-      return bookings;
-    },
+  const numberOfBooking = useMemo(
+    () => data?.currentUser?.bookings.length || 0,
     [data],
   );
 
@@ -32,7 +26,7 @@ const Profile = () => {
           name: data?.currentUser?.fullName,
           email: data?.currentUser?.email,
           role: data?.currentUser?.role,
-          bookingAmount: numberOfBooking(data?.currentUser?.bookings),
+          bookingAmount: numberOfBooking,
         };
       } else {
         return {

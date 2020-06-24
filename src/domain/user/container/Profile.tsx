@@ -15,15 +15,23 @@ const Profile = () => {
     }, [setErrorMessage])
 
 
-    const prepareData = useCallback((data) => {
+    const prepareData =useCallback( (data:any) => {
+      if(data?.currentUser?.role==="CLIENT") {
         return {
+          name: data?.currentUser?.fullName,
+            email: data?.currentUser?.email,
+            role: data?.currentUser?.role,
+            bookingAmount: data?.currentUser?.bookingAmount
+        }
+        }else{
+          return{
             name: data?.currentUser?.fullName,
             email: data?.currentUser?.email,
             role: data?.currentUser?.role,
-            bookingAmount: 30
+          }
         }
-    }, [data])
-
+      
+      },[data])
 
     return <UserProfile closeError={closeError} errorMessage={errorMessage} loading={loading} {...prepareData(data)} />
 }

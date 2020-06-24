@@ -9,7 +9,7 @@ interface Props {
     role: string;
     email: string;
     loading: boolean;
-    bookingAmount: number;
+    bookingAmount?: number;
     errorMessage?: string,
     closeError: () => void;
 }
@@ -23,7 +23,7 @@ const UserProfile = ({ name, role, email, loading, bookingAmount, errorMessage, 
             <Typography variant={'h4'} color={'textPrimary'} > {name}</Typography>
             <Typography variant={'body1'} color={'textPrimary'} > {role} </Typography>
             <Typography variant={'h5'} color={'textPrimary'} > {email} </Typography>
-            <Typography variant={'body1'} color={'textPrimary'} > {`${bookingAmount} completed bookings `} </Typography>
+            {bookingAmount &&<Typography variant={'body1'} color={'textPrimary'} > {`${bookingAmount} completed bookings `} </Typography>}
             <Alert message={errorMessage} open={!!errorMessage} onClose={closeError} />
         </div>
     )

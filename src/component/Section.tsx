@@ -1,42 +1,85 @@
-import { Typography } from '@material-ui/core';
-import { makeStyles, styled } from '@material-ui/styles';
-import React from 'react';
-import theme from '../theme';
+import Grid, { GridSize } from '@material-ui/core/Grid';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import React, { useMemo } from 'react';
+import customTheme from '../theme';
+import { Typography, CircularProgress } from '@material-ui/core';
 
 interface Props {
-    title?: string | JSX.Element;
-    description?: string | JSX.Element;
-    children?: JSX.Element;
+  count: GridSize;
+  items: any[];
+  renderItem: (data: any) => JSX.Element;
+  title: string;
+  description: string;
+  loading?: boolean;
 }
 
-const SectionWrapp = styled('section')({
-    marginTop: '3.2rem',
-    marginBottom: '3.2rem'
-});
+const Session = ({
+  loading = false,
+  title,
+  description,
+  count,
+  items,
+  renderItem,
+}: Props) => {
+  const classes = useStyles();
+  const { xs, sm } = useMemo(() => {
+    let xs, sm;
+    switch (count) {
+      case 1:
+        xs = sm = 12;
+        break;
+      case 2:
+        xs = 12;
+        sm = 6;
+        break;
+      case 3:
+        xs = 12;
+        sm = 4;
+        break;
+      default:
+        xs = 12;
+        sm = 3;
+        break;
+    }
+    return { xs, sm } as { xs: GridSize; sm: GridSize };
+  }, [count]);
 
-export const Section = ({ title, description, children }: Props) => {
-    const classes = useStyles();
-    return (
-        <SectionWrapp>
-            <Typography variant="h3" className={classes.title}>
-                {title}
-            </Typography>
-            <Typography className={classes.subTitle}>{description}</Typography>
-            {children}
-        </SectionWrapp>
-    );
+  return (
+    <div className={classes.root}>
+      <Typography variant="h3" className={classes.title}>
+        {title}
+      </Typography>
+      <Typography className={classes.subTitle}>{description}</Typography>
+      <Grid container xs={12} spacing={3} className={classes.container}>
+        {loading && <CircularProgress size={20} />}
+        {items.map((element, i) => (
+          <Grid key={i} item xs={xs} sm={sm}>
+            {renderItem(element)}
+          </Grid>
+        ))}
+      </Grid>
+    </div>
+  );
 };
 
-export default Section;
-
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    container: {
+      margin: customTheme.spacing.margin.none,
+    },
     title: {
-        color: theme.color.foreground,
-        fontWeight: 'bold',
-        marginBottom: '0.1rem'
+      color: customTheme.color.foreground,
+      fontWeight: 'bold',
+      marginBottom: customTheme.spacing.margin.mini,
     },
     subTitle: {
-        color: theme.color.foreground,
-        marginBottom: '1rem'
-    }
-}));
+      color: customTheme.color.foreground,
+      marginBottom: '1rem',
+    },
+  }),
+);
+
+export default Session;

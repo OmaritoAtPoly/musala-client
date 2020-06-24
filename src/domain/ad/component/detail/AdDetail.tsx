@@ -6,6 +6,7 @@ import { BlockedDay } from '../../../../containers/calendar/Calendar';
 import customTheme from '../../../../theme';
 import { PER_NIGHT } from '../../../../utils/constants';
 import { BookingForm } from '../../../booking/container/BookingForm';
+import { SeverityType } from '../../container/AdDetail';
 import { BookPanel } from './BookPanel';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
@@ -18,15 +19,20 @@ interface Props {
     image: string;
     price: number;
     ranking: number;
-    blockedDays: BlockedDay[]
-    handleOnShowDialog: () => void;
     visible: boolean;
-    loading: boolean
-    closeError: () => void;
+    loading: boolean;
+    userId?:string;
     errorMessage: string;
+    severityValue: SeverityType;
+    blockedDays: BlockedDay[]
+    setAlertError: (value: string) => void;
+    resetSelectAd: () => void;
+    setSeverityValue: (value:SeverityType) => void;
+    closeError: () => void;
+    handleOnShowDialog: () => void;
 }
 
-export const AdDetail = ({ adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
+export const AdDetail = ({ userId,severityValue, setSeverityValue, resetSelectAd, setAlertError, adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
 
     return (
@@ -39,7 +45,7 @@ export const AdDetail = ({ adId, errorMessage, closeError, loading, title, descr
                 <div className={classes.detailContainer}>
                     <TitlePanel ranking={ranking} title={title} />
                     <Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
-                    <BookPanel onClick={handleOnShowDialog} />
+                    <BookPanel userId={userId} onClick={handleOnShowDialog} />
                 </div>
             </div>
             <DescriptionPanel description={description} />
@@ -51,8 +57,13 @@ export const AdDetail = ({ adId, errorMessage, closeError, loading, title, descr
                 blockedDays={blockedDays}
                 handleShowDialog={handleOnShowDialog}
                 visible={visible}
+                setAlertError={setAlertError}
+                resetSelectAd={resetSelectAd}
+                setSeverityValue={setSeverityValue}
+                userId={userId}
             />
             <Alert
+                severity={severityValue}
                 message={errorMessage}
                 open={!!errorMessage}
                 onClose={closeError}

@@ -38,6 +38,7 @@ export const customTheme = {
   spacing: {
     margin: {
       none: 0,
+      mini: '.1rem',
       smaller1: '.2rem',
       smaller: '.5rem',
       small: '1rem',

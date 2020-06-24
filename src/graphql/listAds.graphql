@@ -1,0 +1,47 @@
+query listAds ($orderBy: AdOrderByInput, $first: Int){
+  ads (orderBy: $orderBy, first: $first) {
+    id
+    title
+    description
+    image
+    price
+    ranking
+    host {
+      fullName
+    }
+    createdAt
+  }
+}
+
+query selectAdById($id: ID!) {
+  ad(where: { id: $id }) {
+    id
+    title
+    description
+    image
+    price
+    ranking
+    blockedDays {
+      checkin
+      checkout
+      byBooking
+    }
+  }
+}
+
+query currentAvailability {
+  currentAvailability: currentUser {
+    id
+    ad {
+      id
+      title
+      ranking
+      blockedDays {
+        id
+        checkin
+        checkout
+        byBooking
+      }
+    }
+  }
+}

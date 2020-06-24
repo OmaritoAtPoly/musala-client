@@ -1,0 +1,57 @@
+mutation signIn($email: String!, $password: String!) {
+  signIn(data: { email: $email, password: $password }) {
+    id
+    email
+    fullName
+    createdAt
+    role
+    token
+  }
+}
+
+query currentUser {
+  currentUser {
+    id
+    email
+    fullName
+    password
+    createdAt
+    role
+    phone
+    token
+  }
+}
+
+query currentUserBookings {
+ currentUser {
+    id
+    email
+    fullName
+    createdAt
+    role
+    phone
+    token
+    bookings {
+      id
+      checkin
+      checkout
+      totalPaid
+      createdAt
+      client {
+        email
+        fullName
+        role
+      }
+      ad {
+        title
+        description
+        image
+        createdAt
+        host {
+          email
+          fullName
+        }
+      }
+    }
+  }
+}

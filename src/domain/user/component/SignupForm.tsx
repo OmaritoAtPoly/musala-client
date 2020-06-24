@@ -1,36 +1,47 @@
 import { TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import Alert from '../../../component/Alert';
+import { ErrorFieldForm } from '../../../component/ErrorFieldForm';
+import FakeNavLink from '../../../component/Header/FakeNavLink';
 import { PrimaryButton } from '../../../component/PrimaryButton';
-import { phoneRegExp } from '../../../utils/constants';
-import theme from '../../../theme';
-import { SignupInitValue, SignupInput } from '../container';
-
+import customTheme from '../../../theme';
+import { CLICK_ME, CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED, REGISTERED } from '../../../utils/constants';
+import { SignupInitValue, SignupInput } from '../container/Signup';
 
 interface Props {
-    initialValues: SignupInitValue
     onSignup: (values: SignupInput) => void;
+    closeError: () => void;
+    errorMessage?: string;
+    loading?: boolean;
+    signIn: () => void;
 }
 
+const getInitValue = (): SignupInitValue => {
+    return {
+        fullName: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirmPassword: '',
+    }
+}
 
 const validationSchema = Yup.object({
-    fullName: Yup.string().required('Name is required'),
-    email: Yup.string().email().required('Email is required'),
-    phone: Yup.string().matches(phoneRegExp, "Phone number is not valid")
-        .required('Phone is required'),
-    password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string()
-        .required('Confirm password is required')
-        .oneOf([Yup.ref('password'), ''], 'Passwords must match')
+    fullName: Yup.string().required(NAME_REQUIRED),
+    email: Yup.string().email().required(EMAIL_REQUIRED),
+    phone: Yup.string().matches(phoneRegExp, INVALID_PHONE).required(PHONE_REQUIRED),
+    password: Yup.string().required(PASSWORD_REQUIRED),
+    confirmPassword: Yup.string().required(CONFIRM_PASSWORD_REQUIRED).oneOf([Yup.ref('password'), ''], MATCH_PASSWORD)
 });
 
-export const SignupForm = ({ initialValues, onSignup }: Props) => {
+export const SignupForm = ({ onSignup, closeError, errorMessage, loading, signIn }: Props) => {
     const classes = useStyles()
     return (
         <Formik
-            initialValues={initialValues}
+            initialValues={getInitValue()}
             validationSchema={validationSchema}
             onSubmit={(values) => {
                 onSignup(values)
@@ -51,7 +62,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         size={'small'}
                         fullWidth
                     />
-                    {errors.fullName && touched.fullName ? (<ErrorMessage name="fullName" component="div" />) : null}
+                    {errors.fullName && touched.fullName ? (<ErrorFieldForm name={'fullName'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -64,7 +75,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.email && touched.email ? (<ErrorMessage name="email" component="div" />) : null}
+                    {errors.email && touched.email ? (<ErrorFieldForm name={'email'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -77,7 +88,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.phone && touched.phone ? (<ErrorMessage name="phone" component="div" />) : null}
+                    {errors.phone && touched.phone ? (<ErrorFieldForm name={'phone'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -90,7 +101,7 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.password && touched.password ? (<ErrorMessage name="password" component="div" />) : null}
+                    {errors.password && touched.password ? (<ErrorFieldForm name={'password'} />) : null}
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -103,29 +114,43 @@ export const SignupForm = ({ initialValues, onSignup }: Props) => {
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.confirmPassword && touched.confirmPassword ? (<ErrorMessage name="confirmPassword" component="div" />) : null}
-                    <PrimaryButton type={'submit'} >Submit</PrimaryButton>
+                    {errors.confirmPassword && touched.confirmPassword ? (<ErrorFieldForm name={'confirmPassword'} />) : null}
+                    <PrimaryButton loading={loading} type={'submit'} >Submit</PrimaryButton>
+                    <Alert
+                        message={errorMessage}
+                        open={!!errorMessage}
+                        onClose={closeError}
+                    />
+                    <div>{REGISTERED}<FakeNavLink className={classes.signIn} onClick={signIn}>{CLICK_ME}</FakeNavLink></div>
                 </Form>
             )}
         </Formik>
     )
 }
 
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: `20%`,
-        margin: `${theme.spacing.margin.m5} auto`,
-        padding: `${theme.spacing.padding.big}`,
-        border: `1px solid ${theme.color.grayLight4}`,
-        borderRadius: '5px'
+        margin: `${customTheme.spacing.margin.big} auto`,
+        padding: `${customTheme.spacing.padding.big}`,
+        border: `1px solid ${customTheme.color.grayLight4}`,
+        borderRadius: '5px',
+        '@media (min-width: 700px)': {
+            width: '40%',
+            margin: `${customTheme.spacing.margin.bigger} auto`,
+        },
+        '@media (min-width: 800px)': {
+            width: '35%'
+        }
     },
     submit: {
-        margin: `${theme.spacing.margin.medium} auto`,
-        padding: `${theme.spacing.margin.bigger} auto`
+        margin: `${customTheme.spacing.margin.medium} auto`,
+        padding: `${customTheme.spacing.margin.bigger} auto`
+    },
+    signIn:{
+        color:customTheme.color.primary
     }
-});
+}));

@@ -1,0 +1,23 @@
+mutation CreateBooking(
+  $checkin: DateTime!
+  $checkout: DateTime!
+  $clientId: String!
+  $pax: Int!
+  $adId: String!
+) {
+  createBooking(
+    data: {
+      checkin: $checkin
+      checkout: $checkout
+      clientId: $clientId
+      pax: $pax
+      adId: $adId
+    }
+  ) {
+    id
+    checkin
+    checkout
+    totalPaid
+    createdAt
+  }
+}

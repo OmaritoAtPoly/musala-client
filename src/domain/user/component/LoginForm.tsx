@@ -1,37 +1,50 @@
-import React, { useState } from 'react'
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { emailRegExp } from '../utils/constants'
-import { makeStyles } from '@material-ui/styles';
-import { Typography, TextField, Button } from '@material-ui/core';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import { TextField, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import theme from "../theme"
-import { PrimaryButton } from '../component/PrimaryButton';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import { makeStyles } from '@material-ui/styles';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
+import Alert from '../../../component/Alert';
+import { PrimaryButton } from '../../../component/PrimaryButton';
+import theme from "../../../theme";
+import { emailRegExp, EMAIL_INCORRECT, EMAIL_REQUIRED, PASSWORD_REQUIRED } from '../../../utils/constants';
 
-const initialValues = {
-  email: '',
-  password: ''
-};
 const validationSchema = Yup.object({
-  email: Yup.string().matches(emailRegExp, 'Incorrect email').required('Email is required'),
-  password: Yup.string().required('Password is required')
+  email: Yup.string().matches(emailRegExp, EMAIL_INCORRECT).required(EMAIL_REQUIRED),
+  password: Yup.string().required(PASSWORD_REQUIRED)
 })
 
-const Login = () => {
+interface FormLoginValues {
+  email: string;
+  password: string;
+}
+
+interface Props {
+  loading: boolean;
+  errorMessage?: string;
+  closeError: ()=> void;
+  initialValues?: FormLoginValues;
+  onSubmit: ((values: {
+    email: string;
+    password: string;
+}, formikHelpers: FormikHelpers<{
+    email: string;
+    password: string;
+}>) => void | Promise<any>)
+}
+
+const LoginForm = ({ initialValues = {
+  email: '',
+  password: ''
+}, onSubmit, loading, errorMessage, closeError }: Props) => {
   const classes = useStyles();
-  const handleSubmit = (email: string, password: string) => {
-    console.log(`this is the value`, email, password)
-  }
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, actions) => {
-        handleSubmit(values.email, values.password);
-        alert(JSON.stringify(values, null, 2));
-        actions.resetForm();
-      }}
+      onSubmit={onSubmit}
     >
       {({ values, errors, touched, handleChange, handleSubmit }) => (
         <div className={classes.container}>
@@ -75,8 +88,13 @@ const Login = () => {
               )}
             </Field>
             {errors.password && touched.password ? (<ErrorMessage className={classes.error} name="password" component="div" />) : null}
-            <PrimaryButton type={'submit'} >Submit</PrimaryButton>
+            <PrimaryButton loading={loading} type={'submit'} >Submit</PrimaryButton>
           </Form>
+          <Alert
+            message={errorMessage}
+            open={!!errorMessage}
+            onClose={closeError}
+      />
         </div>
       )}
     </Formik>
@@ -125,4 +143,4 @@ const useStyles = makeStyles({
   }
 });
 
-export default Login
+export default LoginForm;

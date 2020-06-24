@@ -1,12 +1,19 @@
+import { ApolloProvider } from "@apollo/react-hooks";
 import { ThemeProvider } from '@material-ui/styles';
 import React from 'react';
-import SignupPage from './page/Signup';
-import { Theme } from './theme';
-
+import { BrowserRouter } from "react-router-dom";
+import client from './apolloClient';
+import Routes from './routes/Routes';
+import { theme } from './theme';
+      
 const App = () => (
-  <ThemeProvider theme={Theme} >
-    <SignupPage />
-  </ThemeProvider>
+  <ApolloProvider client={client}>
+    <ThemeProvider theme={theme} >
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </ThemeProvider>
+  </ApolloProvider>
 );
 
 export default App;

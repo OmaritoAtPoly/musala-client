@@ -1,21 +1,34 @@
+import { GridSize } from '@material-ui/core';
 import React from 'react';
-import { AdSeccion } from './AdSeccion';
 import Alert from '../../../component/Alert';
-import { LOREM_TITLE, LOREM_BODY } from '../../../utils/constants';
+import Session from '../../../component/Section';
 
 interface Props {
-    loading: boolean;
-    dataSetReady?: JSX.Element[] | undefined;
-    errorMessage?: string,
-    closeError: () => void;
+  data: {
+    count: GridSize;
+    items: any[];
+    renderItem: (data: any) => JSX.Element;
+    title: string;
+    description: string;
+    loading?: boolean;
+  }[];
+  errorMessage?: string;
+  closeError: () => void;
 }
 
-export const Ads = ({ loading, dataSetReady, errorMessage, closeError }: Props) => {
-    return (
-        <>
-            <AdSeccion loading={loading} title={LOREM_TITLE} subtitle={LOREM_BODY} rankedAds={dataSetReady?.slice(0, 2)} />
-            <AdSeccion loading={loading} title={LOREM_TITLE} subtitle={LOREM_BODY} rankedAds={dataSetReady?.slice(2, dataSetReady.length)} />
-            <Alert message={errorMessage} open={!!errorMessage} onClose={closeError} />
-        </>
-    );
-} 
+const Ads = ({ data, errorMessage, closeError }: Props) => {
+  return (
+    <>
+      {data.map((data, i) => (
+        <Session {...data} key={i}/>
+      ))}
+      <Alert
+        message={errorMessage}
+        open={!!errorMessage}
+        onClose={closeError}
+      />
+    </>
+  );
+};
+
+export default Ads;

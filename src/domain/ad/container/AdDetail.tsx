@@ -1,7 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelectAdByIdQuery } from '../../../generate/types';
+import { useSelectAdByIdQuery, useCurrentUserQuery } from '../../../generate/types';
 import AdDetailView from '../component/detail';
+
+export type SeverityType = "success" | "info" | "warning" | "error" | undefined;
 
 const initialValues = {
     adId: '',
@@ -16,8 +18,27 @@ const initialValues = {
 export const AdDetail = () => {
 
     const { id } = useParams()
+
     const [visibleBookingDialog, setVisibleBookingDialog] = useState<boolean>(false)
-    const [errorMessage, setAlertError] = useState<string>('');
+    const [errorMessage, setAlertError] = useState('');
+    const [severityValue, setSeverity] = useState<SeverityType>("error");
+
+    const { data: currentUserData } = useCurrentUserQuery({
+        fetchPolicy: 'cache-first',
+        errorPolicy: 'all',
+    });
+
+    const userId = useMemo(() => currentUserData?.currentUser?.id, [currentUserData]);
+
+    const { data, loading, error, refetch } = useSelectAdByIdQuery({
+        variables: {
+            id: id
+        },
+    });
+
+    const handleSeverityValue = useCallback((value: SeverityType) => {
+        setSeverity(value);
+    }, [setSeverity]);
 
     const closeError = useCallback(() => {
         setAlertError('');
@@ -26,12 +47,6 @@ export const AdDetail = () => {
     const handleOnShowBookingDialog = () => {
         setVisibleBookingDialog(!visibleBookingDialog)
     }
-
-    const { data, loading, error } = useSelectAdByIdQuery({
-        variables: {
-            id: id
-        },
-    });
 
     if (error) setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
 
@@ -55,6 +70,11 @@ export const AdDetail = () => {
             loading={loading}
             errorMessage={errorMessage}
             closeError={closeError}
+            setAlertError={setAlertError}
+            resetSelectAd={refetch}
+            setSeverityValue={handleSeverityValue}
+            severityValue={severityValue}
+            userId={userId}
             {...querySetValues}
         />
     )

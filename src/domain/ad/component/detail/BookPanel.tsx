@@ -6,13 +6,16 @@ import { BOOK_NOW } from '../../../../utils/constants';
 
 interface Props {
     onClick: () => void;
+    userId?: string;
 }
 
-export const BookPanel = ({ onClick }: Props) => {
+export const BookPanel = ({ userId, onClick }: Props) => {
     const classes = useStyles()
     return (
         <div className={classes.button} >
-            <PrimaryButton onClick={onClick} variant='outlined' size='small'>{BOOK_NOW}</PrimaryButton>
+            {
+             userId && <PrimaryButton onClick={onClick} variant='outlined' size='small'>{BOOK_NOW}</PrimaryButton>
+            }
         </div>
     )
 }

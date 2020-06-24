@@ -50,7 +50,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updatin
 				<Form>
 					<div className={classes.container}>
 						{loadingCurrentAd && <CircularProgress size={50} className={classes.loading} />}
-						<div>
+						<div className={classes.calendar}>
 							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<CalendarAlert severity="error">{REQUIRED_RANGE}</CalendarAlert>
@@ -97,11 +97,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 		marginTop: customTheme.spacing.margin.small,
 		padding: theme.spacing(1),
 	},
+	calendar: {
+		marginBottom: customTheme.spacing.margin.big,
+	},
 	fields: {
 		margin: `0 ${customTheme.spacing.margin.small}`,
 		flexDirection: 'column',
 		justifyContent: 'center',
-		[theme.breakpoints.down('sm')]: {
+		[theme.breakpoints.down('md')]: {
 			marginTop: theme.spacing(2)
 		}
 	},

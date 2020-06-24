@@ -27,7 +27,7 @@ export const Availability = () => {
 	const querySetValues = useMemo(() => {
 		if (!data || !data.currentAvailability?.ad) return initialValues;
 		return {
-			adTitle: data.currentAvailability.ad.id,
+			adTitle: data.currentAvailability.ad.title,
 			adRanking: data.currentAvailability.ad.ranking,
 			blockedDays: data.currentAvailability.ad.blockedDays
 		}
@@ -108,7 +108,10 @@ const isFullAvailable = (range: Range, blockedDateRange: BlockedDay[]) => {
 const isBlocked = (date: Moment, blockedDay: BlockedDay[]) => {
 	for (let i = 0; i < blockedDay.length; i++) {
 		const range = getBlockedDateRange(blockedDay[i])
-		if (date.isSameOrAfter(range.checkin) && date.isSameOrBefore(range.checkout))
+		if (blockedDay[i].byBooking && date.isSameOrAfter(range.checkin) && date.isBefore(range.checkout)) {
 			return true
+		} else if (!blockedDay[i].byBooking && date.isSameOrAfter(range.checkin) && date.isSameOrBefore(range.checkout)) {
+			return true
+		}
 	} return false
 }

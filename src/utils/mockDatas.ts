@@ -1,7 +1,7 @@
 
 export const mockAd = {
     "id": "euqeyt1yu3t1yutsudyteuyqwte",
-    "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    "title": "Lorem ipsum dolor sit amet, consectetur.",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "image": "https://cdn.pixabay.com/photo/2020/06/04/16/02/church-5259369__340.jpg",
     "price": 103,

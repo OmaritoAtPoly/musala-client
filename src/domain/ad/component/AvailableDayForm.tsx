@@ -60,7 +60,6 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updatin
 									<FormControlLabel value={AVAILABLE} control={<Radio color={'primary'} />} label={AVAILABLE} />
 								</RadioGroup>
 								{errors.availability ? (<ErrorFieldForm name='availability' />) : null}
-
 							</div>
 							<div className={classes.button}>
 								<PrimaryButton
@@ -84,26 +83,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexFlow: 'row wrap',
 		alignItems: 'baseline',
 		justifyContent: 'center',
-		marginTop: '1rem',
+		width: '100%',
+		marginTop: customTheme.spacing.margin.small,
 		padding: theme.spacing(1),
 	},
 	fields: {
-		marginLeft: `${customTheme.spacing.margin.medium}`,
+		margin: `0 ${customTheme.spacing.margin.small}`,
 		flexDirection: 'column',
 		justifyContent: 'center',
-		[theme.breakpoints.down('md')]: {
-			marginTop: theme.spacing(4),
-			marginLeft: `${customTheme.spacing.margin.none}`,
-		},
 		[theme.breakpoints.down('sm')]: {
-			padding: `0 ${customTheme.spacing.padding.medium}`
+			marginTop: theme.spacing(2)
 		}
 	},
 	radioGroup: {
-		[theme.breakpoints.down('md')]: {
-			display: 'flex',
-			flexDirection: 'row'
-		}
+		display: 'flex',
+		flexDirection: 'row'
 	},
 	price: {
 		marginTop: theme.spacing(1),
@@ -114,3 +108,38 @@ const useStyles = makeStyles((theme: Theme) => ({
 	}
 })
 );
+
+// const useStyles = makeStyles((theme: Theme) => ({
+// 	container: {
+// 		display: 'flex',
+// 		flexFlow: 'row wrap',
+// 		alignItems: 'baseline',
+// 		justifyContent: 'center',
+// 		marginTop: `${customTheme.spacing.margin.small}`,
+// 		padding: theme.spacing(1),
+// 	},
+// 	fields: {
+// 		marginLeft: `${customTheme.spacing.margin.medium}`,
+// 		flexDirection: 'column',
+// 		justifyContent: 'center',
+// 		[theme.breakpoints.down('md')]: {
+// 			marginTop: theme.spacing(4),
+// 			marginLeft: `${customTheme.spacing.margin.none}`,
+// 		},
+// 		[theme.breakpoints.down('sm')]: {
+// 			padding: `0 ${customTheme.spacing.padding.medium}`
+// 		}
+// 	},
+// 	radioGroup: {
+// 		display: 'flex',
+// 		flexDirection: 'row'
+// 	},
+// 	price: {
+// 		marginTop: theme.spacing(1),
+// 	},
+// 	button: {
+// 		marginTop: theme.spacing(2),
+// 		display: 'inline-block'
+// 	}
+// })
+// );

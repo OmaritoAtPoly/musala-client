@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useSelectAdByIdQuery } from '../../../generate/types';
 import AdDetailView from '../component/detail';
 
+export type SeverityType = "success" | "info" | "warning" | "error" | undefined;
+
 const initialValues = {
     adId: '',
     title: '',
@@ -17,7 +19,18 @@ export const AdDetail = () => {
 
     const { id } = useParams()
     const [visibleBookingDialog, setVisibleBookingDialog] = useState<boolean>(false)
-    const [errorMessage, setAlertError] = useState<string>('');
+    const [errorMessage, setAlertError] = useState('');
+    const [severityValue, setSeverity] = useState<SeverityType>("error");
+
+    const { data, loading, error, refetch } = useSelectAdByIdQuery({
+        variables: {
+            id: id
+        },
+    });
+
+    const handleSeverityValue = useCallback((value: SeverityType) => {
+        setSeverity(value);
+    }, [setSeverity]);
 
     const closeError = useCallback(() => {
         setAlertError('');
@@ -26,12 +39,6 @@ export const AdDetail = () => {
     const handleOnShowBookingDialog = () => {
         setVisibleBookingDialog(!visibleBookingDialog)
     }
-
-    const { data, loading, error, refetch } = useSelectAdByIdQuery({
-        variables: {
-            id: id
-        },
-    });
 
     if (error) setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
 
@@ -56,7 +63,9 @@ export const AdDetail = () => {
             errorMessage={errorMessage}
             closeError={closeError}
             setAlertError={setAlertError}
-            resetSelectAd = {refetch}
+            resetSelectAd={refetch}
+            setSeverityValue={handleSeverityValue}
+            severityValue={severityValue}
             {...querySetValues}
         />
     )

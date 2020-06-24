@@ -1,11 +1,11 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import { ApolloError } from 'apollo-boost'
+import React, { useCallback, useMemo, useState } from 'react'
+import { BlockedDay } from '../../../containers/calendar/Calendar'
+import { useCreateBookingMutation, useCurrentUserQuery } from '../../../generate/types'
+import { DATE_FORMAT, ERROR_SEVERITY_VALUE, INFO_SEVERITY_VALUE } from '../../../utils/constants'
+import { SeverityType } from '../../ad/container/AdDetail'
 import { BookingDialog } from '../component/BookingDialog'
 import { Range } from '../utils'
-import { Moment } from 'moment'
-import { DATE_FORMAT } from '../../../utils/constants'
-import { useCreateBookingMutation, useCurrentUserQuery, useSelectAdByIdQuery } from '../../../generate/types'
-import { ApolloError } from 'apollo-boost'
-import { BlockedDay } from '../../../containers/calendar/Calendar'
 
 interface Props {
     adId: string;
@@ -16,13 +16,16 @@ interface Props {
     blockedDays: BlockedDay[];
     handleShowDialog: () => void;
     setAlertError: (value: string) => void;
-    resetSelectAd:() => void;
+    resetSelectAd: () => void;
+    setSeverityValue: (value: SeverityType) => void;
 }
 
-export const BookingForm = ({ resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
+export const BookingForm = ({ setSeverityValue, resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
-    const [createBookingMutation, { data, loading, error }] = useCreateBookingMutation();
+    const [createBookingMutation, { error }] = useCreateBookingMutation();
+
+    if (error) setAlertError(error.message.replace('GraphQL error:', ''));
 
     const handleValidRange = () => {
         setIsValidRange(!isValidRange)
@@ -37,11 +40,9 @@ export const BookingForm = ({ resetSelectAd, setAlertError, adId, adTitle, adRan
         errorPolicy: 'all',
     });
 
-    const isHost = useMemo(() => currentUserData?.currentUser?.role === 'HOST', [currentUserData]);
-    const isClient = useMemo(() => currentUserData?.currentUser?.role === 'USER', [currentUserData]);
     const userId = useMemo(() => currentUserData?.currentUser?.id, [currentUserData]);
 
-    const onSubmit = (pax: number) => {
+    const onSubmit = useCallback((pax: number) => {
         setIsValidRange(true);
         setRange(undefined)
         handleShowDialog()
@@ -53,17 +54,19 @@ export const BookingForm = ({ resetSelectAd, setAlertError, adId, adTitle, adRan
                 pax: pax,
                 adId: adId,
             },
+        }).then(() => {
+            setAlertError('You\'ve made a new booking');
+            setSeverityValue(INFO_SEVERITY_VALUE);
         })
-            .then(() => {
-                setAlertError('todo bien');
-            })
             .then(() => {
                 resetSelectAd();
             })
-            .catch((error: ApolloError) =>
-                setAlertError(error.message.replace('GraphQL error:', ''))
+            .catch((error: ApolloError) => {
+                setAlertError(error.message.replace('GraphQL error:', ''));
+                setSeverityValue(ERROR_SEVERITY_VALUE);
+            }
             )
-    }
+    }, [setIsValidRange, setRange, handleShowDialog, createBookingMutation, range])
 
     return (
         <BookingDialog

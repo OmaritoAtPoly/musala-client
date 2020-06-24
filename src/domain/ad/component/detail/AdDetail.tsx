@@ -6,6 +6,7 @@ import { BlockedDay } from '../../../../containers/calendar/Calendar';
 import customTheme from '../../../../theme';
 import { PER_NIGHT } from '../../../../utils/constants';
 import { BookingForm } from '../../../booking/container/BookingForm';
+import { SeverityType } from '../../container/AdDetail';
 import { BookPanel } from './BookPanel';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
@@ -21,14 +22,16 @@ interface Props {
     blockedDays: BlockedDay[]
     handleOnShowDialog: () => void;
     visible: boolean;
-    loading: boolean
+    loading: boolean;
     closeError: () => void;
     errorMessage: string;
-    setAlertError:(value: string) => void;
-    resetSelectAd: () => void
+    setAlertError: (value: string) => void;
+    resetSelectAd: () => void;
+    setSeverityValue: (value:SeverityType) => void;
+    severityValue: SeverityType;
 }
 
-export const AdDetail = ({ resetSelectAd, setAlertError, adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
+export const AdDetail = ({ severityValue, setSeverityValue, resetSelectAd, setAlertError, adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
 
     return (
@@ -54,9 +57,11 @@ export const AdDetail = ({ resetSelectAd, setAlertError, adId, errorMessage, clo
                 handleShowDialog={handleOnShowDialog}
                 visible={visible}
                 setAlertError={setAlertError}
-                resetSelectAd = {resetSelectAd}
+                resetSelectAd={resetSelectAd}
+                setSeverityValue={setSeverityValue}
             />
             <Alert
+                severity={severityValue}
                 message={errorMessage}
                 open={!!errorMessage}
                 onClose={closeError}

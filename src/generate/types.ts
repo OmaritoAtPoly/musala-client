@@ -1042,6 +1042,32 @@ export type CurrentUserQuery = (
   )> }
 );
 
+export type CurrentUserBookingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserBookingsQuery = (
+  { __typename?: 'Query' }
+  & { currentUser?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'email' | 'fullName' | 'createdAt' | 'role' | 'phone' | 'token'>
+    & { bookings: Array<(
+      { __typename?: 'Booking' }
+      & Pick<Booking, 'id' | 'checkin' | 'checkout' | 'totalPaid' | 'createdAt'>
+      & { client: (
+        { __typename?: 'User' }
+        & Pick<User, 'email' | 'fullName' | 'role'>
+      ), ad: (
+        { __typename?: 'Ad' }
+        & Pick<Ad, 'title' | 'description' | 'image' | 'createdAt'>
+        & { host: (
+          { __typename?: 'User' }
+          & Pick<User, 'email' | 'fullName'>
+        ) }
+      ) }
+    )> }
+  )> }
+);
+
 
 export const CreateBookingDocument = gql`
     mutation CreateBooking($checkin: DateTime!, $checkout: DateTime!, $clientId: String!, $pax: Int!, $adId: String!) {
@@ -1286,6 +1312,66 @@ export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
 export type CurrentUserQueryResult = ApolloReactCommon.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
+export const CurrentUserBookingsDocument = gql`
+    query currentUserBookings {
+  currentUser {
+    id
+    email
+    fullName
+    createdAt
+    role
+    phone
+    token
+    bookings {
+      id
+      checkin
+      checkout
+      totalPaid
+      createdAt
+      client {
+        email
+        fullName
+        role
+      }
+      ad {
+        title
+        description
+        image
+        createdAt
+        host {
+          email
+          fullName
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCurrentUserBookingsQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserBookingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserBookingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserBookingsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserBookingsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentUserBookingsQuery, CurrentUserBookingsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CurrentUserBookingsQuery, CurrentUserBookingsQueryVariables>(CurrentUserBookingsDocument, baseOptions);
+      }
+export function useCurrentUserBookingsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentUserBookingsQuery, CurrentUserBookingsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CurrentUserBookingsQuery, CurrentUserBookingsQueryVariables>(CurrentUserBookingsDocument, baseOptions);
+        }
+export type CurrentUserBookingsQueryHookResult = ReturnType<typeof useCurrentUserBookingsQuery>;
+export type CurrentUserBookingsLazyQueryHookResult = ReturnType<typeof useCurrentUserBookingsLazyQuery>;
+export type CurrentUserBookingsQueryResult = ApolloReactCommon.QueryResult<CurrentUserBookingsQuery, CurrentUserBookingsQueryVariables>;
 
       export interface IntrospectionResultData {
         __schema: {

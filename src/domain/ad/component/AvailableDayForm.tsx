@@ -2,18 +2,17 @@ import { Collapse, FormControlLabel, Radio, RadioGroup, Theme, Typography } from
 import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
-import { Moment } from 'moment'
 import React from 'react'
-import { PrimaryButton } from '../../../component/PrimaryButton'
-import { Calendar } from '../../../containers/calendar/Calendar'
-import { AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, ACTION_VALIDATE, SUBMIT, FULL_EDITABLE_MODE } from '../../../utils/constants'
-import { TitlePanel } from '../../ad/component/detail/TitlePanel'
-import { Range } from '../../../utils/type'
 import * as Yup from 'yup'
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
+import { PrimaryButton } from '../../../component/PrimaryButton'
+import { Calendar, BlockedDay } from '../../../containers/calendar/Calendar'
+import { ACTION_VALIDATE, AVAILABILITY, AVAILABLE, BLOCKED, FULL_EDITABLE_MODE, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
+import { Range } from '../../../utils/type'
+import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 
 interface Props {
-	blockedDays: Moment[];
+	blockedDays: BlockedDay[];
 	adTitle: string;
 	adRanking: number;
 	range: Range | undefined;
@@ -45,7 +44,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDays={blockedDays} mode={FULL_EDITABLE_MODE} onChangeRange={onChangeRange} />
+							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>

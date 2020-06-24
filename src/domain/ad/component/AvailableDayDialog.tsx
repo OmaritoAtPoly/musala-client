@@ -1,10 +1,10 @@
 import { Dialog, DialogContent, DialogTitle, IconButton, makeStyles } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
-import Form from './AvailableDayForm';
+import { BlockedDay } from '../../../containers/calendar/Calendar';
 import customTheme from '../../../theme';
 import { Range } from '../../../utils/type';
-import { Moment } from 'moment';
+import Form from './AvailableDayForm';
 
 interface Props {
     visible: boolean;
@@ -14,7 +14,7 @@ interface Props {
     onSubmit: (availability: string) => void;
     ranking: number;
     adTitle: string;
-    blockedDays: Moment[];
+    blockedDays: BlockedDay[];
     range: Range | undefined;
     availability: string;
     validRange: boolean;

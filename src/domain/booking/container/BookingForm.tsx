@@ -5,6 +5,7 @@ import { Moment } from 'moment'
 import { DATE_FORMAT } from '../../../utils/constants'
 import { useCreateBookingMutation, useCurrentUserQuery } from '../../../generate/types'
 import { ApolloError } from 'apollo-boost'
+import { BlockedDay } from '../../../containers/calendar/Calendar'
 
 interface Props {
     adId: string;
@@ -12,7 +13,7 @@ interface Props {
     adRanking: number;
     adPrice: number;
     visible: boolean;
-    blockedDays: Moment[];
+    blockedDays: BlockedDay[];
     handleShowDialog: () => void;
     setAlertError: (value: string) => void;
 }

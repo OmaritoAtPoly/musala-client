@@ -1,5 +1,5 @@
 import { ApolloError } from 'apollo-boost'
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { BlockedDay } from '../../../containers/calendar/Calendar'
 import { useCreateBookingMutation } from '../../../generate/types'
 import { DATE_FORMAT, ERROR_SEVERITY_VALUE, INFO_SEVERITY_VALUE } from '../../../utils/constants'
@@ -36,7 +36,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
 
     useEffect(() => {
         error && setAlertError(error.message.replace('GraphQL error:', ''));
-    }, [])
+    }, [error, setAlertError])
 
     const onSubmit = useCallback((pax: number) => {
         setIsValidRange(true);

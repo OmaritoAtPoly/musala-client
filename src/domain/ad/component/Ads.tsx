@@ -19,8 +19,8 @@ interface Props {
 const Ads = ({ data, errorMessage, closeError }: Props) => {
   return (
     <>
-      {data.map((data) => (
-        <Session {...data} />
+      {data.map((data, i) => (
+        <Session {...data} key={i}/>
       ))}
       <Alert
         message={errorMessage}

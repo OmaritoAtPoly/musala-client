@@ -52,8 +52,8 @@ const Session = ({
       <Typography className={classes.subTitle}>{description}</Typography>
       <Grid container xs={12} spacing={3} className={classes.container}>
         {loading && <CircularProgress size={20} />}
-        {items.map((element) => (
-          <Grid item xs={xs} sm={sm}>
+        {items.map((element, i) => (
+          <Grid key={i} item xs={xs} sm={sm}>
             {renderItem(element)}
           </Grid>
         ))}
@@ -73,7 +73,7 @@ const useStyles = makeStyles(() =>
     title: {
       color: customTheme.color.foreground,
       fontWeight: 'bold',
-      marginBottom: '0.1rem',
+      marginBottom: customTheme.spacing.margin.mini,
     },
     subTitle: {
       color: customTheme.color.foreground,

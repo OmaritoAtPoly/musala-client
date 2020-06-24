@@ -5,13 +5,14 @@ import React from "react";
 type Props = {
   message?: string;
   open?: boolean;
+  severity?:string;
 } & AlertProps;
 
-const Alert = ({ message, open, ...rest }: Props) => {
+const Alert = ({ severity='error', message, open, ...rest }: Props) => {
   return (
     <>
       <Snackbar open={open} autoHideDuration={6000}>
-        <MuiAlert elevation={6} variant="filled" severity="error" {...rest}>
+        <MuiAlert elevation={6} variant="filled" severity={severity} {...rest}>
           {message}
         </MuiAlert>
       </Snackbar>

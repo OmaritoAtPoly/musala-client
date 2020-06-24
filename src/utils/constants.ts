@@ -36,6 +36,8 @@ export const UNDEFINED = 'Undefined';
 export const AVAILABILITY = 'Availability';
 export const ACTION_VALIDATE = 'Must select an option';
 export const PAX_VALIDATE = 'Pax must be greater than zero';
+export const INFO_SEVERITY_VALUE = 'info';
+export const ERROR_SEVERITY_VALUE = 'error';
 
 /*CALENDAR*/
 export const DATE_FORMAT = 'YYYY-MM-DD';

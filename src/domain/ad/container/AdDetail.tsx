@@ -47,10 +47,6 @@ export const AdDetail = () => {
             description: data.ad.description,
             ranking: data.ad.ranking,
             blockedDays: data.ad.blockedDays
-            //     [
-            //     // moment(data.ad.blockedDays.map(day => day.checkin).find(a => a), DATE_FORMAT),
-            //     // moment(data.ad.blockedDays.map(day => day.checkout).find(a => a), DATE_FORMAT)
-            // ],
         }
     }, [data])
 

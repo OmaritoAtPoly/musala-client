@@ -887,6 +887,23 @@ export type AdUpsertWithoutBlockedDaysInput = {
   create: AdCreateWithoutBlockedDaysInput;
 };
 
+export type CreateBookingMutationVariables = Exact<{
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  clientId: Scalars['String'];
+  pax: Scalars['Int'];
+  adId: Scalars['String'];
+}>;
+
+
+export type CreateBookingMutation = (
+  { __typename?: 'Mutation' }
+  & { createBooking: (
+    { __typename?: 'Booking' }
+    & Pick<Booking, 'id' | 'checkin' | 'checkout' | 'totalPaid' | 'createdAt'>
+  ) }
+);
+
 export type ListAdsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -961,6 +978,46 @@ export type CurrentUserQuery = (
 );
 
 
+export const CreateBookingDocument = gql`
+    mutation CreateBooking($checkin: DateTime!, $checkout: DateTime!, $clientId: String!, $pax: Int!, $adId: String!) {
+  createBooking(data: {checkin: $checkin, checkout: $checkout, clientId: $clientId, pax: $pax, adId: $adId}) {
+    id
+    checkin
+    checkout
+    totalPaid
+    createdAt
+  }
+}
+    `;
+export type CreateBookingMutationFn = ApolloReactCommon.MutationFunction<CreateBookingMutation, CreateBookingMutationVariables>;
+
+/**
+ * __useCreateBookingMutation__
+ *
+ * To run a mutation, you first call `useCreateBookingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBookingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBookingMutation, { data, loading, error }] = useCreateBookingMutation({
+ *   variables: {
+ *      checkin: // value for 'checkin'
+ *      checkout: // value for 'checkout'
+ *      clientId: // value for 'clientId'
+ *      pax: // value for 'pax'
+ *      adId: // value for 'adId'
+ *   },
+ * });
+ */
+export function useCreateBookingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateBookingMutation, CreateBookingMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateBookingMutation, CreateBookingMutationVariables>(CreateBookingDocument, baseOptions);
+      }
+export type CreateBookingMutationHookResult = ReturnType<typeof useCreateBookingMutation>;
+export type CreateBookingMutationResult = ApolloReactCommon.MutationResult<CreateBookingMutation>;
+export type CreateBookingMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateBookingMutation, CreateBookingMutationVariables>;
 export const ListAdsDocument = gql`
     query listAds {
   ads {

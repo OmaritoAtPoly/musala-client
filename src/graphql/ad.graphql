@@ -1,0 +1,3 @@
+mutation updateAvailability($data:UpdateAvailableInput!) {
+  updateAvailability(data:$data)
+}

@@ -422,6 +422,7 @@ export type Mutation = {
   createBooking: Booking;
   updateBlockedDay?: Maybe<BlockedDay>;
   deleteBlockedDay?: Maybe<BlockedDay>;
+  updateAvailability: Scalars['Boolean'];
 };
 
 
@@ -448,6 +449,11 @@ export type MutationUpdateBlockedDayArgs = {
 
 export type MutationDeleteBlockedDayArgs = {
   where: BlockedDayWhereUniqueInput;
+};
+
+
+export type MutationUpdateAvailabilityArgs = {
+  data: UpdateAvailableInput;
 };
 
 export type SignInInput = {
@@ -887,6 +893,28 @@ export type AdUpsertWithoutBlockedDaysInput = {
   create: AdCreateWithoutBlockedDaysInput;
 };
 
+export type UpdateAvailableInput = {
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  ops: OpsEnum;
+  adId: Scalars['String'];
+};
+
+export enum OpsEnum {
+  Blocked = 'BLOCKED',
+  Available = 'AVAILABLE'
+}
+
+export type UpdateAvailabilityMutationVariables = Exact<{
+  data: UpdateAvailableInput;
+}>;
+
+
+export type UpdateAvailabilityMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateAvailability'>
+);
+
 export type ListAdsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -961,6 +989,36 @@ export type CurrentUserQuery = (
 );
 
 
+export const UpdateAvailabilityDocument = gql`
+    mutation updateAvailability($data: UpdateAvailableInput!) {
+  updateAvailability(data: $data)
+}
+    `;
+export type UpdateAvailabilityMutationFn = ApolloReactCommon.MutationFunction<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>;
+
+/**
+ * __useUpdateAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useUpdateAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAvailabilityMutation, { data, loading, error }] = useUpdateAvailabilityMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateAvailabilityMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>(UpdateAvailabilityDocument, baseOptions);
+      }
+export type UpdateAvailabilityMutationHookResult = ReturnType<typeof useUpdateAvailabilityMutation>;
+export type UpdateAvailabilityMutationResult = ApolloReactCommon.MutationResult<UpdateAvailabilityMutation>;
+export type UpdateAvailabilityMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>;
 export const ListAdsDocument = gql`
     query listAds {
   ads {

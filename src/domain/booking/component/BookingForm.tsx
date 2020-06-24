@@ -8,7 +8,7 @@ import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { BlockedDay, Calendar } from '../../../containers/calendar/Calendar'
 import customTheme from '../../../theme'
-import { BOOK_NOW, EDITABLE_MODE, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
+import { BOOK_NOW, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 

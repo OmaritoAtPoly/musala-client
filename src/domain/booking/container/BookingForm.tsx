@@ -3,7 +3,7 @@ import { BookingDialog } from '../component/BookingDialog'
 import { Range } from '../utils'
 import { Moment } from 'moment'
 import { DATE_FORMAT } from '../../../utils/constants'
-import { useCreateBookingMutation, useCurrentUserQuery } from '../../../generate/types'
+import { useCreateBookingMutation, useCurrentUserQuery, useSelectAdByIdQuery } from '../../../generate/types'
 import { ApolloError } from 'apollo-boost'
 import { BlockedDay } from '../../../containers/calendar/Calendar'
 
@@ -16,9 +16,10 @@ interface Props {
     blockedDays: BlockedDay[];
     handleShowDialog: () => void;
     setAlertError: (value: string) => void;
+    resetSelectAd:() => void;
 }
 
-export const BookingForm = ({ setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
+export const BookingForm = ({ resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
     const [createBookingMutation, { data, loading, error }] = useCreateBookingMutation();
@@ -55,6 +56,9 @@ export const BookingForm = ({ setAlertError, adId, adTitle, adRanking, adPrice, 
         })
             .then(() => {
                 setAlertError('todo bien');
+            })
+            .then(() => {
+                resetSelectAd();
             })
             .catch((error: ApolloError) =>
                 setAlertError(error.message.replace('GraphQL error:', ''))

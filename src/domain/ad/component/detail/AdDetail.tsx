@@ -25,9 +25,10 @@ interface Props {
     closeError: () => void;
     errorMessage: string;
     setAlertError:(value: string) => void;
+    resetSelectAd: () => void
 }
 
-export const AdDetail = ({ setAlertError, adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
+export const AdDetail = ({ resetSelectAd, setAlertError, adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
 
     return (
@@ -53,6 +54,7 @@ export const AdDetail = ({ setAlertError, adId, errorMessage, closeError, loadin
                 handleShowDialog={handleOnShowDialog}
                 visible={visible}
                 setAlertError={setAlertError}
+                resetSelectAd = {resetSelectAd}
             />
             <Alert
                 message={errorMessage}

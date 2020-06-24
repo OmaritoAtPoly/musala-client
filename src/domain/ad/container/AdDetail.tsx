@@ -1,8 +1,6 @@
-import moment from 'moment';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelectAdByIdQuery } from '../../../generate/types';
-import { DATE_FORMAT } from '../../../utils/constants';
 import AdDetailView from '../component/detail';
 
 const initialValues = {
@@ -29,7 +27,7 @@ export const AdDetail = () => {
         setVisibleBookingDialog(!visibleBookingDialog)
     }
 
-    const { data, loading, error } = useSelectAdByIdQuery({
+    const { data, loading, error, refetch } = useSelectAdByIdQuery({
         variables: {
             id: id
         },
@@ -58,6 +56,7 @@ export const AdDetail = () => {
             errorMessage={errorMessage}
             closeError={closeError}
             setAlertError={setAlertError}
+            resetSelectAd = {refetch}
             {...querySetValues}
         />
     )

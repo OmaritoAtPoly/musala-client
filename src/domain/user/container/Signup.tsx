@@ -1,10 +1,14 @@
+import { useApolloClient } from '@apollo/react-hooks';
 import { ApolloError } from 'apollo-boost';
+import bcrypt from 'bcryptjs';
 import { set } from 'local-storage';
 import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CurrentUserDocument, useSignUpMutation } from '../../../generate/types';
+import {
+  CurrentUserDocument,
+  useSignUpMutation,
+} from '../../../generate/types';
 import { SignupForm } from '../component/SignupForm';
-import { useApolloClient } from '@apollo/react-hooks';
 
 export type SignupInput = {
   fullName: string;
@@ -32,15 +36,17 @@ const Signup = () => {
   }, [setAlertError]);
 
   const signIn = useCallback(() => {
-    push("/login");
-  }, [push])
+    push('/login');
+  }, [push]);
 
   const handleSignup = useCallback(
     ({ email, fullName, password, phone }) => {
+      const salt: number = parseInt(process.env.B_CRYPT_SALT || '10');
+      const hash = bcrypt.hashSync(password, salt);
       signUpFn({
         variables: {
           email,
-          password,
+          password: hash,
           fullName,
           phone,
         },

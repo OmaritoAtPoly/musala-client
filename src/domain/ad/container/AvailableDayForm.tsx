@@ -4,6 +4,7 @@ import { Moment } from 'moment'
 import { DATE_FORMAT, AVAILABLE, BLOCKED, UNDEFINED } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import { BlockedDay } from '../../../containers/calendar/Calendar'
+import { getBlockedDateRange } from '../../../utils/calendar'
 
 interface Props {
     adId: string;
@@ -25,8 +26,8 @@ export const AvailableDayForm = ({ adId, adTitle, adRanking, blockedDays, visibl
 
     const handldeOnRangeChange = (range: Range) => {
         if (range && range.checkin && range.checkout)
-            // setAvailability(handleAvailability(range, blockedDays));
-            setRange(range)
+            setAvailability(handleAvailability(range, blockedDays));
+        setRange(range)
     }
 
     const onSubmit = (availability: string) => {
@@ -55,7 +56,7 @@ export const AvailableDayForm = ({ adId, adTitle, adRanking, blockedDays, visibl
     />
 }
 
-const handleAvailability = (range: Range, blockedDays: Moment[]) => {
+const handleAvailability = (range: Range, blockedDays: BlockedDay[]) => {
     if (isFullAvailable(range, blockedDays)) {
         return AVAILABLE;
     } else if (isFullBlocked(range, blockedDays)) {
@@ -63,27 +64,29 @@ const handleAvailability = (range: Range, blockedDays: Moment[]) => {
     } else return UNDEFINED;
 }
 
-const isFullBlocked = (range: Range, blockedDayList: Moment[]) => {
+const isFullBlocked = (range: Range, blockedDateRange: BlockedDay[]) => {
     let checkIn = range.checkin?.clone()
     while (checkIn?.isBefore(range.checkout)) {
-        const isBLocked = (isBlocked(checkIn, blockedDayList));
+        const isBLocked = (isBlocked(checkIn, blockedDateRange));
         if (!isBLocked) return false;
         checkIn.add(24, 'hours')
     }
     return true
 }
 
-const isFullAvailable = (range: Range, blockedDayList: Moment[]) => {
+const isFullAvailable = (range: Range, blockedDateRange: BlockedDay[]) => {
     let checkIn = range.checkin?.clone()
     while (checkIn?.isBefore(range.checkout)) {
-        if (isBlocked(checkIn, blockedDayList)) return false
+        if (isBlocked(checkIn, blockedDateRange)) return false
         checkIn.add(24, 'hours')
     }
     return true
 }
 
-const isBlocked = (date: Moment, blockedDayList: Moment[]) => {
-    for (let i = 0; i < blockedDayList.length; i++) {
-        if (date.isSame(blockedDayList[i])) return true;
-    } return false;
+const isBlocked = (date: Moment, blockedDay: BlockedDay[]) => {
+    for (let i = 0; i < blockedDay.length; i++) {
+        const range = getBlockedDateRange(blockedDay[i])
+        if (date.isSameOrAfter(range.checkin) && date.isSameOrBefore(range.checkout))
+            return true
+    } return false
 }

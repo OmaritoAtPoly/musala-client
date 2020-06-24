@@ -1,6 +1,6 @@
 [build]
  base = "musala-project"
- publish = "/opt/build/repo/build"
+ publish = "build/musala-project"
  command = "yarn build"
  
  [[redirects]]

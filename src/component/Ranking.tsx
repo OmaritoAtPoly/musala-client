@@ -2,6 +2,7 @@ import { Theme, Typography } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
+import customTheme from '../theme';
 
 interface Props {
     ranking: number;
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center'
     },
     rating: {
-        fontSize: '0.8rem',
+        fontSize: customTheme.font.size.small,
         marginRight: theme.spacing(1),
         color: theme.palette.primary.main,
     },

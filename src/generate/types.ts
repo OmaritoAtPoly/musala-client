@@ -902,6 +902,23 @@ export type ListAdsQuery = (
   )>> }
 );
 
+export type SelectAdByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type SelectAdByIdQuery = (
+  { __typename?: 'Query' }
+  & { ad?: Maybe<(
+    { __typename?: 'Ad' }
+    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking'>
+    & { blockedDays: Array<(
+      { __typename?: 'BlockedDay' }
+      & Pick<BlockedDay, 'checkin' | 'checkout' | 'byBooking'>
+    )> }
+  )> }
+);
+
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
   fullName: Scalars['String'];
@@ -1011,6 +1028,49 @@ export function useListAdsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type ListAdsQueryHookResult = ReturnType<typeof useListAdsQuery>;
 export type ListAdsLazyQueryHookResult = ReturnType<typeof useListAdsLazyQuery>;
 export type ListAdsQueryResult = ApolloReactCommon.QueryResult<ListAdsQuery, ListAdsQueryVariables>;
+export const SelectAdByIdDocument = gql`
+    query selectAdById($id: ID!) {
+  ad(where: {id: $id}) {
+    id
+    title
+    description
+    image
+    price
+    ranking
+    blockedDays {
+      checkin
+      checkout
+      byBooking
+    }
+  }
+}
+    `;
+
+/**
+ * __useSelectAdByIdQuery__
+ *
+ * To run a query within a React component, call `useSelectAdByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSelectAdByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSelectAdByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSelectAdByIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SelectAdByIdQuery, SelectAdByIdQueryVariables>) {
+        return ApolloReactHooks.useQuery<SelectAdByIdQuery, SelectAdByIdQueryVariables>(SelectAdByIdDocument, baseOptions);
+      }
+export function useSelectAdByIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SelectAdByIdQuery, SelectAdByIdQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SelectAdByIdQuery, SelectAdByIdQueryVariables>(SelectAdByIdDocument, baseOptions);
+        }
+export type SelectAdByIdQueryHookResult = ReturnType<typeof useSelectAdByIdQuery>;
+export type SelectAdByIdLazyQueryHookResult = ReturnType<typeof useSelectAdByIdLazyQuery>;
+export type SelectAdByIdQueryResult = ApolloReactCommon.QueryResult<SelectAdByIdQuery, SelectAdByIdQueryVariables>;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $fullName: String!, $password: String!, $phone: String!) {
   signUp(data: {email: $email, fullName: $fullName, password: $password, phone: $phone}) {

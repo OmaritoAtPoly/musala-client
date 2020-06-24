@@ -27,7 +27,7 @@ const routesDefinition = [
   },
   {
     exact: true,
-    path: "/details-ad:id",
+    path: "/details-ad/:id",
     component: lazy(() => import('../page/AdPage')),
     needLoggedIn: false,
   },

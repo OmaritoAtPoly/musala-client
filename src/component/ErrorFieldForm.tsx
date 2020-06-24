@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     error: {
         color: customTheme.color.primaryDark,
         alignSelf: 'flex-start',
-        fontSize: '.8rem'
+        fontSize: customTheme.font.size.small
     },
 });
 

@@ -17,7 +17,7 @@ export const AdSeccion = ({ rankedAds, title, subtitle, showMore = false, loadin
     return (
         <Section title={title} description={subtitle}>
             <>
-                <div className={classes.loading}>{(loading) && <CircularProgress size={20} />}</div>
+                <div className={classes.loading}>{(loading) && <CircularProgress size={50} />}</div>
                 <div className={classes.row} >{
                     rankedAds?.map((ad, index: number) => (
                         <div key={index} className={classes.item} >

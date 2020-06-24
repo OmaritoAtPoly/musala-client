@@ -13,6 +13,7 @@ interface Props {
     adRanking: number;
     adPrice: number;
     visible: boolean;
+    userId?: string;
     blockedDays: BlockedDay[];
     handleShowDialog: () => void;
     setAlertError: (value: string) => void;
@@ -20,7 +21,7 @@ interface Props {
     setSeverityValue: (value: SeverityType) => void;
 }
 
-export const BookingForm = ({ setSeverityValue, resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
+export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
     const [createBookingMutation, { error }] = useCreateBookingMutation();
@@ -34,13 +35,6 @@ export const BookingForm = ({ setSeverityValue, resetSelectAd, setAlertError, ad
     const handldeOnRangeChange = (range: Range) => {
         setRange(range);
     }
-
-    const { data: currentUserData } = useCurrentUserQuery({
-        fetchPolicy: 'cache-first',
-        errorPolicy: 'all',
-    });
-
-    const userId = useMemo(() => currentUserData?.currentUser?.id, [currentUserData]);
 
     const onSubmit = useCallback((pax: number) => {
         setIsValidRange(true);

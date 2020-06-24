@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelectAdByIdQuery } from '../../../generate/types';
+import { useSelectAdByIdQuery, useCurrentUserQuery } from '../../../generate/types';
 import AdDetailView from '../component/detail';
 
 export type SeverityType = "success" | "info" | "warning" | "error" | undefined;
@@ -18,10 +18,18 @@ const initialValues = {
 export const AdDetail = () => {
 
     const { id } = useParams()
+    
     const [visibleBookingDialog, setVisibleBookingDialog] = useState<boolean>(false)
     const [errorMessage, setAlertError] = useState('');
     const [severityValue, setSeverity] = useState<SeverityType>("error");
+    
+    const { data: currentUserData } = useCurrentUserQuery({
+        fetchPolicy: 'cache-first',
+        errorPolicy: 'all',
+    });
 
+    const userId = useMemo(() => currentUserData?.currentUser?.id, [currentUserData]);
+    
     const { data, loading, error, refetch } = useSelectAdByIdQuery({
         variables: {
             id: id
@@ -66,6 +74,7 @@ export const AdDetail = () => {
             resetSelectAd={refetch}
             setSeverityValue={handleSeverityValue}
             severityValue={severityValue}
+            userId={userId}
             {...querySetValues}
         />
     )

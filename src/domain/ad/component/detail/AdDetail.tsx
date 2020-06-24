@@ -19,19 +19,20 @@ interface Props {
     image: string;
     price: number;
     ranking: number;
-    blockedDays: BlockedDay[]
-    handleOnShowDialog: () => void;
     visible: boolean;
     loading: boolean;
-    closeError: () => void;
+    userId?:string;
     errorMessage: string;
+    severityValue: SeverityType;
+    blockedDays: BlockedDay[]
     setAlertError: (value: string) => void;
     resetSelectAd: () => void;
     setSeverityValue: (value:SeverityType) => void;
-    severityValue: SeverityType;
+    closeError: () => void;
+    handleOnShowDialog: () => void;
 }
 
-export const AdDetail = ({ severityValue, setSeverityValue, resetSelectAd, setAlertError, adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
+export const AdDetail = ({ userId,severityValue, setSeverityValue, resetSelectAd, setAlertError, adId, errorMessage, closeError, loading, title, description, image, price, ranking, visible, blockedDays, handleOnShowDialog }: Props) => {
     const classes = useStyles()
 
     return (
@@ -44,7 +45,7 @@ export const AdDetail = ({ severityValue, setSeverityValue, resetSelectAd, setAl
                 <div className={classes.detailContainer}>
                     <TitlePanel ranking={ranking} title={title} />
                     <Typography color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
-                    <BookPanel onClick={handleOnShowDialog} />
+                    <BookPanel userId={userId} onClick={handleOnShowDialog} />
                 </div>
             </div>
             <DescriptionPanel description={description} />
@@ -59,6 +60,7 @@ export const AdDetail = ({ severityValue, setSeverityValue, resetSelectAd, setAl
                 setAlertError={setAlertError}
                 resetSelectAd={resetSelectAd}
                 setSeverityValue={setSeverityValue}
+                userId={userId}
             />
             <Alert
                 severity={severityValue}

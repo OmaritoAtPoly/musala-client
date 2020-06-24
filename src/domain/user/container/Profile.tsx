@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import UserProfile from '../component/Profile';
 import { useCurrentUserQuery } from '../../../generate/types'
+import {Role} from '../../../utils/type'
+
 
 const Profile = () => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>();
@@ -16,7 +18,7 @@ const Profile = () => {
 
 
     const prepareData =useCallback( (data:any) => {
-      if(data?.currentUser?.role==="CLIENT") {
+      if(data?.currentUser?.role===Role.CLIENT) {
         return {
           name: data?.currentUser?.fullName,
             email: data?.currentUser?.email,

@@ -949,6 +949,16 @@ export enum OpsEnum {
   Available = 'AVAILABLE'
 }
 
+export type UpdateAvailabilityMutationVariables = Exact<{
+  data: UpdateAvailableInput;
+}>;
+
+
+export type UpdateAvailabilityMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateAvailability'>
+);
+
 export type CreateBookingMutationVariables = Exact<{
   checkin: Scalars['DateTime'];
   checkout: Scalars['DateTime'];
@@ -960,12 +970,10 @@ export type CreateBookingMutationVariables = Exact<{
 
 export type CreateBookingMutation = (
   { __typename?: 'Mutation' }
-  & {
-    createBooking: (
-      { __typename?: 'Booking' }
-      & Pick<Booking, 'id' | 'checkin' | 'checkout' | 'totalPaid' | 'createdAt'>
-    )
-  }
+  & { createBooking: (
+    { __typename?: 'Booking' }
+    & Pick<Booking, 'id' | 'checkin' | 'checkout' | 'totalPaid' | 'createdAt'>
+  ) }
 );
 
 export type ListAdsQueryVariables = Exact<{
@@ -976,18 +984,14 @@ export type ListAdsQueryVariables = Exact<{
 
 export type ListAdsQuery = (
   { __typename?: 'Query' }
-  & {
-    ads: Array<Maybe<(
-      { __typename?: 'Ad' }
-      & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking' | 'createdAt'>
-      & {
-        host: (
-          { __typename?: 'User' }
-          & Pick<User, 'fullName'>
-        )
-      }
-    )>>
-  }
+  & { ads: Array<Maybe<(
+    { __typename?: 'Ad' }
+    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking' | 'createdAt'>
+    & { host: (
+      { __typename?: 'User' }
+      & Pick<User, 'fullName'>
+    ) }
+  )>> }
 );
 
 export type SelectAdByIdQueryVariables = Exact<{
@@ -997,18 +1001,14 @@ export type SelectAdByIdQueryVariables = Exact<{
 
 export type SelectAdByIdQuery = (
   { __typename?: 'Query' }
-  & {
-    ad?: Maybe<(
-      { __typename?: 'Ad' }
-      & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking'>
-      & {
-        blockedDays: Array<(
-          { __typename?: 'BlockedDay' }
-          & Pick<BlockedDay, 'checkin' | 'checkout' | 'byBooking'>
-        )>
-      }
-    )>
-  }
+  & { ad?: Maybe<(
+    { __typename?: 'Ad' }
+    & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking'>
+    & { blockedDays: Array<(
+      { __typename?: 'BlockedDay' }
+      & Pick<BlockedDay, 'checkin' | 'checkout' | 'byBooking'>
+    )> }
+  )> }
 );
 
 export type CurrentAvailabilityQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1016,24 +1016,18 @@ export type CurrentAvailabilityQueryVariables = Exact<{ [key: string]: never; }>
 
 export type CurrentAvailabilityQuery = (
   { __typename?: 'Query' }
-  & {
-    currentAvailability?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id'>
-      & {
-        ad?: Maybe<(
-          { __typename?: 'Ad' }
-          & Pick<Ad, 'id' | 'title' | 'ranking'>
-          & {
-            blockedDays: Array<(
-              { __typename?: 'BlockedDay' }
-              & Pick<BlockedDay, 'id' | 'checkin' | 'checkout' | 'byBooking'>
-            )>
-          }
-        )>
-      }
-    )>
-  }
+  & { currentAvailability?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+    & { ad?: Maybe<(
+      { __typename?: 'Ad' }
+      & Pick<Ad, 'id' | 'title' | 'ranking'>
+      & { blockedDays: Array<(
+        { __typename?: 'BlockedDay' }
+        & Pick<BlockedDay, 'id' | 'checkin' | 'checkout' | 'byBooking'>
+      )> }
+    )> }
+  )> }
 );
 
 export type SignUpMutationVariables = Exact<{
@@ -1046,12 +1040,10 @@ export type SignUpMutationVariables = Exact<{
 
 export type SignUpMutation = (
   { __typename?: 'Mutation' }
-  & {
-    signUp?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'email' | 'password' | 'role' | 'createdAt' | 'token'>
-    )>
-  }
+  & { signUp?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'email' | 'password' | 'role' | 'createdAt' | 'token'>
+  )> }
 );
 
 export type SignInMutationVariables = Exact<{
@@ -1062,12 +1054,10 @@ export type SignInMutationVariables = Exact<{
 
 export type SignInMutation = (
   { __typename?: 'Mutation' }
-  & {
-    signIn?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'email' | 'fullName' | 'createdAt' | 'role' | 'token'>
-    )>
-  }
+  & { signIn?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'email' | 'fullName' | 'createdAt' | 'role' | 'token'>
+  )> }
 );
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1075,15 +1065,43 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CurrentUserQuery = (
   { __typename?: 'Query' }
-  & {
-    currentUser?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'email' | 'fullName' | 'password' | 'createdAt' | 'role' | 'phone' | 'token'>
-    )>
-  }
+  & { currentUser?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'email' | 'fullName' | 'password' | 'createdAt' | 'role' | 'phone' | 'token'>
+  )> }
 );
 
 
+export const UpdateAvailabilityDocument = gql`
+    mutation updateAvailability($data: UpdateAvailableInput!) {
+  updateAvailability(data: $data)
+}
+    `;
+export type UpdateAvailabilityMutationFn = ApolloReactCommon.MutationFunction<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>;
+
+/**
+ * __useUpdateAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useUpdateAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAvailabilityMutation, { data, loading, error }] = useUpdateAvailabilityMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateAvailabilityMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>(UpdateAvailabilityDocument, baseOptions);
+      }
+export type UpdateAvailabilityMutationHookResult = ReturnType<typeof useUpdateAvailabilityMutation>;
+export type UpdateAvailabilityMutationResult = ApolloReactCommon.MutationResult<UpdateAvailabilityMutation>;
+export type UpdateAvailabilityMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>;
 export const CreateBookingDocument = gql`
     mutation CreateBooking($checkin: DateTime!, $checkout: DateTime!, $clientId: String!, $pax: Int!, $adId: String!) {
   createBooking(data: {checkin: $checkin, checkout: $checkout, clientId: $clientId, pax: $pax, adId: $adId}) {
@@ -1119,8 +1137,8 @@ export type CreateBookingMutationFn = ApolloReactCommon.MutationFunction<CreateB
  * });
  */
 export function useCreateBookingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateBookingMutation, CreateBookingMutationVariables>) {
-  return ApolloReactHooks.useMutation<CreateBookingMutation, CreateBookingMutationVariables>(CreateBookingDocument, baseOptions);
-}
+        return ApolloReactHooks.useMutation<CreateBookingMutation, CreateBookingMutationVariables>(CreateBookingDocument, baseOptions);
+      }
 export type CreateBookingMutationHookResult = ReturnType<typeof useCreateBookingMutation>;
 export type CreateBookingMutationResult = ApolloReactCommon.MutationResult<CreateBookingMutation>;
 export type CreateBookingMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateBookingMutation, CreateBookingMutationVariables>;
@@ -1159,11 +1177,11 @@ export const ListAdsDocument = gql`
  * });
  */
 export function useListAdsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListAdsQuery, ListAdsQueryVariables>) {
-  return ApolloReactHooks.useQuery<ListAdsQuery, ListAdsQueryVariables>(ListAdsDocument, baseOptions);
-}
+        return ApolloReactHooks.useQuery<ListAdsQuery, ListAdsQueryVariables>(ListAdsDocument, baseOptions);
+      }
 export function useListAdsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListAdsQuery, ListAdsQueryVariables>) {
-  return ApolloReactHooks.useLazyQuery<ListAdsQuery, ListAdsQueryVariables>(ListAdsDocument, baseOptions);
-}
+          return ApolloReactHooks.useLazyQuery<ListAdsQuery, ListAdsQueryVariables>(ListAdsDocument, baseOptions);
+        }
 export type ListAdsQueryHookResult = ReturnType<typeof useListAdsQuery>;
 export type ListAdsLazyQueryHookResult = ReturnType<typeof useListAdsLazyQuery>;
 export type ListAdsQueryResult = ApolloReactCommon.QueryResult<ListAdsQuery, ListAdsQueryVariables>;
@@ -1202,11 +1220,11 @@ export const SelectAdByIdDocument = gql`
  * });
  */
 export function useSelectAdByIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SelectAdByIdQuery, SelectAdByIdQueryVariables>) {
-  return ApolloReactHooks.useQuery<SelectAdByIdQuery, SelectAdByIdQueryVariables>(SelectAdByIdDocument, baseOptions);
-}
+        return ApolloReactHooks.useQuery<SelectAdByIdQuery, SelectAdByIdQueryVariables>(SelectAdByIdDocument, baseOptions);
+      }
 export function useSelectAdByIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SelectAdByIdQuery, SelectAdByIdQueryVariables>) {
-  return ApolloReactHooks.useLazyQuery<SelectAdByIdQuery, SelectAdByIdQueryVariables>(SelectAdByIdDocument, baseOptions);
-}
+          return ApolloReactHooks.useLazyQuery<SelectAdByIdQuery, SelectAdByIdQueryVariables>(SelectAdByIdDocument, baseOptions);
+        }
 export type SelectAdByIdQueryHookResult = ReturnType<typeof useSelectAdByIdQuery>;
 export type SelectAdByIdLazyQueryHookResult = ReturnType<typeof useSelectAdByIdLazyQuery>;
 export type SelectAdByIdQueryResult = ApolloReactCommon.QueryResult<SelectAdByIdQuery, SelectAdByIdQueryVariables>;
@@ -1245,11 +1263,11 @@ export const CurrentAvailabilityDocument = gql`
  * });
  */
 export function useCurrentAvailabilityQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>) {
-  return ApolloReactHooks.useQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
-}
+        return ApolloReactHooks.useQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
+      }
 export function useCurrentAvailabilityLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>) {
-  return ApolloReactHooks.useLazyQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
-}
+          return ApolloReactHooks.useLazyQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
+        }
 export type CurrentAvailabilityQueryHookResult = ReturnType<typeof useCurrentAvailabilityQuery>;
 export type CurrentAvailabilityLazyQueryHookResult = ReturnType<typeof useCurrentAvailabilityLazyQuery>;
 export type CurrentAvailabilityQueryResult = ApolloReactCommon.QueryResult<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>;
@@ -1288,8 +1306,8 @@ export type SignUpMutationFn = ApolloReactCommon.MutationFunction<SignUpMutation
  * });
  */
 export function useSignUpMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SignUpMutation, SignUpMutationVariables>) {
-  return ApolloReactHooks.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, baseOptions);
-}
+        return ApolloReactHooks.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, baseOptions);
+      }
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = ApolloReactCommon.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = ApolloReactCommon.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
@@ -1326,8 +1344,8 @@ export type SignInMutationFn = ApolloReactCommon.MutationFunction<SignInMutation
  * });
  */
 export function useSignInMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SignInMutation, SignInMutationVariables>) {
-  return ApolloReactHooks.useMutation<SignInMutation, SignInMutationVariables>(SignInDocument, baseOptions);
-}
+        return ApolloReactHooks.useMutation<SignInMutation, SignInMutationVariables>(SignInDocument, baseOptions);
+      }
 export type SignInMutationHookResult = ReturnType<typeof useSignInMutation>;
 export type SignInMutationResult = ApolloReactCommon.MutationResult<SignInMutation>;
 export type SignInMutationOptions = ApolloReactCommon.BaseMutationOptions<SignInMutation, SignInMutationVariables>;
@@ -1362,29 +1380,30 @@ export const CurrentUserDocument = gql`
  * });
  */
 export function useCurrentUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
-  return ApolloReactHooks.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
-}
+        return ApolloReactHooks.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
+      }
 export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
-  return ApolloReactHooks.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
-}
+          return ApolloReactHooks.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions);
+        }
 export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
 export type CurrentUserQueryResult = ApolloReactCommon.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
 
-export interface IntrospectionResultData {
-  __schema: {
-    types: {
-      kind: string;
-      name: string;
-      possibleTypes: {
-        name: string;
-      }[];
-    }[];
-  };
-}
-const result: IntrospectionResultData = {
+      export interface IntrospectionResultData {
+        __schema: {
+          types: {
+            kind: string;
+            name: string;
+            possibleTypes: {
+              name: string;
+            }[];
+          }[];
+        };
+      }
+      const result: IntrospectionResultData = {
   "__schema": {
     "types": []
   }
 };
-export default result;
+      export default result;
+    

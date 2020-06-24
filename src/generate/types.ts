@@ -17,6 +17,7 @@ export type Query = {
   __typename?: 'Query';
   currentUser?: Maybe<User>;
   ads: Array<Maybe<Ad>>;
+  ad?: Maybe<Ad>;
 };
 
 
@@ -30,6 +31,11 @@ export type QueryAdsArgs = {
   last?: Maybe<Scalars['Int']>;
 };
 
+
+export type QueryAdArgs = {
+  where: AdWhereUniqueInput;
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
@@ -38,10 +44,47 @@ export type User = {
   password: Scalars['String'];
   phone: Scalars['String'];
   role: Scalars['String'];
-  createdAt: Scalars['DateTime'];
+  bookings: Array<Booking>;
+  ad?: Maybe<Ad>;
   token?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
 };
 
+export type Booking = {
+  __typename?: 'Booking';
+  id: Scalars['ID'];
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  totalPaid: Scalars['Float'];
+  pax: Scalars['Int'];
+  client: User;
+  ad: Ad;
+  createdAt: Scalars['DateTime'];
+};
+
+
+export type Ad = {
+  __typename?: 'Ad';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  price: Scalars['Int'];
+  ranking: Scalars['Float'];
+  host: User;
+  bookings: Array<Booking>;
+  blockedDays: Array<BlockedDay>;
+  createdAt: Scalars['DateTime'];
+};
+
+export type BlockedDay = {
+  __typename?: 'BlockedDay';
+  id: Scalars['ID'];
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  byBooking?: Maybe<Scalars['Boolean']>;
+  ad: Ad;
+};
 
 export type AdWhereInput = {
   id?: Maybe<Scalars['ID']>;
@@ -117,6 +160,12 @@ export type AdWhereInput = {
   ranking_gt?: Maybe<Scalars['Float']>;
   ranking_gte?: Maybe<Scalars['Float']>;
   host?: Maybe<UserWhereInput>;
+  bookings_every?: Maybe<BookingWhereInput>;
+  bookings_some?: Maybe<BookingWhereInput>;
+  bookings_none?: Maybe<BookingWhereInput>;
+  blockedDays_every?: Maybe<BlockedDayWhereInput>;
+  blockedDays_some?: Maybe<BlockedDayWhereInput>;
+  blockedDays_none?: Maybe<BlockedDayWhereInput>;
   createdAt?: Maybe<Scalars['DateTime']>;
   createdAt_not?: Maybe<Scalars['DateTime']>;
   createdAt_in?: Maybe<Array<Scalars['DateTime']>>;
@@ -215,14 +264,10 @@ export type UserWhereInput = {
   role_not_starts_with?: Maybe<Scalars['String']>;
   role_ends_with?: Maybe<Scalars['String']>;
   role_not_ends_with?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_not?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Scalars['DateTime']>>;
-  createdAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
+  bookings_every?: Maybe<BookingWhereInput>;
+  bookings_some?: Maybe<BookingWhereInput>;
+  bookings_none?: Maybe<BookingWhereInput>;
+  ad?: Maybe<AdWhereInput>;
   token?: Maybe<Scalars['String']>;
   token_not?: Maybe<Scalars['String']>;
   token_in?: Maybe<Array<Scalars['String']>>;
@@ -237,9 +282,118 @@ export type UserWhereInput = {
   token_not_starts_with?: Maybe<Scalars['String']>;
   token_ends_with?: Maybe<Scalars['String']>;
   token_not_ends_with?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  createdAt_not?: Maybe<Scalars['DateTime']>;
+  createdAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  createdAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  createdAt_lt?: Maybe<Scalars['DateTime']>;
+  createdAt_lte?: Maybe<Scalars['DateTime']>;
+  createdAt_gt?: Maybe<Scalars['DateTime']>;
+  createdAt_gte?: Maybe<Scalars['DateTime']>;
   AND?: Maybe<Array<UserWhereInput>>;
   OR?: Maybe<Array<UserWhereInput>>;
   NOT?: Maybe<Array<UserWhereInput>>;
+};
+
+export type BookingWhereInput = {
+  id?: Maybe<Scalars['ID']>;
+  id_not?: Maybe<Scalars['ID']>;
+  id_in?: Maybe<Array<Scalars['ID']>>;
+  id_not_in?: Maybe<Array<Scalars['ID']>>;
+  id_lt?: Maybe<Scalars['ID']>;
+  id_lte?: Maybe<Scalars['ID']>;
+  id_gt?: Maybe<Scalars['ID']>;
+  id_gte?: Maybe<Scalars['ID']>;
+  id_contains?: Maybe<Scalars['ID']>;
+  id_not_contains?: Maybe<Scalars['ID']>;
+  id_starts_with?: Maybe<Scalars['ID']>;
+  id_not_starts_with?: Maybe<Scalars['ID']>;
+  id_ends_with?: Maybe<Scalars['ID']>;
+  id_not_ends_with?: Maybe<Scalars['ID']>;
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkin_not?: Maybe<Scalars['DateTime']>;
+  checkin_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_lt?: Maybe<Scalars['DateTime']>;
+  checkin_lte?: Maybe<Scalars['DateTime']>;
+  checkin_gt?: Maybe<Scalars['DateTime']>;
+  checkin_gte?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  checkout_not?: Maybe<Scalars['DateTime']>;
+  checkout_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_lt?: Maybe<Scalars['DateTime']>;
+  checkout_lte?: Maybe<Scalars['DateTime']>;
+  checkout_gt?: Maybe<Scalars['DateTime']>;
+  checkout_gte?: Maybe<Scalars['DateTime']>;
+  totalPaid?: Maybe<Scalars['Float']>;
+  totalPaid_not?: Maybe<Scalars['Float']>;
+  totalPaid_in?: Maybe<Array<Scalars['Float']>>;
+  totalPaid_not_in?: Maybe<Array<Scalars['Float']>>;
+  totalPaid_lt?: Maybe<Scalars['Float']>;
+  totalPaid_lte?: Maybe<Scalars['Float']>;
+  totalPaid_gt?: Maybe<Scalars['Float']>;
+  totalPaid_gte?: Maybe<Scalars['Float']>;
+  pax?: Maybe<Scalars['Int']>;
+  pax_not?: Maybe<Scalars['Int']>;
+  pax_in?: Maybe<Array<Scalars['Int']>>;
+  pax_not_in?: Maybe<Array<Scalars['Int']>>;
+  pax_lt?: Maybe<Scalars['Int']>;
+  pax_lte?: Maybe<Scalars['Int']>;
+  pax_gt?: Maybe<Scalars['Int']>;
+  pax_gte?: Maybe<Scalars['Int']>;
+  client?: Maybe<UserWhereInput>;
+  ad?: Maybe<AdWhereInput>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  createdAt_not?: Maybe<Scalars['DateTime']>;
+  createdAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  createdAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  createdAt_lt?: Maybe<Scalars['DateTime']>;
+  createdAt_lte?: Maybe<Scalars['DateTime']>;
+  createdAt_gt?: Maybe<Scalars['DateTime']>;
+  createdAt_gte?: Maybe<Scalars['DateTime']>;
+  AND?: Maybe<Array<BookingWhereInput>>;
+  OR?: Maybe<Array<BookingWhereInput>>;
+  NOT?: Maybe<Array<BookingWhereInput>>;
+};
+
+export type BlockedDayWhereInput = {
+  id?: Maybe<Scalars['ID']>;
+  id_not?: Maybe<Scalars['ID']>;
+  id_in?: Maybe<Array<Scalars['ID']>>;
+  id_not_in?: Maybe<Array<Scalars['ID']>>;
+  id_lt?: Maybe<Scalars['ID']>;
+  id_lte?: Maybe<Scalars['ID']>;
+  id_gt?: Maybe<Scalars['ID']>;
+  id_gte?: Maybe<Scalars['ID']>;
+  id_contains?: Maybe<Scalars['ID']>;
+  id_not_contains?: Maybe<Scalars['ID']>;
+  id_starts_with?: Maybe<Scalars['ID']>;
+  id_not_starts_with?: Maybe<Scalars['ID']>;
+  id_ends_with?: Maybe<Scalars['ID']>;
+  id_not_ends_with?: Maybe<Scalars['ID']>;
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkin_not?: Maybe<Scalars['DateTime']>;
+  checkin_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_lt?: Maybe<Scalars['DateTime']>;
+  checkin_lte?: Maybe<Scalars['DateTime']>;
+  checkin_gt?: Maybe<Scalars['DateTime']>;
+  checkin_gte?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  checkout_not?: Maybe<Scalars['DateTime']>;
+  checkout_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_lt?: Maybe<Scalars['DateTime']>;
+  checkout_lte?: Maybe<Scalars['DateTime']>;
+  checkout_gt?: Maybe<Scalars['DateTime']>;
+  checkout_gte?: Maybe<Scalars['DateTime']>;
+  byBooking?: Maybe<Scalars['Boolean']>;
+  byBooking_not?: Maybe<Scalars['Boolean']>;
+  ad?: Maybe<AdWhereInput>;
+  AND?: Maybe<Array<BlockedDayWhereInput>>;
+  OR?: Maybe<Array<BlockedDayWhereInput>>;
+  NOT?: Maybe<Array<BlockedDayWhereInput>>;
 };
 
 export enum AdOrderByInput {
@@ -259,22 +413,18 @@ export enum AdOrderByInput {
   CreatedAtDesc = 'createdAt_DESC'
 }
 
-export type Ad = {
-  __typename?: 'Ad';
-  id: Scalars['ID'];
-  title: Scalars['String'];
-  description: Scalars['String'];
-  image: Scalars['String'];
-  price: Scalars['Int'];
-  ranking: Scalars['Float'];
-  host: User;
-  createdAt: Scalars['DateTime'];
+export type AdWhereUniqueInput = {
+  id?: Maybe<Scalars['ID']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   signIn?: Maybe<User>;
   signUp?: Maybe<User>;
+  createBooking: Booking;
+  updateBlockedDay?: Maybe<BlockedDay>;
+  deleteBlockedDay?: Maybe<BlockedDay>;
+  updateAvailability: Scalars['Boolean'];
 };
 
 
@@ -285,6 +435,27 @@ export type MutationSignInArgs = {
 
 export type MutationSignUpArgs = {
   data: SignUpInput;
+};
+
+
+export type MutationCreateBookingArgs = {
+  data: BookingInput;
+};
+
+
+export type MutationUpdateBlockedDayArgs = {
+  data: BlockedDayUpdateInput;
+  where: BlockedDayWhereUniqueInput;
+};
+
+
+export type MutationDeleteBlockedDayArgs = {
+  where: BlockedDayWhereUniqueInput;
+};
+
+
+export type MutationUpdateAvailabilityArgs = {
+  data: UpdateAvailableInput;
 };
 
 export type SignInInput = {
@@ -299,7 +470,489 @@ export type SignUpInput = {
   phone: Scalars['String'];
 };
 
-export type ListAdsQueryVariables = Exact<{ [key: string]: never; }>;
+export type BookingInput = {
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  clientId: Scalars['String'];
+  pax: Scalars['Int'];
+  adId: Scalars['String'];
+};
+
+export type BlockedDayUpdateInput = {
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  byBooking?: Maybe<Scalars['Boolean']>;
+  ad?: Maybe<AdUpdateOneRequiredWithoutBlockedDaysInput>;
+};
+
+export type AdUpdateOneRequiredWithoutBlockedDaysInput = {
+  create?: Maybe<AdCreateWithoutBlockedDaysInput>;
+  update?: Maybe<AdUpdateWithoutBlockedDaysDataInput>;
+  upsert?: Maybe<AdUpsertWithoutBlockedDaysInput>;
+  connect?: Maybe<AdWhereUniqueInput>;
+};
+
+export type AdCreateWithoutBlockedDaysInput = {
+  id?: Maybe<Scalars['ID']>;
+  title: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  price: Scalars['Int'];
+  ranking: Scalars['Float'];
+  host: UserCreateOneWithoutAdInput;
+  bookings?: Maybe<BookingCreateManyWithoutAdInput>;
+};
+
+export type UserCreateOneWithoutAdInput = {
+  create?: Maybe<UserCreateWithoutAdInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+};
+
+export type UserCreateWithoutAdInput = {
+  id?: Maybe<Scalars['ID']>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  password: Scalars['String'];
+  phone: Scalars['String'];
+  role: Scalars['String'];
+  bookings?: Maybe<BookingCreateManyWithoutClientInput>;
+  token?: Maybe<Scalars['String']>;
+};
+
+export type BookingCreateManyWithoutClientInput = {
+  create?: Maybe<Array<BookingCreateWithoutClientInput>>;
+  connect?: Maybe<Array<BookingWhereUniqueInput>>;
+};
+
+export type BookingCreateWithoutClientInput = {
+  id?: Maybe<Scalars['ID']>;
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  totalPaid: Scalars['Float'];
+  pax: Scalars['Int'];
+  ad: AdCreateOneWithoutBookingsInput;
+};
+
+export type AdCreateOneWithoutBookingsInput = {
+  create?: Maybe<AdCreateWithoutBookingsInput>;
+  connect?: Maybe<AdWhereUniqueInput>;
+};
+
+export type AdCreateWithoutBookingsInput = {
+  id?: Maybe<Scalars['ID']>;
+  title: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  price: Scalars['Int'];
+  ranking: Scalars['Float'];
+  host: UserCreateOneWithoutAdInput;
+  blockedDays?: Maybe<BlockedDayCreateManyWithoutAdInput>;
+};
+
+export type BlockedDayCreateManyWithoutAdInput = {
+  create?: Maybe<Array<BlockedDayCreateWithoutAdInput>>;
+  connect?: Maybe<Array<BlockedDayWhereUniqueInput>>;
+};
+
+export type BlockedDayCreateWithoutAdInput = {
+  id?: Maybe<Scalars['ID']>;
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  byBooking?: Maybe<Scalars['Boolean']>;
+};
+
+export type BlockedDayWhereUniqueInput = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type BookingWhereUniqueInput = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type UserWhereUniqueInput = {
+  id?: Maybe<Scalars['ID']>;
+  email?: Maybe<Scalars['String']>;
+};
+
+export type BookingCreateManyWithoutAdInput = {
+  create?: Maybe<Array<BookingCreateWithoutAdInput>>;
+  connect?: Maybe<Array<BookingWhereUniqueInput>>;
+};
+
+export type BookingCreateWithoutAdInput = {
+  id?: Maybe<Scalars['ID']>;
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  totalPaid: Scalars['Float'];
+  pax: Scalars['Int'];
+  client: UserCreateOneWithoutBookingsInput;
+};
+
+export type UserCreateOneWithoutBookingsInput = {
+  create?: Maybe<UserCreateWithoutBookingsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+};
+
+export type UserCreateWithoutBookingsInput = {
+  id?: Maybe<Scalars['ID']>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  password: Scalars['String'];
+  phone: Scalars['String'];
+  role: Scalars['String'];
+  ad?: Maybe<AdCreateOneWithoutHostInput>;
+  token?: Maybe<Scalars['String']>;
+};
+
+export type AdCreateOneWithoutHostInput = {
+  create?: Maybe<AdCreateWithoutHostInput>;
+  connect?: Maybe<AdWhereUniqueInput>;
+};
+
+export type AdCreateWithoutHostInput = {
+  id?: Maybe<Scalars['ID']>;
+  title: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  price: Scalars['Int'];
+  ranking: Scalars['Float'];
+  bookings?: Maybe<BookingCreateManyWithoutAdInput>;
+  blockedDays?: Maybe<BlockedDayCreateManyWithoutAdInput>;
+};
+
+export type AdUpdateWithoutBlockedDaysDataInput = {
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  ranking?: Maybe<Scalars['Float']>;
+  host?: Maybe<UserUpdateOneRequiredWithoutAdInput>;
+  bookings?: Maybe<BookingUpdateManyWithoutAdInput>;
+};
+
+export type UserUpdateOneRequiredWithoutAdInput = {
+  create?: Maybe<UserCreateWithoutAdInput>;
+  update?: Maybe<UserUpdateWithoutAdDataInput>;
+  upsert?: Maybe<UserUpsertWithoutAdInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+};
+
+export type UserUpdateWithoutAdDataInput = {
+  email?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']>;
+  bookings?: Maybe<BookingUpdateManyWithoutClientInput>;
+  token?: Maybe<Scalars['String']>;
+};
+
+export type BookingUpdateManyWithoutClientInput = {
+  create?: Maybe<Array<BookingCreateWithoutClientInput>>;
+  delete?: Maybe<Array<BookingWhereUniqueInput>>;
+  connect?: Maybe<Array<BookingWhereUniqueInput>>;
+  set?: Maybe<Array<BookingWhereUniqueInput>>;
+  disconnect?: Maybe<Array<BookingWhereUniqueInput>>;
+  update?: Maybe<Array<BookingUpdateWithWhereUniqueWithoutClientInput>>;
+  upsert?: Maybe<Array<BookingUpsertWithWhereUniqueWithoutClientInput>>;
+  deleteMany?: Maybe<Array<BookingScalarWhereInput>>;
+  updateMany?: Maybe<Array<BookingUpdateManyWithWhereNestedInput>>;
+};
+
+export type BookingUpdateWithWhereUniqueWithoutClientInput = {
+  where: BookingWhereUniqueInput;
+  data: BookingUpdateWithoutClientDataInput;
+};
+
+export type BookingUpdateWithoutClientDataInput = {
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  totalPaid?: Maybe<Scalars['Float']>;
+  pax?: Maybe<Scalars['Int']>;
+  ad?: Maybe<AdUpdateOneRequiredWithoutBookingsInput>;
+};
+
+export type AdUpdateOneRequiredWithoutBookingsInput = {
+  create?: Maybe<AdCreateWithoutBookingsInput>;
+  update?: Maybe<AdUpdateWithoutBookingsDataInput>;
+  upsert?: Maybe<AdUpsertWithoutBookingsInput>;
+  connect?: Maybe<AdWhereUniqueInput>;
+};
+
+export type AdUpdateWithoutBookingsDataInput = {
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  ranking?: Maybe<Scalars['Float']>;
+  host?: Maybe<UserUpdateOneRequiredWithoutAdInput>;
+  blockedDays?: Maybe<BlockedDayUpdateManyWithoutAdInput>;
+};
+
+export type BlockedDayUpdateManyWithoutAdInput = {
+  create?: Maybe<Array<BlockedDayCreateWithoutAdInput>>;
+  delete?: Maybe<Array<BlockedDayWhereUniqueInput>>;
+  connect?: Maybe<Array<BlockedDayWhereUniqueInput>>;
+  set?: Maybe<Array<BlockedDayWhereUniqueInput>>;
+  disconnect?: Maybe<Array<BlockedDayWhereUniqueInput>>;
+  update?: Maybe<Array<BlockedDayUpdateWithWhereUniqueWithoutAdInput>>;
+  upsert?: Maybe<Array<BlockedDayUpsertWithWhereUniqueWithoutAdInput>>;
+  deleteMany?: Maybe<Array<BlockedDayScalarWhereInput>>;
+  updateMany?: Maybe<Array<BlockedDayUpdateManyWithWhereNestedInput>>;
+};
+
+export type BlockedDayUpdateWithWhereUniqueWithoutAdInput = {
+  where: BlockedDayWhereUniqueInput;
+  data: BlockedDayUpdateWithoutAdDataInput;
+};
+
+export type BlockedDayUpdateWithoutAdDataInput = {
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  byBooking?: Maybe<Scalars['Boolean']>;
+};
+
+export type BlockedDayUpsertWithWhereUniqueWithoutAdInput = {
+  where: BlockedDayWhereUniqueInput;
+  update: BlockedDayUpdateWithoutAdDataInput;
+  create: BlockedDayCreateWithoutAdInput;
+};
+
+export type BlockedDayScalarWhereInput = {
+  id?: Maybe<Scalars['ID']>;
+  id_not?: Maybe<Scalars['ID']>;
+  id_in?: Maybe<Array<Scalars['ID']>>;
+  id_not_in?: Maybe<Array<Scalars['ID']>>;
+  id_lt?: Maybe<Scalars['ID']>;
+  id_lte?: Maybe<Scalars['ID']>;
+  id_gt?: Maybe<Scalars['ID']>;
+  id_gte?: Maybe<Scalars['ID']>;
+  id_contains?: Maybe<Scalars['ID']>;
+  id_not_contains?: Maybe<Scalars['ID']>;
+  id_starts_with?: Maybe<Scalars['ID']>;
+  id_not_starts_with?: Maybe<Scalars['ID']>;
+  id_ends_with?: Maybe<Scalars['ID']>;
+  id_not_ends_with?: Maybe<Scalars['ID']>;
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkin_not?: Maybe<Scalars['DateTime']>;
+  checkin_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_lt?: Maybe<Scalars['DateTime']>;
+  checkin_lte?: Maybe<Scalars['DateTime']>;
+  checkin_gt?: Maybe<Scalars['DateTime']>;
+  checkin_gte?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  checkout_not?: Maybe<Scalars['DateTime']>;
+  checkout_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_lt?: Maybe<Scalars['DateTime']>;
+  checkout_lte?: Maybe<Scalars['DateTime']>;
+  checkout_gt?: Maybe<Scalars['DateTime']>;
+  checkout_gte?: Maybe<Scalars['DateTime']>;
+  byBooking?: Maybe<Scalars['Boolean']>;
+  byBooking_not?: Maybe<Scalars['Boolean']>;
+  AND?: Maybe<Array<BlockedDayScalarWhereInput>>;
+  OR?: Maybe<Array<BlockedDayScalarWhereInput>>;
+  NOT?: Maybe<Array<BlockedDayScalarWhereInput>>;
+};
+
+export type BlockedDayUpdateManyWithWhereNestedInput = {
+  where: BlockedDayScalarWhereInput;
+  data: BlockedDayUpdateManyDataInput;
+};
+
+export type BlockedDayUpdateManyDataInput = {
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  byBooking?: Maybe<Scalars['Boolean']>;
+};
+
+export type AdUpsertWithoutBookingsInput = {
+  update: AdUpdateWithoutBookingsDataInput;
+  create: AdCreateWithoutBookingsInput;
+};
+
+export type BookingUpsertWithWhereUniqueWithoutClientInput = {
+  where: BookingWhereUniqueInput;
+  update: BookingUpdateWithoutClientDataInput;
+  create: BookingCreateWithoutClientInput;
+};
+
+export type BookingScalarWhereInput = {
+  id?: Maybe<Scalars['ID']>;
+  id_not?: Maybe<Scalars['ID']>;
+  id_in?: Maybe<Array<Scalars['ID']>>;
+  id_not_in?: Maybe<Array<Scalars['ID']>>;
+  id_lt?: Maybe<Scalars['ID']>;
+  id_lte?: Maybe<Scalars['ID']>;
+  id_gt?: Maybe<Scalars['ID']>;
+  id_gte?: Maybe<Scalars['ID']>;
+  id_contains?: Maybe<Scalars['ID']>;
+  id_not_contains?: Maybe<Scalars['ID']>;
+  id_starts_with?: Maybe<Scalars['ID']>;
+  id_not_starts_with?: Maybe<Scalars['ID']>;
+  id_ends_with?: Maybe<Scalars['ID']>;
+  id_not_ends_with?: Maybe<Scalars['ID']>;
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkin_not?: Maybe<Scalars['DateTime']>;
+  checkin_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkin_lt?: Maybe<Scalars['DateTime']>;
+  checkin_lte?: Maybe<Scalars['DateTime']>;
+  checkin_gt?: Maybe<Scalars['DateTime']>;
+  checkin_gte?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  checkout_not?: Maybe<Scalars['DateTime']>;
+  checkout_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  checkout_lt?: Maybe<Scalars['DateTime']>;
+  checkout_lte?: Maybe<Scalars['DateTime']>;
+  checkout_gt?: Maybe<Scalars['DateTime']>;
+  checkout_gte?: Maybe<Scalars['DateTime']>;
+  totalPaid?: Maybe<Scalars['Float']>;
+  totalPaid_not?: Maybe<Scalars['Float']>;
+  totalPaid_in?: Maybe<Array<Scalars['Float']>>;
+  totalPaid_not_in?: Maybe<Array<Scalars['Float']>>;
+  totalPaid_lt?: Maybe<Scalars['Float']>;
+  totalPaid_lte?: Maybe<Scalars['Float']>;
+  totalPaid_gt?: Maybe<Scalars['Float']>;
+  totalPaid_gte?: Maybe<Scalars['Float']>;
+  pax?: Maybe<Scalars['Int']>;
+  pax_not?: Maybe<Scalars['Int']>;
+  pax_in?: Maybe<Array<Scalars['Int']>>;
+  pax_not_in?: Maybe<Array<Scalars['Int']>>;
+  pax_lt?: Maybe<Scalars['Int']>;
+  pax_lte?: Maybe<Scalars['Int']>;
+  pax_gt?: Maybe<Scalars['Int']>;
+  pax_gte?: Maybe<Scalars['Int']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  createdAt_not?: Maybe<Scalars['DateTime']>;
+  createdAt_in?: Maybe<Array<Scalars['DateTime']>>;
+  createdAt_not_in?: Maybe<Array<Scalars['DateTime']>>;
+  createdAt_lt?: Maybe<Scalars['DateTime']>;
+  createdAt_lte?: Maybe<Scalars['DateTime']>;
+  createdAt_gt?: Maybe<Scalars['DateTime']>;
+  createdAt_gte?: Maybe<Scalars['DateTime']>;
+  AND?: Maybe<Array<BookingScalarWhereInput>>;
+  OR?: Maybe<Array<BookingScalarWhereInput>>;
+  NOT?: Maybe<Array<BookingScalarWhereInput>>;
+};
+
+export type BookingUpdateManyWithWhereNestedInput = {
+  where: BookingScalarWhereInput;
+  data: BookingUpdateManyDataInput;
+};
+
+export type BookingUpdateManyDataInput = {
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  totalPaid?: Maybe<Scalars['Float']>;
+  pax?: Maybe<Scalars['Int']>;
+};
+
+export type UserUpsertWithoutAdInput = {
+  update: UserUpdateWithoutAdDataInput;
+  create: UserCreateWithoutAdInput;
+};
+
+export type BookingUpdateManyWithoutAdInput = {
+  create?: Maybe<Array<BookingCreateWithoutAdInput>>;
+  delete?: Maybe<Array<BookingWhereUniqueInput>>;
+  connect?: Maybe<Array<BookingWhereUniqueInput>>;
+  set?: Maybe<Array<BookingWhereUniqueInput>>;
+  disconnect?: Maybe<Array<BookingWhereUniqueInput>>;
+  update?: Maybe<Array<BookingUpdateWithWhereUniqueWithoutAdInput>>;
+  upsert?: Maybe<Array<BookingUpsertWithWhereUniqueWithoutAdInput>>;
+  deleteMany?: Maybe<Array<BookingScalarWhereInput>>;
+  updateMany?: Maybe<Array<BookingUpdateManyWithWhereNestedInput>>;
+};
+
+export type BookingUpdateWithWhereUniqueWithoutAdInput = {
+  where: BookingWhereUniqueInput;
+  data: BookingUpdateWithoutAdDataInput;
+};
+
+export type BookingUpdateWithoutAdDataInput = {
+  checkin?: Maybe<Scalars['DateTime']>;
+  checkout?: Maybe<Scalars['DateTime']>;
+  totalPaid?: Maybe<Scalars['Float']>;
+  pax?: Maybe<Scalars['Int']>;
+  client?: Maybe<UserUpdateOneRequiredWithoutBookingsInput>;
+};
+
+export type UserUpdateOneRequiredWithoutBookingsInput = {
+  create?: Maybe<UserCreateWithoutBookingsInput>;
+  update?: Maybe<UserUpdateWithoutBookingsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutBookingsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+};
+
+export type UserUpdateWithoutBookingsDataInput = {
+  email?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']>;
+  ad?: Maybe<AdUpdateOneWithoutHostInput>;
+  token?: Maybe<Scalars['String']>;
+};
+
+export type AdUpdateOneWithoutHostInput = {
+  create?: Maybe<AdCreateWithoutHostInput>;
+  update?: Maybe<AdUpdateWithoutHostDataInput>;
+  upsert?: Maybe<AdUpsertWithoutHostInput>;
+  delete?: Maybe<Scalars['Boolean']>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  connect?: Maybe<AdWhereUniqueInput>;
+};
+
+export type AdUpdateWithoutHostDataInput = {
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  ranking?: Maybe<Scalars['Float']>;
+  bookings?: Maybe<BookingUpdateManyWithoutAdInput>;
+  blockedDays?: Maybe<BlockedDayUpdateManyWithoutAdInput>;
+};
+
+export type AdUpsertWithoutHostInput = {
+  update: AdUpdateWithoutHostDataInput;
+  create: AdCreateWithoutHostInput;
+};
+
+export type UserUpsertWithoutBookingsInput = {
+  update: UserUpdateWithoutBookingsDataInput;
+  create: UserCreateWithoutBookingsInput;
+};
+
+export type BookingUpsertWithWhereUniqueWithoutAdInput = {
+  where: BookingWhereUniqueInput;
+  update: BookingUpdateWithoutAdDataInput;
+  create: BookingCreateWithoutAdInput;
+};
+
+export type AdUpsertWithoutBlockedDaysInput = {
+  update: AdUpdateWithoutBlockedDaysDataInput;
+  create: AdCreateWithoutBlockedDaysInput;
+};
+
+export type UpdateAvailableInput = {
+  checkin: Scalars['DateTime'];
+  checkout: Scalars['DateTime'];
+  ops: OpsEnum;
+  adId: Scalars['String'];
+};
+
+export enum OpsEnum {
+  Blocked = 'BLOCKED',
+  Available = 'AVAILABLE'
+}
+
+export type ListAdsQueryVariables = Exact<{
+  orderBy?: Maybe<AdOrderByInput>;
+  first?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type ListAdsQuery = (
@@ -357,8 +1010,8 @@ export type CurrentUserQuery = (
 
 
 export const ListAdsDocument = gql`
-    query listAds {
-  ads {
+    query listAds($orderBy: AdOrderByInput, $first: Int) {
+  ads(orderBy: $orderBy, first: $first) {
     id
     title
     description
@@ -385,6 +1038,8 @@ export const ListAdsDocument = gql`
  * @example
  * const { data, loading, error } = useListAdsQuery({
  *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *      first: // value for 'first'
  *   },
  * });
  */

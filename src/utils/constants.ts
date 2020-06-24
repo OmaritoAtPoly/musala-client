@@ -19,3 +19,12 @@ export const LOREM_TITLE = 'Lorem ipsum dolor sit amet';
 export const LOREM_BODY = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod';
 export const REGISTERED = 'Already have an account ?';
 export const CLICK_ME = 'click here';
+
+export const MOST_POPULAR_SUBTITLE = 'The most chosen by our clients';
+export const MOST_POPULAR = "The most popular";
+
+export const THE_CHEAPEST  = 'the cheapest';
+export const THE_CHEAPEST_SUBTITLE = "stay cheap";
+
+export const ALL_ADS = 'All ads';
+export const ALL_ADS_SUBTITLE = "our best lodgings";

@@ -1,5 +1,5 @@
 import { Collapse, FormControlLabel, Radio, RadioGroup, Theme, Typography } from '@material-ui/core'
-import Alert from '@material-ui/lab/Alert'
+import CalendarAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
 import React from 'react'
@@ -11,12 +11,15 @@ import customTheme from '../../../theme'
 import { ACTION_VALIDATE, AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
+import Alert from '../../../component/Alert';
 
 interface Props {
 	blockedDays: BlockedDay[];
 	adTitle: string;
 	adRanking: number;
 	range: Range | undefined;
+	errorMessage?: string;
+	closeError: () => void;
 	onChangeRange: (range: Range) => void;
 	handleValidRangeAlert: () => void;
 	updating: boolean;
@@ -29,9 +32,9 @@ const validationSchema = Yup.object({
 	availability: Yup.string().oneOf([BLOCKED, AVAILABLE], ACTION_VALIDATE),
 })
 
-const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updating, range, availability, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
+const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updating, range, availability, errorMessage, closeError, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
 	const classes = useStyles();
-
+	console.log(errorMessage)
 	return (
 		<Formik
 			initialValues={{ availability }}
@@ -48,7 +51,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updatin
 						<div>
 							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
-								<Alert severity="error">{REQUIRED_RANGE}</Alert>
+								<CalendarAlert severity="error">{REQUIRED_RANGE}</CalendarAlert>
 							</Collapse>
 						</div>
 						<div className={classes.fields}>
@@ -68,6 +71,11 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updatin
 									type='submit' >{SUBMIT}</PrimaryButton>
 							</div>
 						</div>
+						<Alert
+							message={errorMessage}
+							open={!!errorMessage}
+							onClose={closeError}
+						/>
 					</div>
 				</Form>
 			}

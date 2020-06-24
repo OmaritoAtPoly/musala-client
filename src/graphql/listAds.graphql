@@ -28,3 +28,19 @@ query selectAdById($id: ID!) {
     }
   }
 }
+
+query currentAvailability {
+  currentAvailability: currentUser {
+    id
+    ad {
+      id
+      ranking
+      blockedDays {
+        id
+        checkin
+        checkout
+        byBooking
+      }
+    }
+  }
+}

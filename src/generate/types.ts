@@ -45,6 +45,7 @@ export type User = {
   phone: Scalars['String'];
   role: Scalars['String'];
   bookings: Array<Booking>;
+  ad?: Maybe<Ad>;
   token?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
 };
@@ -266,6 +267,7 @@ export type UserWhereInput = {
   bookings_every?: Maybe<BookingWhereInput>;
   bookings_some?: Maybe<BookingWhereInput>;
   bookings_none?: Maybe<BookingWhereInput>;
+  ad?: Maybe<AdWhereInput>;
   token?: Maybe<Scalars['String']>;
   token_not?: Maybe<Scalars['String']>;
   token_in?: Maybe<Array<Scalars['String']>>;
@@ -497,16 +499,16 @@ export type AdCreateWithoutBlockedDaysInput = {
   image: Scalars['String'];
   price: Scalars['Int'];
   ranking: Scalars['Float'];
-  host: UserCreateOneInput;
+  host: UserCreateOneWithoutAdInput;
   bookings?: Maybe<BookingCreateManyWithoutAdInput>;
 };
 
-export type UserCreateOneInput = {
-  create?: Maybe<UserCreateInput>;
+export type UserCreateOneWithoutAdInput = {
+  create?: Maybe<UserCreateWithoutAdInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 };
 
-export type UserCreateInput = {
+export type UserCreateWithoutAdInput = {
   id?: Maybe<Scalars['ID']>;
   email: Scalars['String'];
   fullName: Scalars['String'];
@@ -543,7 +545,7 @@ export type AdCreateWithoutBookingsInput = {
   image: Scalars['String'];
   price: Scalars['Int'];
   ranking: Scalars['Float'];
-  host: UserCreateOneInput;
+  host: UserCreateOneWithoutAdInput;
   blockedDays?: Maybe<BlockedDayCreateManyWithoutAdInput>;
 };
 
@@ -598,7 +600,24 @@ export type UserCreateWithoutBookingsInput = {
   password: Scalars['String'];
   phone: Scalars['String'];
   role: Scalars['String'];
+  ad?: Maybe<AdCreateOneWithoutHostInput>;
   token?: Maybe<Scalars['String']>;
+};
+
+export type AdCreateOneWithoutHostInput = {
+  create?: Maybe<AdCreateWithoutHostInput>;
+  connect?: Maybe<AdWhereUniqueInput>;
+};
+
+export type AdCreateWithoutHostInput = {
+  id?: Maybe<Scalars['ID']>;
+  title: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  price: Scalars['Int'];
+  ranking: Scalars['Float'];
+  bookings?: Maybe<BookingCreateManyWithoutAdInput>;
+  blockedDays?: Maybe<BlockedDayCreateManyWithoutAdInput>;
 };
 
 export type AdUpdateWithoutBlockedDaysDataInput = {
@@ -607,18 +626,18 @@ export type AdUpdateWithoutBlockedDaysDataInput = {
   image?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Int']>;
   ranking?: Maybe<Scalars['Float']>;
-  host?: Maybe<UserUpdateOneRequiredInput>;
+  host?: Maybe<UserUpdateOneRequiredWithoutAdInput>;
   bookings?: Maybe<BookingUpdateManyWithoutAdInput>;
 };
 
-export type UserUpdateOneRequiredInput = {
-  create?: Maybe<UserCreateInput>;
-  update?: Maybe<UserUpdateDataInput>;
-  upsert?: Maybe<UserUpsertNestedInput>;
+export type UserUpdateOneRequiredWithoutAdInput = {
+  create?: Maybe<UserCreateWithoutAdInput>;
+  update?: Maybe<UserUpdateWithoutAdDataInput>;
+  upsert?: Maybe<UserUpsertWithoutAdInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 };
 
-export type UserUpdateDataInput = {
+export type UserUpdateWithoutAdDataInput = {
   email?: Maybe<Scalars['String']>;
   fullName?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
@@ -666,7 +685,7 @@ export type AdUpdateWithoutBookingsDataInput = {
   image?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Int']>;
   ranking?: Maybe<Scalars['Float']>;
-  host?: Maybe<UserUpdateOneRequiredInput>;
+  host?: Maybe<UserUpdateOneRequiredWithoutAdInput>;
   blockedDays?: Maybe<BlockedDayUpdateManyWithoutAdInput>;
 };
 
@@ -831,9 +850,9 @@ export type BookingUpdateManyDataInput = {
   pax?: Maybe<Scalars['Int']>;
 };
 
-export type UserUpsertNestedInput = {
-  update: UserUpdateDataInput;
-  create: UserCreateInput;
+export type UserUpsertWithoutAdInput = {
+  update: UserUpdateWithoutAdDataInput;
+  create: UserCreateWithoutAdInput;
 };
 
 export type BookingUpdateManyWithoutAdInput = {
@@ -874,7 +893,32 @@ export type UserUpdateWithoutBookingsDataInput = {
   password?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   role?: Maybe<Scalars['String']>;
+  ad?: Maybe<AdUpdateOneWithoutHostInput>;
   token?: Maybe<Scalars['String']>;
+};
+
+export type AdUpdateOneWithoutHostInput = {
+  create?: Maybe<AdCreateWithoutHostInput>;
+  update?: Maybe<AdUpdateWithoutHostDataInput>;
+  upsert?: Maybe<AdUpsertWithoutHostInput>;
+  delete?: Maybe<Scalars['Boolean']>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  connect?: Maybe<AdWhereUniqueInput>;
+};
+
+export type AdUpdateWithoutHostDataInput = {
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  ranking?: Maybe<Scalars['Float']>;
+  bookings?: Maybe<BookingUpdateManyWithoutAdInput>;
+  blockedDays?: Maybe<BlockedDayUpdateManyWithoutAdInput>;
+};
+
+export type AdUpsertWithoutHostInput = {
+  update: AdUpdateWithoutHostDataInput;
+  create: AdCreateWithoutHostInput;
 };
 
 export type UserUpsertWithoutBookingsInput = {
@@ -943,6 +987,25 @@ export type SelectAdByIdQuery = (
     & { blockedDays: Array<(
       { __typename?: 'BlockedDay' }
       & Pick<BlockedDay, 'checkin' | 'checkout' | 'byBooking'>
+    )> }
+  )> }
+);
+
+export type CurrentAvailabilityQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentAvailabilityQuery = (
+  { __typename?: 'Query' }
+  & { currentAvailability?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+    & { ad?: Maybe<(
+      { __typename?: 'Ad' }
+      & Pick<Ad, 'id' | 'ranking'>
+      & { blockedDays: Array<(
+        { __typename?: 'BlockedDay' }
+        & Pick<BlockedDay, 'id' | 'checkin' | 'checkout' | 'byBooking'>
+      )> }
     )> }
   )> }
 );
@@ -1103,6 +1166,48 @@ export function useSelectAdByIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type SelectAdByIdQueryHookResult = ReturnType<typeof useSelectAdByIdQuery>;
 export type SelectAdByIdLazyQueryHookResult = ReturnType<typeof useSelectAdByIdLazyQuery>;
 export type SelectAdByIdQueryResult = ApolloReactCommon.QueryResult<SelectAdByIdQuery, SelectAdByIdQueryVariables>;
+export const CurrentAvailabilityDocument = gql`
+    query currentAvailability {
+  currentAvailability: currentUser {
+    id
+    ad {
+      id
+      ranking
+      blockedDays {
+        id
+        checkin
+        checkout
+        byBooking
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCurrentAvailabilityQuery__
+ *
+ * To run a query within a React component, call `useCurrentAvailabilityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentAvailabilityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentAvailabilityQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentAvailabilityQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>) {
+        return ApolloReactHooks.useQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
+      }
+export function useCurrentAvailabilityLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
+        }
+export type CurrentAvailabilityQueryHookResult = ReturnType<typeof useCurrentAvailabilityQuery>;
+export type CurrentAvailabilityLazyQueryHookResult = ReturnType<typeof useCurrentAvailabilityLazyQuery>;
+export type CurrentAvailabilityQueryResult = ApolloReactCommon.QueryResult<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $fullName: String!, $password: String!, $phone: String!) {
   signUp(data: {email: $email, fullName: $fullName, password: $password, phone: $phone}) {

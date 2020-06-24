@@ -1,5 +1,5 @@
-query listAds {
-  ads {
+query listAds ($orderBy: AdOrderByInput, $first: Int){
+  ads (orderBy: $orderBy, first: $first) {
     id
     title
     description

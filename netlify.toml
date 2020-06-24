@@ -1,11 +1,9 @@
-[build]
+[[build]]
  base = "musala-project"
- publish = "musala-project/build/"
- command = "yarn run build"
-  
-
-
-[[redirects]]
+ publish = "/opt/build/repo/build"
+ command: "yarn build"
+ 
+ [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

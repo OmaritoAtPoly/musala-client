@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-boost'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { BlockedDay } from '../../../containers/calendar/Calendar'
-import { useCreateBookingMutation, useCurrentUserQuery } from '../../../generate/types'
+import { useCreateBookingMutation } from '../../../generate/types'
 import { DATE_FORMAT, ERROR_SEVERITY_VALUE, INFO_SEVERITY_VALUE } from '../../../utils/constants'
 import { SeverityType } from '../../ad/container/AdDetail'
 import { BookingDialog } from '../component/BookingDialog'
@@ -26,8 +26,6 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
     const [createBookingMutation, { error }] = useCreateBookingMutation();
 
-    if (error) setAlertError(error.message.replace('GraphQL error:', ''));
-
     const handleValidRange = () => {
         setIsValidRange(!isValidRange)
     }
@@ -37,9 +35,10 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
     }
 
     const onSubmit = useCallback((pax: number) => {
+        error && setAlertError(error.message.replace('GraphQL error:', ''));
         setIsValidRange(true);
-        setRange(undefined)
-        handleShowDialog()
+        setRange(undefined);
+        handleShowDialog();
         createBookingMutation({
             variables: {
                 checkin: range?.checkin?.format(DATE_FORMAT),
@@ -59,8 +58,8 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
                 setAlertError(error.message.replace('GraphQL error:', ''));
                 setSeverityValue(ERROR_SEVERITY_VALUE);
             }
-            )
-    }, [setIsValidRange, setRange, handleShowDialog, createBookingMutation, range])
+            );
+    }, [adId, userId, resetSelectAd, setSeverityValue, setAlertError, setIsValidRange, setRange, handleShowDialog, createBookingMutation, error, range])
 
     return (
         <BookingDialog

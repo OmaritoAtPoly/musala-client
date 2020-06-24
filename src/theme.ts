@@ -11,7 +11,7 @@ export const customTheme = {
       medium: '1rem'
     }
   },
-  borderRadius:{
+  border:{
      small:"1px"
   },
   dimension: {

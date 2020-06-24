@@ -15,9 +15,7 @@ const ItemDescriptions = ({ description, date }: Props) => {
       variant={'body1'}
       color={'textPrimary'}
     >
-      {' '}
-      {description}
-      {date}{' '}
+      {`${description}  ${date}`}
     </Typography>
   );
 };
@@ -30,8 +28,8 @@ const useStyles = makeStyles({
   },
   description: {
     marginTop: `${customTheme.spacing.margin.smaller}`,
-    border: `1px solid ${customTheme.color.grayLight1}`,
-    borderRadius: `${customTheme.borderRadius.small}`,
+    border: `${customTheme.border.small} solid ${customTheme.color.grayLight1}`,
+    borderRadius: `${customTheme.border.small}`,
     paddingLeft: customTheme.spacing.margin.smaller,
   },
 });

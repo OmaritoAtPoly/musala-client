@@ -1039,6 +1039,10 @@ export type CurrentUserQuery = (
   & { currentUser?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'email' | 'fullName' | 'password' | 'createdAt' | 'role' | 'phone' | 'token'>
+    & { bookings: Array<(
+      { __typename?: 'Booking' }
+      & Pick<Booking, 'id'>
+    )> }
   )> }
 );
 
@@ -1284,6 +1288,9 @@ export const CurrentUserDocument = gql`
     role
     phone
     token
+    bookings {
+      id
+    }
   }
 }
     `;

@@ -5,12 +5,13 @@ import { getBlockedDateRange } from '../../../utils/calendar'
 import { AVAILABLE, BLOCKED, DATE_FORMAT, UNDEFINED } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import Form from '../component/AvailableDayForm'
-
+import { fetchCurrentAd } from '../../../utils/mockDatas'
 
 export const Availability = () => {
     const [range, setRange] = useState<Range>()
     const [availability, setAvailability] = useState<string>('undefined')
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
+    const ad = fetchCurrentAd()
 
     const handleValidRange = () => {
         setIsValidRange(!isValidRange)
@@ -18,15 +19,14 @@ export const Availability = () => {
 
     const handldeOnRangeChanged = (range: Range) => {
         if (range && range.checkin && range.checkout)
-            setAvailability(handleAvailability(range, blockedDays));
+            setAvailability(handleAvailability(range, ad.blockedDays));
         setRange(range)
     }
 
     const onSubmit = (availability: string) => {
         setIsValidRange(true);
         setRange(undefined)
-        handleShowDialog()
-        alert(`adId:${adId},
+        alert(`adId:${ad.id},
             availability:${availability}
          checkIn:${ range?.checkin?.format(DATE_FORMAT)},
          checkOut:${ range?.checkout?.format(DATE_FORMAT)}`
@@ -34,9 +34,9 @@ export const Availability = () => {
     }
 
     return <Form
-        adTitle={adTitle}
-        adRanking={adRanking}
-        blockedDays={blockedDays}
+        adTitle={ad.title}
+        adRanking={ad.ranking}
+        blockedDays={ad.blockedDays}
         onChangeRange={handldeOnRangeChanged}
         handleValidRangeAlert={handleValidRange}
         validRange={isValidRange}

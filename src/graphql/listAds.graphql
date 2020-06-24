@@ -28,3 +28,10 @@ query selectAdById($id: ID!) {
     }
   }
 }
+
+query currentAd {
+  currentUser: currentAd {
+    id
+  }
+}
+}

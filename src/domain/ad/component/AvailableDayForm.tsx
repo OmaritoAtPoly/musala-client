@@ -10,6 +10,7 @@ import { Calendar, BlockedDay } from '../../../containers/calendar/Calendar'
 import { ACTION_VALIDATE, AVAILABILITY, AVAILABLE, BLOCKED, FULL_EDITABLE_MODE, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
+import customTheme from '../../../theme'
 
 interface Props {
 	blockedDays: BlockedDay[];
@@ -52,8 +53,8 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
 						<div className={classes.fields}>
 							<TitlePanel title={adTitle} ranking={adRanking} />
 							<div>
-								<Typography variant='h5'>{AVAILABILITY}</Typography>
-								<RadioGroup aria-label={AVAILABILITY} name={'availability'} value={values.availability} onChange={handleChange}>
+								<Typography variant='h5' color='textPrimary' >{AVAILABILITY}</Typography>
+								<RadioGroup className={classes.radioGroup} aria-label={AVAILABILITY} name={'availability'} value={values.availability} onChange={handleChange}>
 									<FormControlLabel value={BLOCKED} control={<Radio color={'primary'} />} label={BLOCKED} />
 									<FormControlLabel value={AVAILABLE} control={<Radio color={'primary'} />} label={AVAILABLE} />
 								</RadioGroup>
@@ -85,11 +86,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 		padding: theme.spacing(1),
 	},
 	fields: {
-		margin: '0 1rem',
+		marginLeft: `${customTheme.spacing.margin.medium}`,
 		flexDirection: 'column',
 		justifyContent: 'center',
 		[theme.breakpoints.down('md')]: {
-			marginTop: theme.spacing(2)
+			marginTop: theme.spacing(4),
+			marginLeft: `${customTheme.spacing.margin.none}`,
+		},
+		[theme.breakpoints.down('sm')]: {
+			padding: `0 ${customTheme.spacing.padding.medium}`
+		}
+	},
+	radioGroup: {
+		[theme.breakpoints.down('md')]: {
+			display: 'flex',
+			flexDirection: 'row'
 		}
 	},
 	price: {

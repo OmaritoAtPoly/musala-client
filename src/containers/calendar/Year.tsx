@@ -81,7 +81,7 @@ const resolveByDefaultState = (day: Moment, blockedDayList: BlockedDay[]) => {
 
 
 const isBLockedByBooking = (day: Moment, range: Range, byBooking: boolean | undefined | null) => {
-    return (day.isSameOrAfter(range.checkin) && day.isSameOrBefore(range.checkout) && byBooking) ? true : false
+    return (day.isSameOrAfter(range.checkin) && day.isBefore(range.checkout) && byBooking) ? true : false
 }
 
 const isBLocked = (day: Moment, range: Range) => {

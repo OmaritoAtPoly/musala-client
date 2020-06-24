@@ -6,7 +6,8 @@ import ItemDate from './ItemDate';
 import ItemDescriptions from './ItemDescriptions';
 import ItemHouse from './ItemHouse';
 import UserItem from './ItemUser';
-import { Box } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
+import Alert from '../../../../component/Alert';
 
 export interface Props {
   checkin: string;
@@ -23,6 +24,9 @@ export interface Props {
   heightImage: number;
   widthIcon: number;
   heightIcon: number;
+  loading: boolean;
+  errorMessage?: string;
+  closeError: () => void;
 }
 
 const BookingRow = ({
@@ -40,11 +44,17 @@ const BookingRow = ({
   widthIcon,
   heightImage,
   heightIcon,
+  loading,
+  errorMessage,
+  closeError,
 }: Props) => {
   const classes = useStyles();
   return (
     <Box boxShadow={3} bgcolor="background.paper">
       <div className={classes.container}>
+        <div className={classes.loading}>
+          {loading && <CircularProgress size={20} />}
+        </div>
         <div className={classes.leftSide}>
           <ItemHouse
             picture={image}
@@ -67,6 +77,11 @@ const BookingRow = ({
           <UserItem email={email} name={fullName} role={'Client'} />
           <UserItem email={emailHost} name={host} role={'Host'} />
         </div>
+        <Alert
+          message={errorMessage}
+          open={!!errorMessage}
+          onClose={closeError}
+        />
       </div>
     </Box>
   );
@@ -109,6 +124,12 @@ const useStyles = makeStyles({
       marginLeft: `${customTheme.spacing.margin.small}`,
       marginTop: `${customTheme.spacing.margin.small}`,
     },
+  },
+  loading: {
+    color: customTheme.color.primary,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default BookingRow;

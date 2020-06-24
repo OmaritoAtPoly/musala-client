@@ -12,3 +12,19 @@ query listAds ($orderBy: AdOrderByInput, $first: Int){
     createdAt
   }
 }
+
+query selectAdById($id: ID!) {
+  ad(where: { id: $id }) {
+    id
+    title
+    description
+    image
+    price
+    ranking
+    blockedDays {
+      checkin
+      checkout
+      byBooking
+    }
+  }
+}

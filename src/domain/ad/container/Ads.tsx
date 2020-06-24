@@ -58,7 +58,7 @@ const Ads = () => {
 
   const onClickFunction = useCallback(
     (id) => {
-      push(`/details-ad:${id}`);
+      push(`/details-ad/${id}`);
     },
     [push],
   );

@@ -1,4 +1,4 @@
-import { Collapse, TextField, Theme, Typography } from '@material-ui/core'
+import { Collapse, FormControlLabel, Radio, RadioGroup, Theme, Typography } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
@@ -6,42 +6,41 @@ import React from 'react'
 import * as Yup from 'yup'
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
-import { BlockedDay, Calendar } from '../../../containers/calendar/Calendar'
-import customTheme from '../../../theme'
-import { BOOK_NOW, EDITABLE_MODE, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
+import { Calendar, BlockedDay } from '../../../containers/calendar/Calendar'
+import { ACTION_VALIDATE, AVAILABILITY, AVAILABLE, BLOCKED, FULL_EDITABLE_MODE, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
+import { Range } from '../../../utils/type'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
-import { Range } from '../utils'
-
-const validationSchema = Yup.object({
-	pax: Yup.number().positive(PAX_VALIDATE)
-})
 
 interface Props {
 	blockedDays: BlockedDay[];
 	adTitle: string;
 	adRanking: number;
-	price: number;
 	range: Range | undefined;
 	onChangeRange: (range: Range) => void;
 	handleValidRangeAlert: () => void;
+	availability: string;
 	validRange: boolean;
-	onSubmit: (pax: number) => void;
+	onSubmit: (availability: string) => void;
 }
 
-const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
+const validationSchema = Yup.object({
+	availability: Yup.string().oneOf([BLOCKED, AVAILABLE], ACTION_VALIDATE),
+})
+
+const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, availability, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
 		<Formik
-			initialValues={{ pax: 0 }}
+			initialValues={{ availability }}
 			validationSchema={validationSchema}
 			onSubmit={(values) => {
 				if (range && range.checkin && range.checkout) {
-					onSubmit(values.pax)
+					onSubmit(values.availability)
 				} else handleValidRangeAlert();
 			}}
 		>
-			{({ values, errors, touched, handleChange }) =>
+			{({ values, errors, handleChange }) =>
 				<Form>
 					<div className={classes.container}>
 						<div>
@@ -52,21 +51,19 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 						</div>
 						<div className={classes.fields}>
 							<TitlePanel title={adTitle} ranking={adRanking} />
-							<TextField
-								id="pax"
-								name='pax'
-								value={values.pax}
-								label="Guests"
-								type="number"
-								variant="outlined"
-								margin='dense'
-								size='small'
-								onChange={handleChange}
-							/>
-							{errors.pax && touched.pax ? (<ErrorFieldForm name='pax' />) : null}
-							<Typography className={classes.price} color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
+							<div>
+								<Typography variant='h5'>{AVAILABILITY}</Typography>
+								<RadioGroup aria-label={AVAILABILITY} name={'availability'} value={values.availability} onChange={handleChange}>
+									<FormControlLabel value={BLOCKED} control={<Radio color={'primary'} />} label={BLOCKED} />
+									<FormControlLabel value={AVAILABLE} control={<Radio color={'primary'} />} label={AVAILABLE} />
+								</RadioGroup>
+								{errors.availability ? (<ErrorFieldForm name='availability' />) : null}
+
+							</div>
 							<div className={classes.button}>
-								<PrimaryButton type='submit' >{BOOK_NOW}</PrimaryButton>
+								<PrimaryButton
+									disabled={values.availability === availability}
+									type='submit' >{SUBMIT}</PrimaryButton>
 							</div>
 						</div>
 					</div>
@@ -76,7 +73,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 	)
 }
 
-export default BookingForm;
+export default AvailableDayForm;
 
 const useStyles = makeStyles((theme: Theme) => ({
 	container: {
@@ -84,11 +81,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexFlow: 'row wrap',
 		alignItems: 'baseline',
 		justifyContent: 'center',
-		marginTop: customTheme.spacing.margin.small,
+		marginTop: '1rem',
 		padding: theme.spacing(1),
 	},
 	fields: {
-		margin: `0 ${customTheme.spacing.margin.small}`,
+		margin: '0 1rem',
 		flexDirection: 'column',
 		justifyContent: 'center',
 		[theme.breakpoints.down('md')]: {

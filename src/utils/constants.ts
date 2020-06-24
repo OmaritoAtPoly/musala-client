@@ -10,9 +10,10 @@ export const MATCH_PASSWORD = 'Passwords must match';
 export const emailRegExp = /^[a-zA-Z0-9_\-\.]+@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
 export const NO_DATA = "There is no data to show"
 export const NOT_FOUND = 'not found';
-export const DATE_FORMAT = 'YYYY-MM-DD';
 export const PER_NIGHT = 'per night';
+export const REQUIRED_RANGE = 'Range must be selected!!';
 export const BOOK_NOW = 'Book Now!';
+export const SUBMIT = 'Submit';
 export const CREATE_AT = 'Created at';
 export const RESERVED_AT = 'Reserved at'
 export const LOREM_TITLE = 'Lorem ipsum dolor sit amet';
@@ -28,3 +29,16 @@ export const THE_CHEAPEST_SUBTITLE = "stay cheap";
 
 export const ALL_ADS = 'All ads';
 export const ALL_ADS_SUBTITLE = "our best lodgings";
+
+export const BLOCKED = 'Blocked';
+export const AVAILABLE = 'Available';
+export const UNDEFINED = 'Undefined';
+export const AVAILABILITY = 'Availability';
+export const ACTION_VALIDATE = 'Must select an option';
+export const PAX_VALIDATE = 'Pax must be greater than zero';
+
+/*CALENDAR*/
+export const DATE_FORMAT = 'YYYY-MM-DD';
+export const FULL_EDITABLE_MODE = 'FULL_EDITABLE_MODE';
+export const EDITABLE_MODE = 'EDITABLE_MODE';
+export const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

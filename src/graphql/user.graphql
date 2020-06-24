@@ -21,4 +21,37 @@ query currentUser {
     token
   }
 }
+
+query currentUserBookings {
+ currentUser {
+    id
+    email
+    fullName
+    createdAt
+    role
+    phone
+    token
+    bookings {
+      id
+      checkin
+      checkout
+      totalPaid
+      createdAt
+      client {
+        email
+        fullName
+        role
+      }
+      ad {
+        title
+        description
+        image
+        createdAt
+        host {
+          email
+          fullName
+        }
+      }
+    }
+  }
 }

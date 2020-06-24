@@ -3,11 +3,11 @@ import ContainerPage from '../containers/ContainerPage'
 import { Availability } from '../domain/ad/container/Availability'
 
 
-const BookingsPage = () => {
+const AvailabilityPage = () => {
     return (
         <ContainerPage>
             <Availability />
         </ContainerPage>
     )
 }
-export default BookingsPage
+export default AvailabilityPage

@@ -30,17 +30,17 @@ const UserProfile = ({
       <div className={classes.loading}>
         {loading && <CircularProgress size={20} />}
       </div>
-      <Typography variant={'h4'} color={'textPrimary'}>
+      <Typography variant="h4" color="textPrimary">
         {name}
       </Typography>
-      <Typography variant={'body1'} color={'textPrimary'}>
+      <Typography variant="body1" color="textPrimary">
         {role}
       </Typography>
-      <Typography variant={'h5'} color={'textPrimary'}>
+      <Typography variant="h5" color="textPrimary">
         {email}
       </Typography>
       {bookingAmount && (
-        <Typography variant={'body1'} color={'textPrimary'}>
+        <Typography variant="body1" color="textPrimary">
           {`${bookingAmount} completed bookings `}
         </Typography>
       )}
@@ -66,7 +66,7 @@ const useStyles = makeStyles({
     width: `${customTheme.dimension.width.wAvatar}`,
     height: `${customTheme.dimension.height.hAvatar}`,
     margin: `${customTheme.spacing.margin.smaller}`,
-    borderRadius:`${customTheme.borderRadius.half}`,
+    borderRadius: `${customTheme.borderRadius.half}`,
     backgroundColor: customTheme.color.grayLight2,
   },
   loading: {

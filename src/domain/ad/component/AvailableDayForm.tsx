@@ -6,11 +6,11 @@ import React from 'react'
 import * as Yup from 'yup'
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
-import { Calendar, BlockedDay } from '../../../containers/calendar/Calendar'
-import { ACTION_VALIDATE, AVAILABILITY, AVAILABLE, BLOCKED, FULL_EDITABLE_MODE, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
+import { BlockedDay, Calendar } from '../../../containers/calendar/Calendar'
+import customTheme from '../../../theme'
+import { ACTION_VALIDATE, AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
-import customTheme from '../../../theme'
 
 interface Props {
 	blockedDays: BlockedDay[];
@@ -19,6 +19,7 @@ interface Props {
 	range: Range | undefined;
 	onChangeRange: (range: Range) => void;
 	handleValidRangeAlert: () => void;
+	updating: boolean;
 	availability: string;
 	validRange: boolean;
 	onSubmit: (availability: string) => void;
@@ -28,7 +29,7 @@ const validationSchema = Yup.object({
 	availability: Yup.string().oneOf([BLOCKED, AVAILABLE], ACTION_VALIDATE),
 })
 
-const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, availability, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
+const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updating, range, availability, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -63,6 +64,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, range, 
 							</div>
 							<div className={classes.button}>
 								<PrimaryButton
+									loading={updating}
 									disabled={values.availability === availability}
 									type='submit' >{SUBMIT}</PrimaryButton>
 							</div>

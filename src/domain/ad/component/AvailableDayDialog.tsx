@@ -30,7 +30,7 @@ export const AvailableDayDialog = ({ visible, ranking, adTitle, onRangeChanged, 
                 </IconButton>
             </DialogTitle>
             <DialogContent>
-                <Form
+                {/* <Form
                     adRanking={ranking}
                     adTitle={adTitle}
                     blockedDays={blockedDays}
@@ -40,7 +40,7 @@ export const AvailableDayDialog = ({ visible, ranking, adTitle, onRangeChanged, 
                     handleValidRangeAlert={handleValidRangeAlert}
                     availability={availability}
                     validRange={validRange}
-                />
+                /> */}
             </DialogContent>
         </Dialog>
     )

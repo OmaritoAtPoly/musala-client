@@ -63,10 +63,10 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   avatar: {
-    width: '4rem',
-    height: '4rem',
-    margin: customTheme.spacing.margin.smaller,
-    borderRadius: '50%',
+    width: `${customTheme.dimension.width.wAvatar}`,
+    height: `${customTheme.dimension.height.hAvatar}`,
+    margin: `${customTheme.spacing.margin.smaller}`,
+    borderRadius:`${customTheme.borderRadius.half}`,
     backgroundColor: customTheme.color.grayLight2,
   },
   loading: {

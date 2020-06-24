@@ -16,7 +16,8 @@ const ItemDescriptions = ({ description, date }: Props) => {
       color={'textPrimary'}
     >
       {' '}
-      {description}{' '}{date}{' '}
+      {description}
+      {date}{' '}
     </Typography>
   );
 };
@@ -24,13 +25,13 @@ const ItemDescriptions = ({ description, date }: Props) => {
 const useStyles = makeStyles({
   container: {
     display: 'flex',
-    width: '100%',
+    width: `${customTheme.dimension.width.w100}`,
     flexDirection: 'row',
   },
   description: {
     marginTop: `${customTheme.spacing.margin.smaller}`,
     border: `1px solid ${customTheme.color.grayLight1}`,
-    borderRadius: '1px',
+    borderRadius: `${customTheme.borderRadius.small}`,
     paddingLeft: customTheme.spacing.margin.smaller,
   },
 });

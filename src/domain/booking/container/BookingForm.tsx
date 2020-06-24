@@ -62,7 +62,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
                 setSeverityValue(ERROR_SEVERITY_VALUE);
             }
             );
-    }, [adId, userId, resetSelectAd, setSeverityValue, setAlertError, setIsValidRange, setRange, handleShowDialog, createBookingMutation, error, range])
+    }, [adId, userId, resetSelectAd, setSeverityValue, setAlertError, setIsValidRange, setRange, handleShowDialog, createBookingMutation, range])
 
     return (
         <BookingDialog

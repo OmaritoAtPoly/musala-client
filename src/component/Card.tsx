@@ -48,7 +48,7 @@ export default Card;
 const useStyles = makeStyles({
   card: {
     flex: 1,
-    width: '100%',
+    width: customTheme.dimension.width.w100,
     overflow: 'hidden',
     transition: 'all .2s',
     '&:hover': {

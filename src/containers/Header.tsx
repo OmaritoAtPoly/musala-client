@@ -1,5 +1,5 @@
 import { useApolloClient } from '@apollo/react-hooks';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppHeader from '../component/Header';
 import { Menu } from '../component/Header/Header';
@@ -14,6 +14,17 @@ const Header: FC = () => {
   });
 
   const isHost = useMemo(() => data?.currentUser?.role === 'HOST', [data]);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobileMenuClose = useCallback(() => {
+    setMobileMoreAnchorEl(null);
+  }, [mobileMoreAnchorEl])
+
+  const handleMobileMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  }, [mobileMoreAnchorEl])
+
 
   const { push } = useHistory();
   const auth = loggedIn();
@@ -60,7 +71,14 @@ const Header: FC = () => {
     },
   });
 
-  return <AppHeader userName={data?.currentUser?.fullName} links={links} />;
+  return <AppHeader
+    userName={data?.currentUser?.fullName}
+    links={links}
+    handleMobileMenuClose={handleMobileMenuClose}
+    isMobileMenuOpen={isMobileMenuOpen}
+    mobileMoreAnchorEl={mobileMoreAnchorEl}
+    handleMobileMenuOpen={handleMobileMenuOpen}
+  />;
 };
 
 export default Header;

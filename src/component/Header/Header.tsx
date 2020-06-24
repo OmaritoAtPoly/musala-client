@@ -17,20 +17,14 @@ export interface Menu {
 interface Props {
   userName?: string;
   links: Menu[];
+  mobileMoreAnchorEl: HTMLElement | null;
+  isMobileMenuOpen: boolean;
+  handleMobileMenuClose: () => void;
+  handleMobileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void
 }
 
-const Header: FC<Props> = ({ links, userName }) => {
+const Header: FC<Props> = ({ links, userName, mobileMoreAnchorEl, isMobileMenuOpen, handleMobileMenuOpen, handleMobileMenuClose }) => {
   const classes = useStyles();
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
   return (
     <AppBar className={classes.appBar} position="sticky">

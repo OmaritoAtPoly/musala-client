@@ -35,7 +35,6 @@ const validationSchema = Yup.object({
 
 const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updating, range, availability, errorMessage, loadingCurrentAd, closeError, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
 	const classes = useStyles();
-	console.log(errorMessage)
 	return (
 		<Formik
 			initialValues={{ availability }}
@@ -64,7 +63,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updatin
 									<FormControlLabel value={BLOCKED} control={<Radio color={'primary'} />} label={BLOCKED} />
 									<FormControlLabel value={AVAILABLE} control={<Radio color={'primary'} />} label={AVAILABLE} />
 								</RadioGroup>
-								{errors.availability ? (<ErrorFieldForm name='availability' />) : null}
+								{errors.availability && (<ErrorFieldForm name='availability' />)}
 							</div>
 							<div className={classes.button}>
 								<PrimaryButton
@@ -93,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexFlow: 'row wrap',
 		alignItems: 'baseline',
 		justifyContent: 'center',
-		width: '100%',
+		width: customTheme.dimension.width.w100,
 		marginTop: customTheme.spacing.margin.small,
 		padding: theme.spacing(1),
 	},

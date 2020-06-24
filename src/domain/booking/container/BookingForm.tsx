@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
+import { BlockedDay } from '../../../containers/calendar/Calendar'
+import { DATE_FORMAT } from '../../../utils/constants'
 import { BookingDialog } from '../component/BookingDialog'
 import { Range } from '../utils'
-import { Moment } from 'moment'
-import { DATE_FORMAT } from '../../../utils/constants'
 
 interface Props {
     adId: string;
@@ -10,7 +10,7 @@ interface Props {
     adRanking: number;
     adPrice: number;
     visible: boolean;
-    blockedDays: Moment[];
+    blockedDays: BlockedDay[];
     handleShowDialog: () => void;
 }
 

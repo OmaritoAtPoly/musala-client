@@ -1,10 +1,10 @@
 import { Dialog, DialogContent, DialogTitle, IconButton, makeStyles } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
-import Form from './BookingForm'
+import { BlockedDay } from '../../../containers/calendar/Calendar';
 import customTheme from '../../../theme';
 import { Range } from '../utils';
-import { Moment } from 'moment';
+import Form from './BookingForm';
 
 interface Props {
 	visible: boolean;
@@ -15,7 +15,7 @@ interface Props {
 	price: number;
 	ranking: number;
 	adTitle: string;
-	blockedDays: Moment[];
+	blockedDays: BlockedDay[];
 	range: Range | undefined;
 	validRange: boolean;
 }

@@ -1,7 +1,8 @@
-import { Theme, Typography, CircularProgress } from '@material-ui/core';
+import { CircularProgress, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Moment } from 'moment';
 import React from 'react';
+import Alert from '../../../../component/Alert';
+import { BlockedDay } from '../../../../containers/calendar/Calendar';
 import customTheme from '../../../../theme';
 import { PER_NIGHT } from '../../../../utils/constants';
 import { BookingForm } from '../../../booking/container/BookingForm';
@@ -9,7 +10,6 @@ import { BookPanel } from './BookPanel';
 import { DescriptionPanel } from './DescriptionPanel';
 import { PicturePanel } from './PicturePanel';
 import { TitlePanel } from './TitlePanel';
-import Alert from '../../../../component/Alert';
 
 interface Props {
     adId: string;
@@ -18,7 +18,7 @@ interface Props {
     image: string;
     price: number;
     ranking: number;
-    blockedDays: Moment[]
+    blockedDays: BlockedDay[]
     handleOnShowDialog: () => void;
     visible: boolean;
     loading: boolean

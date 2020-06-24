@@ -1,24 +1,23 @@
-import { TextField, Theme, Typography, Collapse } from '@material-ui/core'
+import { Collapse, TextField, Theme, Typography } from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
-import { Moment } from 'moment'
 import React from 'react'
 import * as Yup from 'yup'
 import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
-import { Calendar } from '../../../containers/calendar/Calendar'
-import { BOOK_NOW, EDITABLE_MODE, PER_NIGHT, PAX_VALIDATE, REQUIRED_RANGE } from '../../../utils/constants'
+import { BlockedDay, Calendar } from '../../../containers/calendar/Calendar'
+import customTheme from '../../../theme'
+import { BOOK_NOW, EDITABLE_MODE, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
-import Alert from '@material-ui/lab/Alert'
-import customTheme from '../../../theme'
 
 const validationSchema = Yup.object({
 	pax: Yup.number().positive(PAX_VALIDATE)
 })
 
 interface Props {
-	blockedDays: Moment[];
+	blockedDays: BlockedDay[];
 	adTitle: string;
 	adRanking: number;
 	price: number;
@@ -46,7 +45,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDays={blockedDays} onChangeRange={onChangeRange} mode={EDITABLE_MODE} />
+							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>

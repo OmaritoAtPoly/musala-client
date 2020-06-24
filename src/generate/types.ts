@@ -1001,7 +1001,7 @@ export type CurrentAvailabilityQuery = (
     & Pick<User, 'id'>
     & { ad?: Maybe<(
       { __typename?: 'Ad' }
-      & Pick<Ad, 'id' | 'ranking'>
+      & Pick<Ad, 'id' | 'title' | 'ranking'>
       & { blockedDays: Array<(
         { __typename?: 'BlockedDay' }
         & Pick<BlockedDay, 'id' | 'checkin' | 'checkout' | 'byBooking'>
@@ -1172,6 +1172,7 @@ export const CurrentAvailabilityDocument = gql`
     id
     ad {
       id
+      title
       ranking
       blockedDays {
         id

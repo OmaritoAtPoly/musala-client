@@ -1,4 +1,4 @@
-import { Collapse, FormControlLabel, Radio, RadioGroup, Theme, Typography } from '@material-ui/core'
+import { Collapse, FormControlLabel, Radio, RadioGroup, Theme, Typography, CircularProgress } from '@material-ui/core'
 import CalendarAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/styles'
 import { Form, Formik } from 'formik'
@@ -22,6 +22,7 @@ interface Props {
 	closeError: () => void;
 	onChangeRange: (range: Range) => void;
 	handleValidRangeAlert: () => void;
+	loadingCurrentAd: boolean;
 	updating: boolean;
 	availability: string;
 	validRange: boolean;
@@ -32,7 +33,7 @@ const validationSchema = Yup.object({
 	availability: Yup.string().oneOf([BLOCKED, AVAILABLE], ACTION_VALIDATE),
 })
 
-const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updating, range, availability, errorMessage, closeError, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
+const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updating, range, availability, errorMessage, loadingCurrentAd, closeError, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
 	const classes = useStyles();
 	console.log(errorMessage)
 	return (
@@ -48,6 +49,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updatin
 			{({ values, errors, handleChange }) =>
 				<Form>
 					<div className={classes.container}>
+						{loadingCurrentAd && <CircularProgress size={50} className={classes.loading} />}
 						<div>
 							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
@@ -113,41 +115,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 	button: {
 		marginTop: theme.spacing(2),
 		display: 'inline-block'
+	},
+	loading: {
+		position: 'absolute',
+		top: customTheme.spacing.margin.m50,
+		left: customTheme.spacing.margin.m50
 	}
 })
 );
-
-// const useStyles = makeStyles((theme: Theme) => ({
-// 	container: {
-// 		display: 'flex',
-// 		flexFlow: 'row wrap',
-// 		alignItems: 'baseline',
-// 		justifyContent: 'center',
-// 		marginTop: `${customTheme.spacing.margin.small}`,
-// 		padding: theme.spacing(1),
-// 	},
-// 	fields: {
-// 		marginLeft: `${customTheme.spacing.margin.medium}`,
-// 		flexDirection: 'column',
-// 		justifyContent: 'center',
-// 		[theme.breakpoints.down('md')]: {
-// 			marginTop: theme.spacing(4),
-// 			marginLeft: `${customTheme.spacing.margin.none}`,
-// 		},
-// 		[theme.breakpoints.down('sm')]: {
-// 			padding: `0 ${customTheme.spacing.padding.medium}`
-// 		}
-// 	},
-// 	radioGroup: {
-// 		display: 'flex',
-// 		flexDirection: 'row'
-// 	},
-// 	price: {
-// 		marginTop: theme.spacing(1),
-// 	},
-// 	button: {
-// 		marginTop: theme.spacing(2),
-// 		display: 'inline-block'
-// 	}
-// })
-// );

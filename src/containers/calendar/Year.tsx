@@ -1,10 +1,9 @@
 import moment, { Moment } from 'moment';
 import React, { useMemo } from 'react';
-import { DayModel, DAY_STATE, Range } from './utils/types';
 import YearView from '../../component/calendar/Year';
-import { DATE_FORMAT } from '../../utils/constants';
-import { BlockedDay } from './Calendar';
 import { getBlockedDateRange } from '../../utils/calendar';
+import { BlockedDay } from './Calendar';
+import { DayModel, DAY_STATE, Range } from './utils/types';
 
 interface Props {
     currentMonth: Moment;
@@ -74,7 +73,7 @@ const resolveByDefaultState = (day: Moment, blockedDayList: BlockedDay[]) => {
         const range = getBlockedDateRange(blockedDayList[i])
         if (isBLockedByBooking(day, range, blockedDayList[i].byBooking)) {
             return DAY_STATE.BLOCKED_BY_BOOKING;
-        } else if (isBLocked(day, range)) {
+        } else if (isBLocked(day, range, blockedDayList[i].byBooking)) {
             return DAY_STATE.BLOCKED_DAY
         }
     } return DAY_STATE.EMPTY
@@ -82,11 +81,11 @@ const resolveByDefaultState = (day: Moment, blockedDayList: BlockedDay[]) => {
 
 
 const isBLockedByBooking = (day: Moment, range: Range, byBooking: boolean | undefined | null) => {
-    return (day.isSameOrAfter(range.checkin) && day.isSameOrBefore(range.checkout) && byBooking) ? true : false
+    return (day.isSameOrAfter(range.checkin) && day.isBefore(range.checkout) && byBooking) ? true : false
 }
 
-const isBLocked = (day: Moment, range: Range) => {
-    return (day.isSameOrAfter(range.checkin) && day.isSameOrBefore(range.checkout)) ? true : false
+const isBLocked = (day: Moment, range: Range, byBooking: boolean | undefined | null) => {
+    return (day.isSameOrAfter(range.checkin) && day.isSameOrBefore(range.checkout) && !byBooking) ? true : false
 }
 
 

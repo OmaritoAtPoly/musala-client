@@ -1,14 +1,12 @@
-import { AppBar, Badge, IconButton, Menu, MenuItem, Theme, Toolbar } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
+import { AppBar, IconButton, Theme, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from '@material-ui/styles';
 import React, { FC } from 'react';
 import customTheme from '../../theme';
 import Brand from '../svg/Brand';
 import FakeNavLink from './FakeNavLink';
 import NavLink from './NavLink';
+import { MobileMenu } from './MobileMenu';
 
 
 export interface Menu {
@@ -34,8 +32,6 @@ const Header: FC<Props> = ({ links, userName }) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-
-
   return (
     <AppBar className={classes.appBar} position="sticky">
       <Toolbar className={classes.toolbar}>
@@ -59,7 +55,7 @@ const Header: FC<Props> = ({ links, userName }) => {
         <div className={classes.sectionMobile}>
           <IconButton
             aria-label="show more"
-            aria-controls={mobileMenuId}
+            aria-controls={'mobileMenuId'}
             aria-haspopup="true"
             onClick={handleMobileMenuOpen}
             color="primary"
@@ -68,7 +64,12 @@ const Header: FC<Props> = ({ links, userName }) => {
           </IconButton>
         </div>
       </Toolbar>
-      {renderMobileMenu}
+      <MobileMenu
+        handleMobileMenuClose={handleMobileMenuClose}
+        isMobileMenuOpen={isMobileMenuOpen}
+        mobileMoreAnchorEl={mobileMoreAnchorEl}
+        links={links}
+      />
     </AppBar>
   );
 };

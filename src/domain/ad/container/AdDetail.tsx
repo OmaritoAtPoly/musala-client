@@ -60,6 +60,7 @@ export const AdDetail = () => {
             loading={loading}
             errorMessage={errorMessage}
             closeError={closeError}
+            setAlertError={setAlertError}
             {...querySetValues}
         />
     )

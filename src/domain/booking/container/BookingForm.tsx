@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { BookingDialog } from '../component/BookingDialog'
 import { Range } from '../utils'
 import { Moment } from 'moment'
 import { DATE_FORMAT } from '../../../utils/constants'
+import { useCreateBookingMutation, useCurrentUserQuery } from '../../../generate/types'
+import { ApolloError } from 'apollo-boost'
 
 interface Props {
     adId: string;
@@ -12,11 +14,13 @@ interface Props {
     visible: boolean;
     blockedDays: Moment[];
     handleShowDialog: () => void;
+    setAlertError: (value: string) => void;
 }
 
-export const BookingForm = ({ adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
+export const BookingForm = ({ setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
+    const [createBookingMutation, { data, loading, error }] = useCreateBookingMutation();
 
     const handleValidRange = () => {
         setIsValidRange(!isValidRange)
@@ -26,22 +30,34 @@ export const BookingForm = ({ adId, adTitle, adRanking, adPrice, blockedDays, vi
         setRange(range);
     }
 
+    const { data: currentUserData } = useCurrentUserQuery({
+        fetchPolicy: 'cache-first',
+        errorPolicy: 'all',
+    });
+
+    const isHost = useMemo(() => currentUserData?.currentUser?.role === 'HOST', [currentUserData]);
+    const isClient = useMemo(() => currentUserData?.currentUser?.role === 'USER', [currentUserData]);
+    const userId = useMemo(() => currentUserData?.currentUser?.id, [currentUserData]);
+
     const onSubmit = (pax: number) => {
         setIsValidRange(true);
         setRange(undefined)
         handleShowDialog()
-        alert(`adId:${adId},
-            pax:${pax},
-         totalPaid:${calculateTotalPaid()},
-         checkIn:${ range?.checkin?.format(DATE_FORMAT)},
-         checkOut:${ range?.checkout?.format(DATE_FORMAT)}`
-        )
-    }
-
-    const calculateTotalPaid = () => {
-        if (range && range.checkin && range.checkout) {
-            return adPrice * range.checkout.diff(range.checkin, 'days')
-        } else return 0
+        createBookingMutation({
+            variables: {
+                checkin: range?.checkin?.format(DATE_FORMAT),
+                checkout: range?.checkout?.format(DATE_FORMAT),
+                clientId: userId!,
+                pax: pax,
+                adId: adId,
+            },
+        })
+            .then(() => {
+                setAlertError('todo bien');
+            })
+            .catch((error: ApolloError) =>
+                setAlertError(error.message.replace('GraphQL error:', ''))
+            )
     }
 
     return (

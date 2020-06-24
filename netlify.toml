@@ -1,0 +1,16 @@
+[build]
+base = "musala-project"
+publish = "musala-project/build/"
+command = "yarn build"
+
+
+
+command = "yarn run build"
+  publish="/build"
+  base = "musala-project"
+
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

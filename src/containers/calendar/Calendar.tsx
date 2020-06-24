@@ -50,14 +50,9 @@ const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {
     } else return { checkin: checkIn, checkout: date }
 }
 
-const isSelectedCheckInValid = (date: Moment, blockedDays: BlockedDay[]) => {
-    for (let i = 0; i < blockedDays.length; i++) {
-        const range = getBlockedDateRange(blockedDays[i])
-        if (date.isSameOrAfter(range.checkin) && date.isBefore(range.checkout) && blockedDays[i].byBooking) {
-            return false;
-        }
-    } return true;
-}
+const isSelectedCheckInValid = (date: Moment, blockedDays: BlockedDay[]) =>
+    (blockedDays.some((range) => (date.isSameOrAfter(range.checkin) && date.isBefore(range.checkout) && range.byBooking))) ? false : true
+
 
 const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: BlockedDay[]) => {
     if (checkIn.isBefore(checkOut)) {
@@ -67,6 +62,11 @@ const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: Bl
         } return true;
     } return false;
 }
+
+// if (checkIn.isBefore(checkOut)) {
+//     return (blockedDays.some((blockedDay) => (moment(blockedDay.checkin).isBetween(checkIn, checkOut) && blockedDay.byBooking))) ? false : true
+// }
+
 
 
 

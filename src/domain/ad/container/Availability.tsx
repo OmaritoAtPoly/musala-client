@@ -19,7 +19,7 @@ export const Availability = () => {
 	const [availability, setAvailability] = useState<string>('undefined')
 	const [isValidRange, setIsValidRange] = useState<boolean>(true)
 	const [errorMessage, setAlertError] = useState<string | undefined>();
-	const { data, loading: loadingCurrentAd, error: currentAdError } = useCurrentAvailabilityQuery()
+	const { data, loading: loadingCurrentAd, error: currentAdError, refetch } = useCurrentAvailabilityQuery()
 	const [updateFn, { loading: updating }] = useUpdateAvailabilityMutation()
 
 	if (currentAdError) setAlertError(currentAdError?.graphQLErrors.map(({ message }) => message).join(', '))
@@ -58,7 +58,9 @@ export const Availability = () => {
 						ops: availability === OpsEnum.Blocked ? OpsEnum.Blocked : OpsEnum.Available
 					}
 				}
-			}).catch((error: ApolloError) => { setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', ')); });
+			})
+				.then(() => refetch())
+				.catch((error: ApolloError) => { setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', ')); });
 	}
 
 	return <Form

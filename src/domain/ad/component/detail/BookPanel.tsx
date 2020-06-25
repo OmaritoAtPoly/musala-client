@@ -14,15 +14,9 @@ export const BookPanel = ({ userId, onClick }: Props) => {
 
   return (
     <div className={classes.button}>
-      {userId ? (
         <PrimaryButton onClick={onClick} variant="outlined" size="small">
-          {BOOK_NOW}
+        {userId ? BOOK_NOW:LOGIN_TO_BOOK}
         </PrimaryButton>
-      ) : (
-        <PrimaryButton onClick={onClick} variant="outlined" size="small">
-          {LOGIN_TO_BOOK}
-        </PrimaryButton>
-      )}
     </div>
   );
 };

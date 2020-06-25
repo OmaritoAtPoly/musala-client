@@ -25,18 +25,14 @@ export const Calendar = ({ blockedDayList, onChangeRange, mode }: Props) => {
         checkRangeInEditableMode(date)
     }
 
-
     const isSelectedCheckInValid = useCallback((date: Moment) =>
         (blockedDayList.some((blockDateRange) => isValidCheckIn(date, blockDateRange, mode))) ? false : true, [blockedDayList])
-    // (isStrictBetween(date, moment(blockDateRange.checkin, DATE_FORMAT), moment(blockDateRange.checkout, DATE_FORMAT)) && blockDateRange.byBooking))) ? false : true, [blockedDayList])
 
     const isSelectedRangeValid = useCallback((checkIn: Moment, checkOut: Moment) => {
         if (checkIn.isBefore(checkOut)) {
             return (blockedDayList.some((blockedDay) => (isValidCheckOut(blockedDay, checkIn, checkOut, mode)))) ? false : true
         } return false;
     }, [blockedDayList])
-
-
 
     const checkRangeInEditableMode = (date: Moment) => {
         if (!range && isSelectedCheckInValid(date)) {

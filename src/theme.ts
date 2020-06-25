@@ -11,11 +11,11 @@ export const customTheme = {
       medium: '1rem'
     }
   },
-  border:{
-     small:"1px"
+  border: {
+    small: "1px"
   },
-  borderRadius:{
-      half:"50%"
+  borderRadius: {
+    half: "50%"
   },
   dimension: {
     radius: {
@@ -28,16 +28,19 @@ export const customTheme = {
       small: '1rem',
       medium: '13rem',
       day_calendar_height: '2.5rem',
-      hAvatar:'4rem'
+      hAvatar: '4rem'
     },
     width: {
       small: '1rem',
       day_calendar_width: '2.5rem',
-      wLayout:"1400px",
+      wLayout: "1400px",
+      w30: '30%',
+      w40: '40%',
       w50: '50%',
+      w80: '80%',
       w90: '90%',
-      w100: '100%', 
-      wAvatar:'4rem',
+      w100: '100%',
+      wAvatar: '4rem',
     },
   },
   spacing: {

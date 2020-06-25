@@ -1,4 +1,4 @@
-import { TextField, Typography } from '@material-ui/core';
+import { TextField, Typography, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -8,7 +8,7 @@ import { ErrorFieldForm } from '../../../component/ErrorFieldForm';
 import FakeNavLink from '../../../component/Header/FakeNavLink';
 import { PrimaryButton } from '../../../component/PrimaryButton';
 import customTheme from '../../../theme';
-import { CLICK_ME, CONFIRM_PASSWORD_REQUIRED, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED, REGISTERED } from '../../../utils/constants';
+import { CLICK_ME, CONFIRM_PASSWORD_REQUIRED, SIGNUP, EMAIL_REQUIRED, INVALID_PHONE, MATCH_PASSWORD, NAME_REQUIRED, PASSWORD_REQUIRED, phoneRegExp, PHONE_REQUIRED, REGISTERED } from '../../../utils/constants';
 import { SignupInitValue, SignupInput } from '../container/Signup';
 
 interface Props {
@@ -49,7 +49,7 @@ export const SignupForm = ({ onSignup, closeError, errorMessage, loading, signIn
         >
             {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <Form className={classes.form} onSubmit={handleSubmit} >
-                    <Typography variant={'h3'} color={'textPrimary'} > Signup </Typography>
+                    <Typography variant={'h3'} color={'textPrimary'} > {SIGNUP} </Typography>
                     <TextField
                         variant="outlined"
                         margin="dense"
@@ -128,7 +128,7 @@ export const SignupForm = ({ onSignup, closeError, errorMessage, loading, signIn
     )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
@@ -137,20 +137,28 @@ const useStyles = makeStyles(theme => ({
         margin: `${customTheme.spacing.margin.big} auto`,
         padding: `${customTheme.spacing.padding.big}`,
         border: `1px solid ${customTheme.color.grayLight4}`,
-        borderRadius: '5px',
-        '@media (min-width: 700px)': {
-            width: '40%',
+        borderRadius: `${customTheme.dimension.radius.small}`,
+        width: `${customTheme.dimension.width.w30}`,
+
+        [theme.breakpoints.down('md')]: {
+            width: `${customTheme.dimension.width.w40}`,
             margin: `${customTheme.spacing.margin.bigger} auto`,
         },
-        '@media (min-width: 800px)': {
-            width: '35%'
-        }
+        [theme.breakpoints.down('sm')]: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: `${customTheme.dimension.width.w80}`,
+            margin: `${customTheme.spacing.margin.small} auto`,
+            borderRadius: '5px',
+            border: 'unset'
+        },
     },
     submit: {
         margin: `${customTheme.spacing.margin.medium} auto`,
         padding: `${customTheme.spacing.margin.bigger} auto`
     },
-    signIn:{
-        color:customTheme.color.primary
+    signIn: {
+        color: customTheme.color.primary
     }
 }));

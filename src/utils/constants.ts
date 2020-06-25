@@ -21,6 +21,7 @@ export const LOREM_TITLE = 'Lorem ipsum dolor sit amet';
 export const LOREM_BODY = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod';
 export const REGISTERED = 'Already have an account ?';
 export const CLICK_ME = 'click here';
+export const SIGNUP = 'Signup';
 
 export const MOST_POPULAR_SUBTITLE = 'The most chosen by our clients';
 export const MOST_POPULAR = "The most popular";

@@ -24,7 +24,7 @@ interface Props {
 export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
-    const [createBookingMutation, { error }] = useCreateBookingMutation();
+    const [createBookingMutation, { loading, error }] = useCreateBookingMutation();
 
     const handleValidRange = () => {
         setIsValidRange(!isValidRange)
@@ -35,13 +35,12 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
     }
 
     useEffect(() => {
-        error && setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', ')) 
+        error && setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
     }, [error, setAlertError])
 
     const onSubmit = useCallback((pax: number) => {
         setIsValidRange(true);
         setRange(undefined);
-        handleShowDialog();
         createBookingMutation({
             variables: {
                 checkin: range?.checkin?.format(DATE_FORMAT),
@@ -56,6 +55,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
         })
             .then(() => {
                 resetSelectAd();
+                handleShowDialog();
             })
             .catch((error: ApolloError) => {
                 setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
@@ -76,6 +76,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
             onSubmit={onSubmit}
             onClose={handleShowDialog}
             range={range}
+            creatingBooking={loading}
             visible={visible}
         />
     )

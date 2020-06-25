@@ -26,9 +26,10 @@ interface Props {
 	handleValidRangeAlert: () => void;
 	validRange: boolean;
 	onSubmit: (pax: number) => void;
+	creatingBooking: boolean;
 }
 
-const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
+const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range, onChangeRange, handleValidRangeAlert, creatingBooking, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -66,7 +67,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 							{errors.pax && touched.pax ? (<ErrorFieldForm name='pax' />) : null}
 							<Typography className={classes.price} color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
 							<div className={classes.button}>
-								<PrimaryButton type='submit' >{BOOK_NOW}</PrimaryButton>
+								<PrimaryButton loading={creatingBooking} type='submit' >{BOOK_NOW}</PrimaryButton>
 							</div>
 						</div>
 					</div>

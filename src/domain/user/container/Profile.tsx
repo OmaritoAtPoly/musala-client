@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import UserProfile from '../component/Profile';
 import { useCurrentUserQuery, CurrentUserQuery } from '../../../generate/types';
 

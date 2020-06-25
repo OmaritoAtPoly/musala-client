@@ -61,6 +61,7 @@ export const AdDetail = ({ userId,severityValue, setSeverityValue, resetSelectAd
                 resetSelectAd={resetSelectAd}
                 setSeverityValue={setSeverityValue}
                 userId={userId}
+                closeError={closeError}
             />
             <Alert
                 severity={severityValue}

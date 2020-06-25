@@ -15,13 +15,14 @@ interface Props {
     visible: boolean;
     userId?: string;
     blockedDays: BlockedDay[];
-    handleShowDialog: () => void;
     setAlertError: (value: string) => void;
-    resetSelectAd: () => void;
     setSeverityValue: (value: SeverityType) => void;
+    handleShowDialog: () => void;
+    resetSelectAd: () => void;
+    closeError: () => void;
 }
 
-export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
+export const BookingForm = ({ closeError, userId, setSeverityValue, resetSelectAd, setAlertError, adId, adTitle, adRanking, adPrice, blockedDays, visible, handleShowDialog }: Props) => {
     const [range, setRange] = useState<Range>()
     const [isValidRange, setIsValidRange] = useState<boolean>(true)
     const [createBookingMutation, { error }] = useCreateBookingMutation();
@@ -35,7 +36,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
     }
 
     useEffect(() => {
-        error && setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', ')) 
+        error && setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
     }, [error, setAlertError])
 
     const onSubmit = useCallback((pax: number) => {
@@ -53,6 +54,10 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
         }).then(() => {
             setAlertError('You\'ve made a new booking');
             setSeverityValue(INFO_SEVERITY_VALUE);
+            setTimeout(() => {
+                closeError();
+            }, 3000)
+
         })
             .then(() => {
                 resetSelectAd();
@@ -60,9 +65,12 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
             .catch((error: ApolloError) => {
                 setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
                 setSeverityValue(ERROR_SEVERITY_VALUE);
+                setTimeout(() => {
+                    closeError();
+                }, 3000)
             }
             );
-    }, [adId, userId, resetSelectAd, setSeverityValue, setAlertError, setIsValidRange, setRange, handleShowDialog, createBookingMutation, range])
+    }, [closeError,adId, userId, resetSelectAd, setSeverityValue, setAlertError, setIsValidRange, setRange, handleShowDialog, createBookingMutation, range])
 
     return (
         <BookingDialog

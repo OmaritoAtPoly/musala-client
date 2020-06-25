@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelectAdByIdQuery, useCurrentUserQuery } from '../../../generate/types';
 import AdDetailView from '../component/detail';
@@ -48,7 +48,9 @@ export const AdDetail = () => {
         setVisibleBookingDialog(!visibleBookingDialog)
     }
 
-    if (error) setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
+    useEffect(() => {
+        error && setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
+    }, [error]);
 
     const querySetValues = useMemo(() => {
         if (!data || !data.ad) return initialValues;

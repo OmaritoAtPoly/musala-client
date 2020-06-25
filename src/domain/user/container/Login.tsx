@@ -22,7 +22,7 @@ const Login = () => {
       console.log("dd",process.env.B_CRYPT_SALT!)
       const hash = CryptoJS.AES.encrypt(
         password,
-        process.env.REACT_APP_CRYPTO_JS_SECRET! || 'ijfw9-48etfw'
+        process.env.REACT_APP_CRYPTO_JS_SECRET!
       ).toString();
       loginFn({
         variables: {

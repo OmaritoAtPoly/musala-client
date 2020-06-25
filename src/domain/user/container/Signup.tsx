@@ -43,7 +43,7 @@ const Signup = () => {
     ({ email, fullName, password, phone }) => {
       const hash = CryptoJS.AES.encrypt(
         password,
-        process.env.REACT_APP_CRYPTO_JS_SECRET! || 'ijfw9-48etfw'
+        process.env.REACT_APP_CRYPTO_JS_SECRET!
       ).toString();
       signUpFn({
         variables: {

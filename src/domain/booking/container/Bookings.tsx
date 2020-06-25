@@ -19,7 +19,6 @@ const Bookings = () => {
     fetchPolicy: 'cache-and-network',
     errorPolicy: 'all',
   });
-  console.log(`this is the data`,data)
   return (
     <div className={classes.container}>
       {data?.currentUser?.bookings?.map((value,index) => {

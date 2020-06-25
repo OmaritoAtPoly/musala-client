@@ -1,6 +1,13 @@
+[build]
+base = "musala-project"
+publish = "musala-project/build/"
+command = "yarn build"
+
+
+
 command = "yarn run build"
   publish="/build"
-  base = "path-to-react-app"
+  base = "musala-project"
 
 
 [[redirects]]

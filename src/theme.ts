@@ -34,6 +34,7 @@ export const customTheme = {
       small: '1rem',
       day_calendar_width: '2.5rem',
       wLayout: "1400px",
+      w20: '20%',
       w30: '30%',
       w40: '40%',
       w50: '50%',

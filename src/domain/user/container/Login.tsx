@@ -19,9 +19,10 @@ const Login = () => {
 
   const onSubmit = useCallback(
     ({ email, password }) => {
+      console.log("dd",process.env.B_CRYPT_SALT!)
       const hash = CryptoJS.AES.encrypt(
         password,
-        process.env.B_CRYPT_SALT!
+        process.env.REACT_APP_CRYPTO_JS_SECRET! || 'ijfw9-48etfw'
       ).toString();
       loginFn({
         variables: {

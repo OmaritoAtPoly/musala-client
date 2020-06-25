@@ -1,5 +1,5 @@
-query listAds ($orderBy: AdOrderByInput, $first: Int){
-  ads (orderBy: $orderBy, first: $first) {
+query listAds($orderBy: AdOrderByInput, $first: Int) {
+  ads(orderBy: $orderBy, first: $first) {
     id
     title
     description
@@ -7,6 +7,7 @@ query listAds ($orderBy: AdOrderByInput, $first: Int){
     price
     ranking
     host {
+      id
       fullName
     }
     createdAt
@@ -22,6 +23,7 @@ query selectAdById($id: ID!) {
     price
     ranking
     blockedDays {
+      id
       checkin
       checkout
       byBooking

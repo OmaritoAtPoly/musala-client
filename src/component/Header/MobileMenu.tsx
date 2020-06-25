@@ -7,7 +7,7 @@ import NavLink from './NavLink';
 
 
 interface Props {
-    mobileMoreAnchorEl: HTMLElement | null;
+    mobileMoreAnchorEl: HTMLElement | undefined;
     isMobileMenuOpen: boolean;
     handleMobileMenuClose: () => void;
     links: LinkMenu[];

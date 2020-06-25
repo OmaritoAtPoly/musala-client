@@ -22,11 +22,11 @@ interface Props {
 const Header: FC<Props> = ({ links, userName }) => {
   const classes = useStyles();
 
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<undefined | HTMLElement>(undefined);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = useCallback(() => {
-    setMobileMoreAnchorEl(null);
+    setMobileMoreAnchorEl(undefined);
   }, [mobileMoreAnchorEl])
 
   const handleMobileMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {

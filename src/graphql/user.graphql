@@ -41,6 +41,7 @@ query currentUserBookings {
       totalPaid
       createdAt
       client {
+        id
         email
         fullName
         role

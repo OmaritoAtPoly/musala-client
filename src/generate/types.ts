@@ -1088,7 +1088,7 @@ export type CurrentUserBookingsQuery = (
       & Pick<Booking, 'id' | 'checkin' | 'checkout' | 'totalPaid' | 'createdAt'>
       & { client: (
         { __typename?: 'User' }
-        & Pick<User, 'email' | 'fullName' | 'role'>
+        & Pick<User, 'id' | 'email' | 'fullName' | 'role'>
       ), ad: (
         { __typename?: 'Ad' }
         & Pick<Ad, 'title' | 'description' | 'image' | 'createdAt'>
@@ -1438,6 +1438,7 @@ export const CurrentUserBookingsDocument = gql`
       totalPaid
       createdAt
       client {
+        id
         email
         fullName
         role

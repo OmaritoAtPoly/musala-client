@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import ItemBooking from './BookingRow/BookingRow';
+import ItemBooking from '../component/BookingRow/BookingRow';
 import { makeStyles } from '@material-ui/styles';
 import moment from 'moment' 
 import {
@@ -16,15 +16,15 @@ const Bookings = () => {
   }, [setErrorMessage]);
 
   const { data, loading, error } = useCurrentUserBookingsQuery({
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
     errorPolicy: 'all',
   });
-
   return (
     <div className={classes.container}>
       {data?.currentUser?.bookings?.map((value) => {
         return (
           <ItemBooking
+            key={value.client.id}
             checkin={moment(value.checkin).format("DD-MM-YYYY")}
             checkout={moment(value.checkout).format("DD-MM-YYYY")}
             createdAt={moment(value.createdAt).format("DD-MM-YYYY")}

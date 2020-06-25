@@ -14,114 +14,114 @@ import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import Alert from '../../../component/Alert';
 
 interface Props {
-	blockedDays: BlockedDay[];
-	adTitle: string;
-	adRanking: number;
-	range: Range | undefined;
-	errorMessage?: string;
-	closeError: () => void;
-	onChangeRange: (range: Range) => void;
-	handleValidRangeAlert: () => void;
-	loadingCurrentAd: boolean;
-	updating: boolean;
-	availability: string;
-	validRange: boolean;
-	onSubmit: (availability: string) => void;
+  blockedDays: BlockedDay[];
+  adTitle: string;
+  adRanking: number;
+  range: Range | undefined;
+  errorMessage?: string;
+  closeError: () => void;
+  onChangeRange: (range: Range) => void;
+  handleValidRangeAlert: () => void;
+  loadingCurrentAd: boolean;
+  updating: boolean;
+  availability: string;
+  validRange: boolean;
+  onSubmit: (availability: string) => void;
 }
 
 const validationSchema = Yup.object({
-	availability: Yup.string().oneOf([BLOCKED, AVAILABLE], ACTION_VALIDATE),
+  availability: Yup.string().oneOf([BLOCKED, AVAILABLE], ACTION_VALIDATE),
 })
 
 const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updating, range, availability, errorMessage, loadingCurrentAd, closeError, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
-	const classes = useStyles();
-	return (
-		<Formik
-			initialValues={{ availability }}
-			validationSchema={validationSchema}
-			onSubmit={(values) => {
-				if (range && range.checkin && range.checkout) {
-					onSubmit(values.availability)
-				} else handleValidRangeAlert();
-			}}
-		>
-			{({ values, errors, handleChange }) =>
-				<Form>
-					<div className={classes.container}>
-						{loadingCurrentAd && <CircularProgress size={50} className={classes.loading} />}
-						<div className={classes.calendar}>
-							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
-							<Collapse in={!validRange}>
-								<CalendarAlert severity="error">{REQUIRED_RANGE}</CalendarAlert>
-							</Collapse>
-						</div>
-						<div className={classes.fields}>
-							<TitlePanel title={adTitle} ranking={adRanking} />
-							<div>
-								<Typography variant='h5' color='textPrimary' >{AVAILABILITY}</Typography>
-								<RadioGroup className={classes.radioGroup} aria-label={AVAILABILITY} name={'availability'} value={values.availability} onChange={handleChange}>
-									<FormControlLabel value={BLOCKED} control={<Radio color={'primary'} />} label={BLOCKED} />
-									<FormControlLabel value={AVAILABLE} control={<Radio color={'primary'} />} label={AVAILABLE} />
-								</RadioGroup>
-								{errors.availability && (<ErrorFieldForm name='availability' />)}
-							</div>
-							<div className={classes.button}>
-								<PrimaryButton
-									loading={updating}
-									disabled={values.availability === availability}
-									type='submit' >{SUBMIT}</PrimaryButton>
-							</div>
-						</div>
-						<Alert
-							message={errorMessage}
-							open={!!errorMessage}
-							onClose={closeError}
-						/>
-					</div>
-				</Form>
-			}
-		</Formik>
-	)
+  const classes = useStyles();
+  return (
+    <Formik
+      initialValues={{ availability }}
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
+        if (range && range.checkin) {
+          onSubmit(values.availability)
+        } else handleValidRangeAlert();
+      }}
+    >
+      {({ values, errors, handleChange }) =>
+        <Form>
+          <div className={classes.container}>
+            {loadingCurrentAd && <CircularProgress size={50} className={classes.loading} />}
+            <div className={classes.calendar}>
+              <Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
+              <Collapse in={!validRange}>
+                <CalendarAlert severity="error">{REQUIRED_RANGE}</CalendarAlert>
+              </Collapse>
+            </div>
+            <div className={classes.fields}>
+              <TitlePanel title={adTitle} ranking={adRanking} />
+              <div>
+                <Typography variant='h5' color='textPrimary' >{AVAILABILITY}</Typography>
+                <RadioGroup className={classes.radioGroup} aria-label={AVAILABILITY} name={'availability'} value={values.availability} onChange={handleChange}>
+                  <FormControlLabel value={BLOCKED} control={<Radio color={'primary'} />} label={BLOCKED} />
+                  <FormControlLabel value={AVAILABLE} control={<Radio color={'primary'} />} label={AVAILABLE} />
+                </RadioGroup>
+                {errors.availability && (<ErrorFieldForm name='availability' />)}
+              </div>
+              <div className={classes.button}>
+                <PrimaryButton
+                  loading={updating}
+                  disabled={values.availability === availability}
+                  type='submit' >{SUBMIT}</PrimaryButton>
+              </div>
+            </div>
+            <Alert
+              message={errorMessage}
+              open={!!errorMessage}
+              onClose={closeError}
+            />
+          </div>
+        </Form>
+      }
+    </Formik>
+  )
 }
 
 export default AvailableDayForm;
 
 const useStyles = makeStyles((theme: Theme) => ({
-	container: {
-		display: 'flex',
-		flexFlow: 'row wrap',
-		alignItems: 'baseline',
-		justifyContent: 'center',
-		width: customTheme.dimension.width.w100,
-		marginTop: customTheme.spacing.margin.small,
-		padding: theme.spacing(1),
-	},
-	calendar: {
-		marginBottom: customTheme.spacing.margin.big,
-	},
-	fields: {
-		margin: `0 ${customTheme.spacing.margin.small}`,
-		flexDirection: 'column',
-		justifyContent: 'center',
-		[theme.breakpoints.down('md')]: {
-			marginTop: theme.spacing(2)
-		}
-	},
-	radioGroup: {
-		display: 'flex',
-		flexDirection: 'row'
-	},
-	price: {
-		marginTop: theme.spacing(1),
-	},
-	button: {
-		marginTop: theme.spacing(2),
-		display: 'inline-block'
-	},
-	loading: {
-		position: 'absolute',
-		top: customTheme.spacing.margin.m50,
-		left: customTheme.spacing.margin.m50
-	}
+  container: {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    alignItems: 'baseline',
+    justifyContent: 'center',
+    width: customTheme.dimension.width.w100,
+    marginTop: customTheme.spacing.margin.small,
+    padding: theme.spacing(1),
+  },
+  calendar: {
+    marginBottom: customTheme.spacing.margin.big,
+  },
+  fields: {
+    margin: `0 ${customTheme.spacing.margin.small}`,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    [theme.breakpoints.down('md')]: {
+      marginTop: theme.spacing(2)
+    }
+  },
+  radioGroup: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  price: {
+    marginTop: theme.spacing(1),
+  },
+  button: {
+    marginTop: theme.spacing(2),
+    display: 'inline-block'
+  },
+  loading: {
+    position: 'absolute',
+    top: customTheme.spacing.margin.m50,
+    left: customTheme.spacing.margin.m50
+  }
 })
 );

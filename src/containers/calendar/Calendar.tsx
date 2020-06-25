@@ -1,5 +1,5 @@
 import moment, { Moment } from 'moment';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import CalendarView from '../../component/calendar/Calendar';
 import { getBlockedDateRange } from '../../utils/calendar';
 import { DATE_FORMAT } from '../../utils/constants';
@@ -24,15 +24,29 @@ export const Calendar = ({ blockedDayList, onChangeRange }: Props) => {
         checkRangeInEditableMode(date)
     }
 
+
+    const isSelectedCheckInValid = useCallback((date: Moment) =>
+        (blockedDayList.some((blockDateRange) => (isStrictBetween(date, moment(blockDateRange.checkin, DATE_FORMAT), moment(blockDateRange.checkout, DATE_FORMAT)) && blockDateRange.byBooking))) ? false : true, [blockedDayList])
+
+    const isSelectedRangeValid = useCallback((checkIn: Moment, checkOut: Moment) => {
+        if (checkIn.isBefore(checkOut)) {
+            return (blockedDayList.some((blockedDay) => (isStrictBetween(moment(blockedDay.checkin, DATE_FORMAT), checkIn, checkOut) && blockedDay.byBooking))) ? false : true
+            // if (blockedDayList.some((blockedDay) => (moment(blockedDay.checkin, DATE_FORMAT).isBetween(checkIn, checkOut) && blockedDay.byBooking))) return false
+            // return true;
+        } return false;
+    }, [blockedDayList])
+
+
+
     const checkRangeInEditableMode = (date: Moment) => {
-        if (!range && isSelectedCheckInValid(date, blockedDayList)) {
+        if (!range && isSelectedCheckInValid(date)) {
             setRange({ checkin: date, checkout: undefined })
             onChangeRange({ checkin: date, checkout: undefined })
-        } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDayList)) {
+        } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date)) {
             const orderedRange = checkRangeOrder(date, range.checkin!)
             setRange(orderedRange)
             onChangeRange(orderedRange)
-        } else if (isSelectedCheckInValid(date, blockedDayList)) {
+        } else if (isSelectedCheckInValid(date)) {
             setRange({ checkin: date, checkout: undefined })
             onChangeRange({ checkin: date, checkout: undefined })
         }
@@ -48,6 +62,10 @@ const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {
     if (date.isBefore(checkIn)) {
         return { checkin: date, checkout: checkIn }
     } else return { checkin: checkIn, checkout: date }
+}
+
+const isStrictBetween = (currentDate: Moment, checkIn: Moment, checkout: Moment) => {
+    return (currentDate.isSameOrAfter(checkIn) && currentDate.isSameOrBefore(checkout)) ? true : false
 }
 
 const isSelectedCheckInValid = (date: Moment, blockedDays: BlockedDay[]) => {

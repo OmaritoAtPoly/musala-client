@@ -40,11 +40,15 @@ export const Availability = () => {
 		setIsValidRange(!isValidRange)
 	}
 
-	const handldeOnRangeChanged = useCallback((range: Range) => {
-		if (range && range.checkin && range.checkout && data && data.currentAvailability && data.currentAvailability.ad)
+	const handldeOnRangeChanged = (range: Range) => {
+		if (data && data.currentAvailability && data.currentAvailability.ad)
 			setAvailability(handleAvailability(range, data.currentAvailability.ad.blockedDays));
-		setRange(range)
-	}, [range])
+		handleRangeState(range)
+	}
+
+	const handleRangeState = (range: Range) => {
+		(range.checkout === undefined) ? setRange({ checkin: range.checkin, checkout: range.checkin }) : setRange(range)
+	}
 
 	const onSubmit = (availability: string) => {
 		if (data && data.currentAvailability?.ad) {
@@ -58,7 +62,7 @@ export const Availability = () => {
 					}
 				}
 			})
-				.then(() => refetch())
+				.then(() => { refetch() })
 				.catch((error: ApolloError) => { setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', ')); });
 		}
 	}
@@ -79,16 +83,29 @@ export const Availability = () => {
 }
 
 const handleAvailability = (range: Range, blockedDays: BlockedDay[] | undefined) => {
-	if (blockedDays && isFullAvailable(range, blockedDays)) {
+	if (blockedDays && resolveByAvailable(range, blockedDays)) {
 		return AVAILABLE;
-	} else if (blockedDays && isFullBlocked(range, blockedDays)) {
+	} else if (blockedDays && resolveByBlocked(range, blockedDays)) {
 		return BLOCKED;
 	} else return UNDEFINED;
 }
 
+const resolveByAvailable = (range: Range, blockedDateRange: BlockedDay[]) =>
+	(range.checkout) ? isFullAvailable(range, blockedDateRange) : isSingleDateAvailable(range, blockedDateRange)
+
+const isSingleDateAvailable = (range: Range, blockedDays: BlockedDay[]) =>
+	(range.checkout === undefined && isBlocked(range.checkin!, blockedDays)) ? false : true
+
+const resolveByBlocked = (range: Range, blockedDateRange: BlockedDay[]) =>
+	(range.checkout) ? isFullBlocked(range, blockedDateRange) : isSingleDateBlocked(range, blockedDateRange)
+
+const isSingleDateBlocked = (range: Range, blockedDays: BlockedDay[]) =>
+	(range.checkout === undefined && isBlocked(range.checkin!, blockedDays)) ? true : false
+
+
 const isFullBlocked = (range: Range, blockedDateRange: BlockedDay[]) => {
 	let checkIn = range.checkin?.clone()
-	while (checkIn?.isBefore(range.checkout)) {
+	while (checkIn?.isSameOrBefore(range.checkout)) {
 		const isBLocked = (isBlocked(checkIn, blockedDateRange));
 		if (!isBLocked) return false;
 		checkIn.add(24, 'hours')

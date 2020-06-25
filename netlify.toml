@@ -1,0 +1,20 @@
+[build]
+command = "echo 'default context'"
+#command = "react-scripts build"
+#command = "yarn build"
+#base    = "project/"
+#base = "/"
+publish = "public/"
+#publish = "/"
+#publish = "project/build-output/"
+ignore = "git diff --quiet HEAD^ HEAD sub_dir/"
+
+ [[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+   #/*    /index.html   200
+  
+ [headers.values]
+  X-Frame-Options = "DENY"
+  X-XSS-Protection = "1; mode=block"

@@ -43,7 +43,7 @@ const Signup = () => {
     ({ email, fullName, password, phone }) => {
       const hash = CryptoJS.AES.encrypt(
         password,
-        process.env.B_CRYPT_SALT!
+        process.env.REACT_APP_CRYPTO_JS_SECRET!
       ).toString();
       signUpFn({
         variables: {

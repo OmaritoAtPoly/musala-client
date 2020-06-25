@@ -1,11 +1,12 @@
-import React from 'react';
+import { CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import customTheme from '../../../theme';
-import { Typography, CircularProgress } from '@material-ui/core';
+import React from 'react';
 import Alert from '../../../component/Alert';
+import customTheme from '../../../theme';
+import { Role } from '../../../utils/type';
 
 interface Props {
-  name: string;
+  fullName: string;
   role: string;
   email: string;
   loading: boolean;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 const UserProfile = ({
-  name,
+  fullName,
   role,
   email,
   loading,
@@ -31,7 +32,7 @@ const UserProfile = ({
         {loading && <CircularProgress size={20} />}
       </div>
       <Typography variant="h4" color="textPrimary">
-        {name}
+        {fullName}
       </Typography>
       <Typography variant="body1" color="textPrimary">
         {role}
@@ -39,7 +40,7 @@ const UserProfile = ({
       <Typography variant="h5" color="textPrimary">
         {email}
       </Typography>
-      {bookingAmount && (
+      {role === Role.CLIENT && (
         <Typography variant="body1" color="textPrimary">
           {`${bookingAmount} completed bookings `}
         </Typography>

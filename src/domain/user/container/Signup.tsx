@@ -43,7 +43,7 @@ const Signup = () => {
     ({ email, fullName, password, phone }) => {
       const hash = CryptoJS.AES.encrypt(
         password,
-        process.env.B_CRYPT_SALT || "ijfw9-48etfw"
+        process.env.B_CRYPT_SALT
       ).toString();
       signUpFn({
         variables: {

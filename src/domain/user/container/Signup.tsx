@@ -59,9 +59,8 @@ const Signup = () => {
           push('/');
         })
         .catch((error: ApolloError) => {
-          setAlertError(
-            error?.graphQLErrors.map(({ message }) => message).join(', '),
-          );
+          setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '));
+          setTimeout(() => { closeError(); }, 3000);
         });
     },
     [signUpFn],

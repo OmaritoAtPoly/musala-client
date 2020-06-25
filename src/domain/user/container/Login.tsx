@@ -3,7 +3,7 @@ import { set } from 'local-storage';
 import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginForm from '../component/LoginForm';
-import { CurrentUserDocument,  useSignInMutation } from '../../../generate/types';
+import { CurrentUserDocument, useSignInMutation } from '../../../generate/types';
 import { useApolloClient } from '@apollo/react-hooks';
 
 const Login = () => {
@@ -35,12 +35,11 @@ const Login = () => {
           set('userToken', data?.data?.signIn?.token);
         })
         .then(() => {
-           replace('/');
+          replace('/');
         })
         .catch((error: ApolloError) => {
-          setAlertError(
-            error?.graphQLErrors.map(({ message }) => message).join(', '),
-          );
+          setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
+          setTimeout(() => { closeError() }, 3000)
         });
     },
     [loginFn, replace],

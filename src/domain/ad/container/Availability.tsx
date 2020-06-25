@@ -1,9 +1,8 @@
 import { ApolloError } from 'apollo-boost'
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
 import React, { useCallback, useMemo, useState } from 'react'
 import { BlockedDay } from '../../../containers/calendar/Calendar'
 import { OpsEnum, useCurrentAvailabilityQuery, useUpdateAvailabilityMutation } from '../../../generate/types'
-import { getBlockedDateRange } from '../../../utils/calendar'
 import { AVAILABLE, BLOCKED, DATE_FORMAT, UNDEFINED } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import Form from '../component/AvailableDayForm'
@@ -106,13 +105,7 @@ const isFullAvailable = (range: Range, blockedDateRange: BlockedDay[]) => {
 	return true
 }
 
-const isBlocked = (date: Moment, blockedDay: BlockedDay[]) => {
-	for (let i = 0; i < blockedDay.length; i++) {
-		const range = getBlockedDateRange(blockedDay[i])
-		if (blockedDay[i].byBooking && date.isSameOrAfter(range.checkin) && date.isBefore(range.checkout)) {
-			return true
-		} else if (!blockedDay[i].byBooking && date.isSameOrAfter(range.checkin) && date.isSameOrBefore(range.checkout)) {
-			return true
-		}
-	} return false
-}
+const isBlocked = (date: Moment, blockedDayList: BlockedDay[]) =>
+	blockedDayList.some((blockedDay) => (date.isSameOrAfter(moment(blockedDay.checkin, DATE_FORMAT)) && date.isSameOrBefore(moment(blockedDay.checkout, DATE_FORMAT))))
+
+

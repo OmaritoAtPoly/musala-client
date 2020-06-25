@@ -72,7 +72,7 @@ const Signup = () => {
           );
         });
     },
-    [signUpFn]
+    [client, push, signUpFn]
   );
 
   return (

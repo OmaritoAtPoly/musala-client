@@ -10,7 +10,7 @@ interface Props {
   image: string;
   description: string;
   onClick: () => void;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const Card = ({

@@ -1,6 +1,6 @@
-import React from 'react'
-import Profile from '../domain/user/container/Profile'
-import ContainerPage from '../containers/ContainerPage'
+import React from 'react';
+import Profile from '../domain/user/container/Profile';
+import ContainerPage from '../containers/ContainerPage';
 
 const ProfilePage = () => (
   <ContainerPage>
@@ -8,4 +8,4 @@ const ProfilePage = () => (
   </ContainerPage>
 );
 
-export default ProfilePage
+export default ProfilePage;

@@ -15,7 +15,7 @@ const Bookings = () => {
     setErrorMessage(undefined);
   }, [setErrorMessage]);
 
-  const { data, loading, error } = useCurrentUserBookingsQuery({
+  const { data, loading } = useCurrentUserBookingsQuery({
     fetchPolicy: 'cache-and-network',
     errorPolicy: 'all',
   });

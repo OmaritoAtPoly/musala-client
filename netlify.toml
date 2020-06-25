@@ -1,5 +1,4 @@
 [build]
- base = "musala-project"
  publish = "build/"
  command = "yarn build"
  

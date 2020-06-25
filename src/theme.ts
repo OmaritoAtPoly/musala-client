@@ -12,7 +12,8 @@ export const customTheme = {
     }
   },
   border:{
-     small:"1px"
+     small:"1px",
+     normal:"5px"
   },
   borderRadius:{
       half:"50%"

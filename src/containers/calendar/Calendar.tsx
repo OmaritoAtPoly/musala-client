@@ -27,19 +27,20 @@ export const Calendar = ({ blockedDayList, onChangeRange }: Props) => {
     const isSelectedCheckInValid = useCallback((date: Moment) =>
         (blockedDayList.some((blockDateRange) => (date.isSameOrAfter(blockDateRange.checkin) && date.isBefore(blockDateRange.checkout) && blockDateRange.byBooking))) ? false : true, [blockedDayList])
 
-    const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: BlockedDay[]) => {
+    const isSelectedRangeValid = useCallback((checkIn: Moment, checkOut: Moment) => {
         if (checkIn.isBefore(checkOut)) {
-            if (blockedDays.some((blockedDay) => (moment(blockedDay.checkin, DATE_FORMAT).isBetween(checkIn, checkOut) && blockedDay.byBooking))) return false
+            if (blockedDayList.some((blockedDay) => (moment(blockedDay.checkin, DATE_FORMAT).isBetween(checkIn, checkOut) && blockedDay.byBooking))) return false
             return true;
         } return false;
-    }
+    }, [blockedDayList])
+
 
 
     const checkRangeInEditableMode = (date: Moment) => {
         if (!range && isSelectedCheckInValid(date)) {
             setRange({ checkin: date, checkout: undefined })
             onChangeRange({ checkin: date, checkout: undefined })
-        } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDayList)) {
+        } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date)) {
             const orderedRange = checkRangeOrder(date, range.checkin!)
             setRange(orderedRange)
             onChangeRange(orderedRange)

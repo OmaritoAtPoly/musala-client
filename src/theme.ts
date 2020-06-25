@@ -86,6 +86,7 @@ export const customTheme = {
     grayDark2: '#f0eeee',
     grayDark3: '#ccc',
     grayDark4: '#bbb',
+    thinkRed:'rgba(255,0,0,0.6)',
   },
 };
 

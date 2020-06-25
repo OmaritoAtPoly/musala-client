@@ -1,7 +1,7 @@
 import { AppBar, IconButton, Theme, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/styles';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import customTheme from '../../theme';
 import Brand from '../svg/Brand';
 import FakeNavLink from './FakeNavLink';
@@ -17,14 +17,21 @@ export interface Menu {
 interface Props {
   userName?: string;
   links: Menu[];
-  mobileMoreAnchorEl: HTMLElement | null;
-  isMobileMenuOpen: boolean;
-  handleMobileMenuClose: () => void;
-  handleMobileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void
 }
 
-const Header: FC<Props> = ({ links, userName, mobileMoreAnchorEl, isMobileMenuOpen, handleMobileMenuOpen, handleMobileMenuClose }) => {
+const Header: FC<Props> = ({ links, userName }) => {
   const classes = useStyles();
+
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<undefined | HTMLElement>(undefined);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobileMenuClose = useCallback(() => {
+    setMobileMoreAnchorEl(undefined);
+  }, [mobileMoreAnchorEl])
+
+  const handleMobileMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  }, [mobileMoreAnchorEl])
 
   return (
     <AppBar className={classes.appBar} position="sticky">

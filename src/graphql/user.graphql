@@ -19,6 +19,9 @@ query currentUser {
     role
     phone
     token
+    bookings {
+      id
+    }
   }
 }
 

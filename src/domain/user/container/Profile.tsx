@@ -1,31 +1,50 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
 import UserProfile from '../component/Profile';
-import { useCurrentUserQuery } from '../../../generate/types'
+import { useCurrentUserQuery, CurrentUserQuery } from '../../../generate/types';
 
 const Profile = () => {
-    const [errorMessage, setErrorMessage] = useState<string | undefined>();
-    const { data, loading, error } = useCurrentUserQuery(
-        {
-            fetchPolicy: 'cache-first',
-            errorPolicy: 'all',
-        });
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const { data, loading, error } = useCurrentUserQuery({
+    fetchPolicy: 'cache-first',
+    errorPolicy: 'all',
+  });
 
-    const closeError = useCallback(() => {
-        setErrorMessage(undefined);
-    }, [setErrorMessage])
+  const closeError = useCallback(() => {
+    setErrorMessage(undefined);
+  }, [setErrorMessage]);
 
+  useEffect(() => {
+    setErrorMessage(
+      error?.graphQLErrors.map(({ message }) => message).join(', '),
+    );
+  }, [error]);
 
-    const prepareData = useCallback((data) => {
-        return {
-            name: data?.currentUser?.fullName,
-            email: data?.currentUser?.email,
-            role: data?.currentUser?.role,
-            bookingAmount: 30
-        }
-    }, [data])
+  const prepareData = useCallback(
+    (data: CurrentUserQuery | undefined) => {
+      if (!data || !data?.currentUser) return initialProps;
+      return {
+        ...data.currentUser,
+        bookingAmount: data.currentUser.bookings.length,
+      };
+    },
+    [data],
+  );
 
+  return (
+    <UserProfile
+      closeError={closeError}
+      errorMessage={errorMessage}
+      loading={loading}
+      {...prepareData(data)}
+    />
+  );
+};
 
-    return <UserProfile closeError={closeError} errorMessage={errorMessage} loading={loading} {...prepareData(data)} />
-}
-export default Profile
+const initialProps = {
+  fullName: '',
+  email: '',
+  role: '',
+  bookingAmount: 0,
+};
 
+export default Profile;

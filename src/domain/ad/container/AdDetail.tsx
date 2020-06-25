@@ -45,11 +45,7 @@ export const AdDetail = () => {
     }, [setAlertError]);
 
     const handleOnShowBookingDialog = () => {
-      if (userId) {
-        setVisibleBookingDialog(!visibleBookingDialog);
-      } else {
-        push('/login');
-      }
+      userId ? setVisibleBookingDialog(!visibleBookingDialog) : push('/login');
     };
 
     if (error) setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))

@@ -21,7 +21,7 @@ const Login = () => {
     ({ email, password }) => {
       const hash = CryptoJS.AES.encrypt(
         password,
-        process.env.B_CRYPT_SALT
+        process.env.B_CRYPT_SALT!
       ).toString();
       loginFn({
         variables: {

@@ -1,5 +1,5 @@
 import moment, { Moment } from 'moment';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import CalendarView from '../../component/calendar/Calendar';
 import { getBlockedDateRange } from '../../utils/calendar';
 import { DATE_FORMAT } from '../../utils/constants';
@@ -24,15 +24,26 @@ export const Calendar = ({ blockedDayList, onChangeRange }: Props) => {
         checkRangeInEditableMode(date)
     }
 
+    const isSelectedCheckInValid = useCallback((date: Moment) =>
+        (blockedDayList.some((blockDateRange) => (date.isSameOrAfter(blockDateRange.checkin) && date.isBefore(blockDateRange.checkout) && blockDateRange.byBooking))) ? false : true, [blockedDayList])
+
+    const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: BlockedDay[]) => {
+        if (checkIn.isBefore(checkOut)) {
+            if (blockedDays.some((blockedDay) => (moment(blockedDay.checkin, DATE_FORMAT).isBetween(checkIn, checkOut) && blockedDay.byBooking))) return false
+            return true;
+        } return false;
+    }
+
+
     const checkRangeInEditableMode = (date: Moment) => {
-        if (!range && isSelectedCheckInValid(date, blockedDayList)) {
+        if (!range && isSelectedCheckInValid(date)) {
             setRange({ checkin: date, checkout: undefined })
             onChangeRange({ checkin: date, checkout: undefined })
         } else if (range && range.checkout === undefined && isSelectedRangeValid(range.checkin!, date, blockedDayList)) {
             const orderedRange = checkRangeOrder(date, range.checkin!)
             setRange(orderedRange)
             onChangeRange(orderedRange)
-        } else if (isSelectedCheckInValid(date, blockedDayList)) {
+        } else if (isSelectedCheckInValid(date)) {
             setRange({ checkin: date, checkout: undefined })
             onChangeRange({ checkin: date, checkout: undefined })
         }

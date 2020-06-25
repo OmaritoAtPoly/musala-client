@@ -48,7 +48,7 @@ const Login = () => {
           );
         });
     },
-    [loginFn, replace]
+    [client, loginFn, replace]
   );
 
   return (

@@ -63,16 +63,28 @@ const Ads = () => {
     [push],
   );
 
-  const renderItem = (ad: AdListElements) => (
-    <Card
-      onClick={() => onClickFunction(ad.id)}
-      title={ad.title}
-      subTitle={ad.description}
-      description={`${ad.price} ${PER_NIGHT}`}
-      image={ad.image}
-      loading={loading}
-    />
-  );
+  const renderItem = useCallback(
+    (ad: AdListElements) => (
+      <Card
+        onClick={() => onClickFunction(ad.id)}
+        title={ad.title}
+        subTitle={ad.description}
+        description={`${ad.price} ${PER_NIGHT}`}
+        image={ad.image}
+      />
+    ),
+    [onClickFunction],
+  )
+  // const renderItem = (ad: AdListElements) => (
+  //   <Card
+  //     onClick={() => onClickFunction(ad.id)}
+  //     title={ad.title}
+  //     subTitle={ad.description}
+  //     description={`${ad.price} ${PER_NIGHT}`}
+  //     image={ad.image}
+  //     loading={loading}
+  //   />
+  // );
 
   const morePopularSection = useMemo(() => {
     return {
@@ -83,7 +95,7 @@ const Ads = () => {
       items: data?.ads.slice(0, 3) || [],
       loading,
     };
-  }, [data]);
+  }, [data, loading, renderItem]);
 
   const cheapestSection = useMemo(() => {
     return {
@@ -94,7 +106,7 @@ const Ads = () => {
       items: dataCheapest?.ads || [],
       loading: loadingCheapest,
     };
-  }, [dataCheapest]);
+  }, [dataCheapest, loadingCheapest, renderItem]);
 
   const allAdsSection = useMemo(() => {
     return {
@@ -105,7 +117,7 @@ const Ads = () => {
       items: data?.ads || [],
       loading,
     };
-  }, [data]);
+  }, [data, loading, renderItem]);
 
   return (
     <>

@@ -1,6 +1,6 @@
-import { Snackbar } from "@material-ui/core";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import React from "react";
+import { Snackbar } from '@material-ui/core';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import React from 'react';
 
 type Props = {
   message?: string;
@@ -9,7 +9,7 @@ type Props = {
 } & AlertProps;
 
 const Alert = ({
-  severity = "error",
+  severity = 'error',
   message,
   open,
   onClose,

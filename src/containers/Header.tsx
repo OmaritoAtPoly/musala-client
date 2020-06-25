@@ -1,5 +1,5 @@
 import { useApolloClient } from '@apollo/react-hooks';
-import React, { FC, useMemo, useCallback } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppHeader from '../component/Header';
 import { Menu } from '../component/Header/Header';
@@ -60,10 +60,7 @@ const Header: FC = () => {
     },
   });
 
-  return <AppHeader
-    userName={data?.currentUser?.fullName}
-    links={links}
-  />;
+  return <AppHeader userName={data?.currentUser?.fullName} links={links} />;
 };
 
 export default Header;

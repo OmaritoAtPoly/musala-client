@@ -1,12 +1,12 @@
-import React, { useCallback, useState, useMemo, useEffect } from 'react';
-import UserProfile from '../component/Profile';
-import { useCurrentUserQuery, CurrentUserQuery } from '../../../generate/types';
+import React, { useCallback, useState, useEffect } from "react";
+import UserProfile from "../component/Profile";
+import { useCurrentUserQuery, CurrentUserQuery } from "../../../generate/types";
 
 const Profile = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const { data, loading, error } = useCurrentUserQuery({
-    fetchPolicy: 'cache-first',
-    errorPolicy: 'all',
+    fetchPolicy: "cache-and-network",
+    errorPolicy: "all",
   });
 
   const closeError = useCallback(() => {
@@ -15,20 +15,17 @@ const Profile = () => {
 
   useEffect(() => {
     setErrorMessage(
-      error?.graphQLErrors.map(({ message }) => message).join(', '),
+      error?.graphQLErrors.map(({ message }) => message).join(", ")
     );
   }, [error]);
 
-  const prepareData = useCallback(
-    (data: CurrentUserQuery | undefined) => {
-      if (!data || !data?.currentUser) return initialProps;
-      return {
-        ...data.currentUser,
-        bookingAmount: data.currentUser.bookings.length,
-      };
-    },
-    [data],
-  );
+  const prepareData = (data: CurrentUserQuery | undefined) => {
+    if (!data || !data?.currentUser) return initialProps;
+    return {
+      ...data.currentUser,
+      bookingAmount: data.currentUser.bookings.length,
+    };
+  };
 
   return (
     <UserProfile
@@ -41,9 +38,9 @@ const Profile = () => {
 };
 
 const initialProps = {
-  fullName: '',
-  email: '',
-  role: '',
+  fullName: "",
+  email: "",
+  role: "",
   bookingAmount: 0,
 };
 

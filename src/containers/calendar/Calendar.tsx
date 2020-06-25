@@ -26,13 +26,13 @@ export const Calendar = ({ blockedDayList, onChangeRange, mode }: Props) => {
     }
 
     const isSelectedCheckInValid = useCallback((date: Moment) =>
-        (blockedDayList.some((blockDateRange) => isValidCheckIn(date, blockDateRange, mode))) ? false : true, [blockedDayList])
+        (blockedDayList.some((blockDateRange) => isValidCheckIn(date, blockDateRange, mode))) ? false : true, [blockedDayList, mode])
 
     const isSelectedRangeValid = useCallback((checkIn: Moment, checkOut: Moment) => {
         if (checkIn.isBefore(checkOut)) {
             return (blockedDayList.some((blockedDay) => (isValidCheckOut(blockedDay, checkIn, checkOut, mode)))) ? false : true
         } return false;
-    }, [blockedDayList])
+    }, [blockedDayList, mode])
 
     const checkRangeInEditableMode = (date: Moment) => {
         if (!range && isSelectedCheckInValid(date)) {

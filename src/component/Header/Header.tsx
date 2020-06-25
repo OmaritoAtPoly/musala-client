@@ -27,11 +27,11 @@ const Header: FC<Props> = ({ links, userName }) => {
 
   const handleMobileMenuClose = useCallback(() => {
     setMobileMoreAnchorEl(undefined);
-  }, [mobileMoreAnchorEl])
+  }, [setMobileMoreAnchorEl])
 
   const handleMobileMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
-  }, [mobileMoreAnchorEl])
+  }, [setMobileMoreAnchorEl])
 
   return (
     <AppBar className={classes.appBar} position="sticky">

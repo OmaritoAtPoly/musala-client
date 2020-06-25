@@ -26,7 +26,7 @@ query currentUser {
 }
 
 query currentUserBookings {
- currentUser {
+  currentUser {
     id
     email
     fullName
@@ -41,16 +41,19 @@ query currentUserBookings {
       totalPaid
       createdAt
       client {
+        id
         email
         fullName
         role
       }
       ad {
+        id
         title
         description
         image
         createdAt
         host {
+          id
           email
           fullName
         }

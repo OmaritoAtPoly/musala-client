@@ -13,7 +13,7 @@ export const NOT_FOUND = 'not found';
 export const PER_NIGHT = 'per night';
 export const REQUIRED_RANGE = 'Range must be selected!!';
 export const BOOK_NOW = 'Book Now!';
-export const LOGIN_TO_BOOK='Login to Book';
+export const LOGIN_TO_BOOK = 'Login to Book';
 export const SUBMIT = 'Submit';
 export const CREATE_AT = 'Created at';
 export const RESERVED_AT = 'Reserved at'
@@ -42,6 +42,6 @@ export const ERROR_SEVERITY_VALUE = 'error';
 
 /*CALENDAR*/
 export const DATE_FORMAT = 'YYYY-MM-DD';
-export const FULL_EDITABLE_MODE = 'FULL_EDITABLE_MODE';
-export const EDITABLE_MODE = 'EDITABLE_MODE';
+export const BOOKING_MODE = 'BOOKING_MODE';
+export const AVAILAVILITY_MODE = 'AVAILABILITY_MODE';
 export const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

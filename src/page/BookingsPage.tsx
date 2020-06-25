@@ -1,5 +1,5 @@
 import React from 'react'
-import Bookings from '../domain/booking/component/Bookings'
+import Bookings from '../domain/booking/container/Bookings'
 import ContainerPage from '../containers/ContainerPage'
 
 

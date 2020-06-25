@@ -1,10 +1,13 @@
-import { AppBar, Theme, Toolbar } from '@material-ui/core';
+import { AppBar, IconButton, Theme, Toolbar } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/styles';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import customTheme from '../../theme';
 import Brand from '../svg/Brand';
 import FakeNavLink from './FakeNavLink';
 import NavLink from './NavLink';
+import { MobileMenu } from './MobileMenu';
+
 
 export interface Menu {
   path: string;
@@ -19,6 +22,17 @@ interface Props {
 const Header: FC<Props> = ({ links, userName }) => {
   const classes = useStyles();
 
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<undefined | HTMLElement>(undefined);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobileMenuClose = useCallback(() => {
+    setMobileMoreAnchorEl(undefined);
+  }, [mobileMoreAnchorEl])
+
+  const handleMobileMenuOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  }, [mobileMoreAnchorEl])
+
   return (
     <AppBar className={classes.appBar} position="sticky">
       <Toolbar className={classes.toolbar}>
@@ -30,16 +44,33 @@ const Header: FC<Props> = ({ links, userName }) => {
             {userName}
           </NavLink>
         </div>
-        <div>
+        <div className={classes.sectionDesktop} >
           {links.map(({ path, title, onClick }, i) =>
             onClick ? (
               <FakeNavLink key={i} onClick={onClick}>{title}</FakeNavLink>
             ) : (
-              <NavLink key={i} to={path}>{title}</NavLink>
-            ),
+                <NavLink key={i} to={path}>{title}</NavLink>
+              ),
           )}
         </div>
+        <div className={classes.sectionMobile}>
+          <IconButton
+            aria-label="show more"
+            aria-controls={'mobileMenuId'}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="primary"
+          >
+            <MenuIcon />
+          </IconButton>
+        </div>
       </Toolbar>
+      <MobileMenu
+        handleMobileMenuClose={handleMobileMenuClose}
+        isMobileMenuOpen={isMobileMenuOpen}
+        mobileMoreAnchorEl={mobileMoreAnchorEl}
+        links={links}
+      />
     </AppBar>
   );
 };
@@ -64,6 +95,18 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     navLink: {
       paddingRight: customTheme.spacing.padding.none,
+    },
+    sectionDesktop: {
+      display: 'none',
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
+      },
+    },
+    sectionMobile: {
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
+      },
     },
   };
 });

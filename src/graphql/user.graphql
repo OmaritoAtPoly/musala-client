@@ -19,6 +19,9 @@ query currentUser {
     role
     phone
     token
+    bookings {
+      id
+    }
   }
 }
 
@@ -38,6 +41,7 @@ query currentUserBookings {
       totalPaid
       createdAt
       client {
+        id
         email
         fullName
         role

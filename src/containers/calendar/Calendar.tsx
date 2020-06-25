@@ -62,16 +62,6 @@ const checkRangeOrder = (date: Moment, checkIn: Moment): Range => {
     } else return { checkin: checkIn, checkout: date }
 }
 
-const isSelectedCheckInValid = (date: Moment, blockedDays: BlockedDay[]) =>
-    (blockedDays.some((range) => (date.isSameOrAfter(range.checkin) && date.isBefore(range.checkout) && range.byBooking))) ? false : true
-
-
-const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: BlockedDay[]) => {
-    if (checkIn.isBefore(checkOut)) {
-        if (blockedDays.some((blockedDay) => (moment(blockedDay.checkin, DATE_FORMAT).isBetween(checkIn, checkOut) && blockedDay.byBooking))) return false
-        return true;
-    } return false;
-}
 
 
 

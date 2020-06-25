@@ -13,6 +13,7 @@ export const NOT_FOUND = 'not found';
 export const PER_NIGHT = 'per night';
 export const REQUIRED_RANGE = 'Range must be selected!!';
 export const BOOK_NOW = 'Book Now!';
+export const LOGIN_TO_BOOK = 'Login to Book';
 export const SUBMIT = 'Submit';
 export const CREATE_AT = 'Created at';
 export const RESERVED_AT = 'Reserved at'

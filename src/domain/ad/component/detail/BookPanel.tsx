@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import { PrimaryButton } from '../../../../component/PrimaryButton';
-import { BOOK_NOW } from '../../../../utils/constants';
+import { BOOK_NOW,LOGIN_TO_BOOK } from '../../../../utils/constants';
 
 interface Props {
     onClick: () => void;
@@ -14,7 +14,7 @@ export const BookPanel = ({ userId, onClick }: Props) => {
     return (
         <div className={classes.button} >
             {
-             userId && <PrimaryButton onClick={onClick} variant='outlined' size='small'>{BOOK_NOW}</PrimaryButton>
+             <PrimaryButton onClick={onClick} variant='outlined' size='small'>{userId? BOOK_NOW:LOGIN_TO_BOOK}</PrimaryButton>
             }
         </div>
     )

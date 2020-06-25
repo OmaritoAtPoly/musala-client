@@ -14,7 +14,6 @@ query currentUser {
     id
     email
     fullName
-    password
     createdAt
     role
     phone

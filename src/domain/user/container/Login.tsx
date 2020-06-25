@@ -1,10 +1,11 @@
-import { ApolloError } from 'apollo-boost';
-import { set } from 'local-storage';
-import React, { useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import LoginForm from '../component/LoginForm';
-import { CurrentUserDocument,  useSignInMutation } from '../../../generate/types';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-boost";
+import CryptoJS from "crypto-js";
+import { set } from "local-storage";
+import React, { useCallback, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { CurrentUserDocument, useSignInMutation } from "../../../generate/types";
+import LoginForm from "../component/LoginForm";
 
 const Login = () => {
   const client = useApolloClient();
@@ -18,10 +19,14 @@ const Login = () => {
 
   const onSubmit = useCallback(
     ({ email, password }) => {
+      const hash = CryptoJS.AES.encrypt(
+        password,
+        process.env.B_CRYPT_SALT || "ijfw9-48etfw"
+      ).toString();
       loginFn({
         variables: {
           email,
-          password,
+          password: hash,
         },
         update(cache, { data }) {
           cache.writeQuery({
@@ -32,18 +37,18 @@ const Login = () => {
       })
         .then((data) => {
           client.resetStore();
-          set('userToken', data?.data?.signIn?.token);
+          set("userToken", data?.data?.signIn?.token);
         })
         .then(() => {
-           replace('/');
+          replace("/");
         })
         .catch((error: ApolloError) => {
           setAlertError(
-            error?.graphQLErrors.map(({ message }) => message).join(', '),
+            error?.graphQLErrors.map(({ message }) => message).join(", ")
           );
         });
     },
-    [loginFn, replace],
+    [loginFn, replace]
   );
 
   return (

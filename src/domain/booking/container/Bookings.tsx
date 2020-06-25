@@ -21,10 +21,10 @@ const Bookings = () => {
   });
   return (
     <div className={classes.container}>
-      {data?.currentUser?.bookings?.map((value,index) => {
+      {data?.currentUser?.bookings?.map((value) => {
         return (
           <ItemBooking
-          key={index}
+            key={value.client.id}
             checkin={moment(value.checkin).format("DD-MM-YYYY")}
             checkout={moment(value.checkout).format("DD-MM-YYYY")}
             createdAt={moment(value.createdAt).format("DD-MM-YYYY")}

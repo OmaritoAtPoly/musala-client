@@ -34,7 +34,7 @@ const Header: FC = () => {
     !isHost &&
     links.push({
       path: '/bookings',
-      title: 'Booking',
+      title: 'Bookings',
     });
 
   auth &&

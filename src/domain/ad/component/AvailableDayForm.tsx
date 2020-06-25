@@ -8,7 +8,7 @@ import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { BlockedDay, Calendar } from '../../../containers/calendar/Calendar'
 import customTheme from '../../../theme'
-import { ACTION_VALIDATE, AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
+import { ACTION_VALIDATE, AVAILAVILITY_MODE, AVAILABILITY, AVAILABLE, BLOCKED, REQUIRED_RANGE, SUBMIT } from '../../../utils/constants'
 import { Range } from '../../../utils/type'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import Alert from '../../../component/Alert';
@@ -50,7 +50,7 @@ const AvailableDayForm = ({ blockedDays, adTitle, adRanking, validRange, updatin
           <div className={classes.container}>
             {loadingCurrentAd && <CircularProgress size={50} className={classes.loading} />}
             <div className={classes.calendar}>
-              <Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
+              <Calendar mode={AVAILAVILITY_MODE} blockedDayList={blockedDays} onChangeRange={onChangeRange} />
               <Collapse in={!validRange}>
                 <CalendarAlert severity="error">{REQUIRED_RANGE}</CalendarAlert>
               </Collapse>

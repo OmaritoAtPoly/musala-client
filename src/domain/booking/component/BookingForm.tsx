@@ -8,7 +8,7 @@ import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { BlockedDay, Calendar } from '../../../containers/calendar/Calendar'
 import customTheme from '../../../theme'
-import { BOOK_NOW, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
+import { BOOK_NOW, BOOKING_MODE, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 
@@ -45,7 +45,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
+							<Calendar mode={BOOKING_MODE} blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>

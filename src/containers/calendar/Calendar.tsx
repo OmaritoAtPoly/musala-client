@@ -56,6 +56,8 @@ const isSelectedCheckInValid = (date: Moment, blockedDays: BlockedDay[]) =>
 
 const isSelectedRangeValid = (checkIn: Moment, checkOut: Moment, blockedDays: BlockedDay[]) => {
     if (checkIn.isBefore(checkOut)) {
+        // if (blockedDays.some((range) => (moment(range.checkin).isBetween(checkIn, checkOut) && range.byBooking))) return false;
+        // return false;
         for (let i = 0; i < blockedDays.length; i++) {
             const range = getBlockedDateRange(blockedDays[i])
             if (range.checkin!.isBetween(checkIn, checkOut) && blockedDays[i].byBooking) return false;

@@ -989,7 +989,7 @@ export type ListAdsQuery = (
     & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking' | 'createdAt'>
     & { host: (
       { __typename?: 'User' }
-      & Pick<User, 'fullName'>
+      & Pick<User, 'id' | 'fullName'>
     ) }
   )>> }
 );
@@ -1006,7 +1006,7 @@ export type SelectAdByIdQuery = (
     & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'price' | 'ranking'>
     & { blockedDays: Array<(
       { __typename?: 'BlockedDay' }
-      & Pick<BlockedDay, 'checkin' | 'checkout' | 'byBooking'>
+      & Pick<BlockedDay, 'id' | 'checkin' | 'checkout' | 'byBooking'>
     )> }
   )> }
 );
@@ -1091,10 +1091,10 @@ export type CurrentUserBookingsQuery = (
         & Pick<User, 'id' | 'email' | 'fullName' | 'role'>
       ), ad: (
         { __typename?: 'Ad' }
-        & Pick<Ad, 'title' | 'description' | 'image' | 'createdAt'>
+        & Pick<Ad, 'id' | 'title' | 'description' | 'image' | 'createdAt'>
         & { host: (
           { __typename?: 'User' }
-          & Pick<User, 'email' | 'fullName'>
+          & Pick<User, 'id' | 'email' | 'fullName'>
         ) }
       ) }
     )> }
@@ -1182,6 +1182,7 @@ export const ListAdsDocument = gql`
     price
     ranking
     host {
+      id
       fullName
     }
     createdAt
@@ -1225,6 +1226,7 @@ export const SelectAdByIdDocument = gql`
     price
     ranking
     blockedDays {
+      id
       checkin
       checkout
       byBooking
@@ -1444,11 +1446,13 @@ export const CurrentUserBookingsDocument = gql`
         role
       }
       ad {
+        id
         title
         description
         image
         createdAt
         host {
+          id
           email
           fullName
         }

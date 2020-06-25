@@ -75,16 +75,6 @@ const Ads = () => {
     ),
     [onClickFunction],
   )
-  // const renderItem = (ad: AdListElements) => (
-  //   <Card
-  //     onClick={() => onClickFunction(ad.id)}
-  //     title={ad.title}
-  //     subTitle={ad.description}
-  //     description={`${ad.price} ${PER_NIGHT}`}
-  //     image={ad.image}
-  //     loading={loading}
-  //   />
-  // );
 
   const morePopularSection = useMemo(() => {
     return {

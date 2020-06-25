@@ -35,7 +35,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
     }
 
     useEffect(() => {
-        error && setAlertError(error.message.replace('GraphQL error:', ''));
+        error && setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', ')) 
     }, [error, setAlertError])
 
     const onSubmit = useCallback((pax: number) => {
@@ -58,7 +58,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
                 resetSelectAd();
             })
             .catch((error: ApolloError) => {
-                setAlertError(error.message.replace('GraphQL error:', ''));
+                setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
                 setSeverityValue(ERROR_SEVERITY_VALUE);
             }
             );

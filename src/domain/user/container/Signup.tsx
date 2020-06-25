@@ -1,10 +1,14 @@
-import { ApolloError } from 'apollo-boost';
-import { set } from 'local-storage';
-import React, { useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { CurrentUserDocument, useSignUpMutation } from '../../../generate/types';
-import { SignupForm } from '../component/SignupForm';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-boost";
+import CryptoJS from "crypto-js";
+import { set } from "local-storage";
+import React, { useCallback, useState } from "react";
+import { useHistory } from "react-router-dom";
+import {
+  CurrentUserDocument,
+  useSignUpMutation,
+} from "../../../generate/types";
+import { SignupForm } from "../component/SignupForm";
 
 export type SignupInput = {
   fullName: string;
@@ -33,14 +37,18 @@ const Signup = () => {
 
   const signIn = useCallback(() => {
     push("/login");
-  }, [push])
+  }, [push]);
 
   const handleSignup = useCallback(
     ({ email, fullName, password, phone }) => {
+      const hash = CryptoJS.AES.encrypt(
+        password,
+        process.env.B_CRYPT_SALT
+      ).toString();
       signUpFn({
         variables: {
           email,
-          password,
+          password: hash,
           fullName,
           phone,
         },
@@ -53,18 +61,18 @@ const Signup = () => {
       })
         .then((data) => {
           client.resetStore();
-          set('userToken', data?.data?.signUp?.token);
+          set("userToken", data?.data?.signUp?.token);
         })
         .then(() => {
-          push('/');
+          push("/");
         })
         .catch((error: ApolloError) => {
           setAlertError(
-            error?.graphQLErrors.map(({ message }) => message).join(', '),
+            error?.graphQLErrors.map(({ message }) => message).join(", ")
           );
         });
     },
-    [signUpFn],
+    [signUpFn]
   );
 
   return (

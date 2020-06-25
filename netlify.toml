@@ -2,7 +2,7 @@
 #command = "echo 'default context'"
 command = "react-scripts build"
 #command = "yarn build"
-base    = "project/"
+#base    = "project/"
 #base = "/"
 #publish = "build/"
 publish = "project/build-output/"

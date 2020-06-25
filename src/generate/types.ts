@@ -949,6 +949,16 @@ export enum OpsEnum {
   Available = 'AVAILABLE'
 }
 
+export type UpdateAvailabilityMutationVariables = Exact<{
+  data: UpdateAvailableInput;
+}>;
+
+
+export type UpdateAvailabilityMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateAvailability'>
+);
+
 export type CreateBookingMutationVariables = Exact<{
   checkin: Scalars['DateTime'];
   checkout: Scalars['DateTime'];
@@ -1001,6 +1011,25 @@ export type SelectAdByIdQuery = (
   )> }
 );
 
+export type CurrentAvailabilityQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentAvailabilityQuery = (
+  { __typename?: 'Query' }
+  & { currentAvailability?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+    & { ad?: Maybe<(
+      { __typename?: 'Ad' }
+      & Pick<Ad, 'id' | 'title' | 'ranking'>
+      & { blockedDays: Array<(
+        { __typename?: 'BlockedDay' }
+        & Pick<BlockedDay, 'id' | 'checkin' | 'checkout' | 'byBooking'>
+      )> }
+    )> }
+  )> }
+);
+
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
   fullName: Scalars['String'];
@@ -1039,6 +1068,10 @@ export type CurrentUserQuery = (
   & { currentUser?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'email' | 'fullName' | 'password' | 'createdAt' | 'role' | 'phone' | 'token'>
+    & { bookings: Array<(
+      { __typename?: 'Booking' }
+      & Pick<Booking, 'id'>
+    )> }
   )> }
 );
 
@@ -1069,6 +1102,36 @@ export type CurrentUserBookingsQuery = (
 );
 
 
+export const UpdateAvailabilityDocument = gql`
+    mutation updateAvailability($data: UpdateAvailableInput!) {
+  updateAvailability(data: $data)
+}
+    `;
+export type UpdateAvailabilityMutationFn = ApolloReactCommon.MutationFunction<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>;
+
+/**
+ * __useUpdateAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useUpdateAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAvailabilityMutation, { data, loading, error }] = useUpdateAvailabilityMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateAvailabilityMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>(UpdateAvailabilityDocument, baseOptions);
+      }
+export type UpdateAvailabilityMutationHookResult = ReturnType<typeof useUpdateAvailabilityMutation>;
+export type UpdateAvailabilityMutationResult = ApolloReactCommon.MutationResult<UpdateAvailabilityMutation>;
+export type UpdateAvailabilityMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAvailabilityMutation, UpdateAvailabilityMutationVariables>;
 export const CreateBookingDocument = gql`
     mutation CreateBooking($checkin: DateTime!, $checkout: DateTime!, $clientId: String!, $pax: Int!, $adId: String!) {
   createBooking(data: {checkin: $checkin, checkout: $checkout, clientId: $clientId, pax: $pax, adId: $adId}) {
@@ -1195,6 +1258,49 @@ export function useSelectAdByIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type SelectAdByIdQueryHookResult = ReturnType<typeof useSelectAdByIdQuery>;
 export type SelectAdByIdLazyQueryHookResult = ReturnType<typeof useSelectAdByIdLazyQuery>;
 export type SelectAdByIdQueryResult = ApolloReactCommon.QueryResult<SelectAdByIdQuery, SelectAdByIdQueryVariables>;
+export const CurrentAvailabilityDocument = gql`
+    query currentAvailability {
+  currentAvailability: currentUser {
+    id
+    ad {
+      id
+      title
+      ranking
+      blockedDays {
+        id
+        checkin
+        checkout
+        byBooking
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCurrentAvailabilityQuery__
+ *
+ * To run a query within a React component, call `useCurrentAvailabilityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentAvailabilityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentAvailabilityQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentAvailabilityQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>) {
+        return ApolloReactHooks.useQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
+      }
+export function useCurrentAvailabilityLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>(CurrentAvailabilityDocument, baseOptions);
+        }
+export type CurrentAvailabilityQueryHookResult = ReturnType<typeof useCurrentAvailabilityQuery>;
+export type CurrentAvailabilityLazyQueryHookResult = ReturnType<typeof useCurrentAvailabilityLazyQuery>;
+export type CurrentAvailabilityQueryResult = ApolloReactCommon.QueryResult<CurrentAvailabilityQuery, CurrentAvailabilityQueryVariables>;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $fullName: String!, $password: String!, $phone: String!) {
   signUp(data: {email: $email, fullName: $fullName, password: $password, phone: $phone}) {
@@ -1284,6 +1390,9 @@ export const CurrentUserDocument = gql`
     role
     phone
     token
+    bookings {
+      id
+    }
   }
 }
     `;

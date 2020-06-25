@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelectAdByIdQuery, useCurrentUserQuery } from '../../../generate/types';
 import AdDetailView from '../component/detail';
 
@@ -18,7 +18,7 @@ const initialValues = {
 export const AdDetail = () => {
 
     const { id } = useParams()
-
+    const { push } = useHistory();
     const [visibleBookingDialog, setVisibleBookingDialog] = useState<boolean>(false)
     const [errorMessage, setAlertError] = useState('');
     const [severityValue, setSeverity] = useState<SeverityType>("error");
@@ -45,8 +45,8 @@ export const AdDetail = () => {
     }, [setAlertError]);
 
     const handleOnShowBookingDialog = () => {
-        setVisibleBookingDialog(!visibleBookingDialog)
-    }
+      userId ? setVisibleBookingDialog(!visibleBookingDialog) : push('/login');
+    };
 
     if (error) setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', '))
 

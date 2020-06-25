@@ -18,10 +18,10 @@ interface Props {
 	blockedDays: BlockedDay[];
 	range: Range | undefined;
 	validRange: boolean;
-	creatingBooking: boolean;
+	loading: boolean;
 }
 
-export const BookingDialog = ({ visible, price, ranking, adTitle, creatingBooking, onRangeChanged, handleValidRangeAlert, validRange, onSubmit, blockedDays, range, onClose }: Props) => {
+export const BookingDialog = ({ visible, price, ranking, adTitle, loading, onRangeChanged, handleValidRangeAlert, validRange, onSubmit, blockedDays, range, onClose }: Props) => {
 	const classes = useStyles();
 	return (
 		<Dialog fullScreen open={visible} onClose={onClose}>
@@ -41,7 +41,7 @@ export const BookingDialog = ({ visible, price, ranking, adTitle, creatingBookin
 					onSubmit={onSubmit}
 					handleValidRangeAlert={handleValidRangeAlert}
 					validRange={validRange}
-					creatingBooking={creatingBooking}
+					loading={loading}
 				/>
 			</DialogContent>
 		</Dialog>

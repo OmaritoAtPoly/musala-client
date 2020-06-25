@@ -76,7 +76,7 @@ export const BookingForm = ({ userId, setSeverityValue, resetSelectAd, setAlertE
             onSubmit={onSubmit}
             onClose={handleShowDialog}
             range={range}
-            creatingBooking={loading}
+            loading={loading}
             visible={visible}
         />
     )

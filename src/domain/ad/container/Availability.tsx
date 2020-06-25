@@ -48,19 +48,20 @@ export const Availability = () => {
 	}, [range])
 
 	const onSubmit = (availability: string) => {
-		if (data && data.currentAvailability?.ad)
+		if (data && data.currentAvailability?.ad) {
 			updateFn({
 				variables: {
 					data: {
 						adId: data.currentAvailability.ad.id,
 						checkin: range?.checkin?.format(DATE_FORMAT),
 						checkout: range?.checkout?.format(DATE_FORMAT),
-						ops: availability === OpsEnum.Blocked ? OpsEnum.Blocked : OpsEnum.Available
+						ops: availability.toUpperCase() === OpsEnum.Blocked ? OpsEnum.Blocked : OpsEnum.Available
 					}
 				}
 			})
 				.then(() => refetch())
 				.catch((error: ApolloError) => { setAlertError(error?.graphQLErrors.map(({ message }) => message).join(', ')); });
+		}
 	}
 
 	return <Form

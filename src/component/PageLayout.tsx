@@ -10,4 +10,9 @@ export default styled('div')(({ theme }: { theme: Theme }) => ({
     marginRight: customTheme.spacing.margin.none,
     marginLeft: customTheme.spacing.margin.none,
   },
+  [theme.breakpoints.up('lg')]: {
+    margin: 'auto !important',
+    marginRight: customTheme.spacing.margin.none,
+    marginLeft: customTheme.spacing.margin.none,
+  }
 }));

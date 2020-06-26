@@ -134,21 +134,22 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        maxWidth: customTheme.dimension.width.big,
         [theme.breakpoints.down('sm')]: {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            width: `${customTheme.dimension.width.w80}`,
+            width: customTheme.dimension.width.w80,
             margin: `${customTheme.spacing.margin.small} auto`,
             borderRadius: '5px',
             border: 'unset'
         },
         [theme.breakpoints.up('sm')]: {
-            width: `${customTheme.dimension.width.w40}`,
+            width: customTheme.dimension.width.w40,
             margin: `${customTheme.spacing.margin.bigger} auto`,
-            padding: `${customTheme.spacing.padding.big}`,
+            padding: customTheme.spacing.padding.big,
             border: `1px solid ${customTheme.color.grayLight4}`,
-            borderRadius: `${customTheme.dimension.radius.small}`,
+            borderRadius: customTheme.dimension.radius.small,
         },
     },
     submit: {

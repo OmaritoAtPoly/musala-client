@@ -42,6 +42,7 @@ export const customTheme = {
       w90: '90%',
       w100: '100%',
       wAvatar: '4rem',
+      big: '400px',
     },
   },
   spacing: {

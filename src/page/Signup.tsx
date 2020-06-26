@@ -1,5 +1,5 @@
-import React from 'react'
-import Signup from '../domain/user/container/Signup'
+import React from 'react';
+import Signup from '../domain/user/container/Signup';
 import ContainerPage from '../containers/ContainerPage';
 
 const SignupPage = () => (
@@ -8,4 +8,4 @@ const SignupPage = () => (
   </ContainerPage>
 );
 
-export default SignupPage
+export default SignupPage;

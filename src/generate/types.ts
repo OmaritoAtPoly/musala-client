@@ -1042,7 +1042,7 @@ export type SignUpMutation = (
   { __typename?: 'Mutation' }
   & { signUp?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'email' | 'password' | 'role' | 'createdAt' | 'token'>
+    & Pick<User, 'id' | 'email' | 'role' | 'createdAt' | 'token'>
   )> }
 );
 
@@ -1067,7 +1067,7 @@ export type CurrentUserQuery = (
   { __typename?: 'Query' }
   & { currentUser?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'email' | 'fullName' | 'password' | 'createdAt' | 'role' | 'phone' | 'token'>
+    & Pick<User, 'id' | 'email' | 'fullName' | 'createdAt' | 'role' | 'phone' | 'token'>
     & { bookings: Array<(
       { __typename?: 'Booking' }
       & Pick<Booking, 'id'>
@@ -1308,7 +1308,6 @@ export const SignUpDocument = gql`
   signUp(data: {email: $email, fullName: $fullName, password: $password, phone: $phone}) {
     id
     email
-    password
     role
     createdAt
     token
@@ -1387,7 +1386,6 @@ export const CurrentUserDocument = gql`
     id
     email
     fullName
-    password
     createdAt
     role
     phone

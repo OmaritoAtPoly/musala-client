@@ -15,8 +15,8 @@ export const customTheme = {
      small:"1px",
      normal:"5px"
   },
-  borderRadius:{
-      half:"50%"
+  borderRadius: {
+    half: "50%"
   },
   dimension: {
     radius: {
@@ -30,18 +30,22 @@ export const customTheme = {
       medium: '13rem',
       big:'23rem',
       day_calendar_height: '2.5rem',
-      hAvatar:'4rem'
+      hAvatar: '4rem'
     },
     width: {
       small: '1rem',
       medium: '13rem',
       big:'23rem',
       day_calendar_width: '2.5rem',
-      wLayout:"1400px",
+      wLayout: "1400px",
+      w20: '20%',
+      w30: '30%',
+      w40: '40%',
       w50: '50%',
+      w80: '80%',
       w90: '90%',
-      w100: '100%', 
-      wAvatar:'4rem',
+      w100: '100%',
+      wAvatar: '4rem',
     },
   },
   spacing: {

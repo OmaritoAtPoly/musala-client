@@ -8,7 +8,7 @@ import { ErrorFieldForm } from '../../../component/ErrorFieldForm'
 import { PrimaryButton } from '../../../component/PrimaryButton'
 import { BlockedDay, Calendar } from '../../../containers/calendar/Calendar'
 import customTheme from '../../../theme'
-import { BOOK_NOW, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
+import { BOOK_NOW, BOOKING_MODE, PAX_VALIDATE, PER_NIGHT, REQUIRED_RANGE } from '../../../utils/constants'
 import { TitlePanel } from '../../ad/component/detail/TitlePanel'
 import { Range } from '../utils'
 
@@ -26,9 +26,10 @@ interface Props {
 	handleValidRangeAlert: () => void;
 	validRange: boolean;
 	onSubmit: (pax: number) => void;
+	loading: boolean;
 }
 
-const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range, onChangeRange, handleValidRangeAlert, onSubmit }: Props) => {
+const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range, onChangeRange, handleValidRangeAlert, loading, onSubmit }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -45,7 +46,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 				<Form>
 					<div className={classes.container}>
 						<div>
-							<Calendar blockedDayList={blockedDays} onChangeRange={onChangeRange} />
+							<Calendar mode={BOOKING_MODE} blockedDayList={blockedDays} onChangeRange={onChangeRange} />
 							<Collapse in={!validRange}>
 								<Alert severity="error">{REQUIRED_RANGE}</Alert>
 							</Collapse>
@@ -66,7 +67,7 @@ const BookingForm = ({ blockedDays, adTitle, adRanking, validRange, price, range
 							{errors.pax && touched.pax ? (<ErrorFieldForm name='pax' />) : null}
 							<Typography className={classes.price} color='textPrimary' variant='h5' >{`$${price} ${PER_NIGHT}`}</Typography>
 							<div className={classes.button}>
-								<PrimaryButton type='submit' >{BOOK_NOW}</PrimaryButton>
+								<PrimaryButton loading={loading} type='submit' >{BOOK_NOW}</PrimaryButton>
 							</div>
 						</div>
 					</div>

@@ -120,9 +120,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: customTheme.dimension.width.w40,
       margin: `${customTheme.spacing.margin.bigger} auto`,
-      border: `1px solid ${customTheme.color.grayLight4}`,
-      borderRadius: customTheme.dimension.radius.small,
-      padding: customTheme.spacing.padding.big,
+      border: `${customTheme.border.small} solid ${customTheme.color.grayLight4}`,
+      borderRadius: `${customTheme.dimension.radius.small}`,
+      padding: `${customTheme.spacing.padding.big}`,
     },
 
 

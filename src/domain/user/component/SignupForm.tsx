@@ -141,15 +141,15 @@ const useStyles = makeStyles((theme: Theme) => ({
             justifyContent: 'center',
             width: customTheme.dimension.width.w80,
             margin: `${customTheme.spacing.margin.small} auto`,
-            borderRadius: '5px',
+            borderRadius: customTheme.borderRadius.small,
             border: 'unset'
         },
         [theme.breakpoints.up('sm')]: {
             width: customTheme.dimension.width.w40,
             margin: `${customTheme.spacing.margin.bigger} auto`,
-            padding: customTheme.spacing.padding.big,
-            border: `1px solid ${customTheme.color.grayLight4}`,
-            borderRadius: customTheme.dimension.radius.small,
+            padding: `${customTheme.spacing.padding.big}`,
+            border: `${customTheme.border.small} solid ${customTheme.color.grayLight4}`,
+            borderRadius: `${customTheme.dimension.radius.small}`,
         },
     },
     submit: {

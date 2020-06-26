@@ -5,7 +5,7 @@ import { useCurrentUserQuery, CurrentUserQuery } from '../../../generate/types';
 const Profile = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const { data, loading, error } = useCurrentUserQuery({
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
     errorPolicy: 'all',
   });
 

@@ -16,7 +16,8 @@ export const customTheme = {
      normal:"5px"
   },
   borderRadius: {
-    half: "50%"
+    half: "50%",
+    small: "1px"
   },
   dimension: {
     radius: {
@@ -46,6 +47,7 @@ export const customTheme = {
       w90: '90%',
       w100: '100%',
       wAvatar: '4rem',
+      big: '400px',
     },
   },
   spacing: {

@@ -12,7 +12,8 @@ export const customTheme = {
     }
   },
   border: {
-    small: "1px"
+    small: "1px",
+     normal:"5px"
   },
   borderRadius: {
     half: "50%"
@@ -27,11 +28,14 @@ export const customTheme = {
     height: {
       small: '1rem',
       medium: '13rem',
+      big:'23rem',
       day_calendar_height: '2.5rem',
       hAvatar: '4rem'
     },
     width: {
       small: '1rem',
+      medium: '13rem',
+      big:'23rem',
       day_calendar_width: '2.5rem',
       wLayout: "1400px",
       w20: '20%',
@@ -87,6 +91,7 @@ export const customTheme = {
     grayDark2: '#f0eeee',
     grayDark3: '#ccc',
     grayDark4: '#bbb',
+    thinkRed:'rgba(255,0,0,0.6)',
   },
 };
 
